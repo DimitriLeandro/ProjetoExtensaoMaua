@@ -2,7 +2,7 @@
 
 if(file_exists("install/index.php")){
   //perform redirect if installer files exist
-  //this if{} block may be deleted once installed
+  //thiis if{} block may be deleted once installed
   header("Location: install/index.php");
 }
 
