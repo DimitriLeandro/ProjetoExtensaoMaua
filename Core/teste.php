@@ -46,7 +46,7 @@
 	echo $triagem -> get_hr_triagem()."<br/>";
 
 
-	/*instanciando o objeto
+	/*instanciando o objetoooo
 	require_once('php/model/paciente.Class.php');
 	$paciente = new Paciente();
 	
