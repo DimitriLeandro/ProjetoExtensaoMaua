@@ -1,5 +1,5 @@
 <?php
-	require_once('../model/paciente.Class.php');
+	require_once('model/paciente.Class.php');
     $paciente = new Paciente();
     //obtendo os dados do paciente
     $paciente -> selecionar_paciente($_GET['cd_paciente']);
@@ -11,6 +11,5 @@
 		<p><?php echo $paciente ->  get_dt_nascimento(); ?></p>
 		<p><?php echo date("Y-m-d").' '.date("H:i:s"); ?></p>
 	</div>
-	
 </body>
 </html>
