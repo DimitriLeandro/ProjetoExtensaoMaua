@@ -25,7 +25,7 @@ class Paciente
 	private $cd_cnes = '';
 	private $dt_adesao = '';
 	private $hr_adesao = '';
-	private $cd_cns_profissional = '';
+	private $cd_profissional_registro = '';
 
 
 	public function cadastrar_paciente()
@@ -60,7 +60,7 @@ class Paciente
 							cd_cnes, 
 							dt_adesao, 
 							hr_adesao, 
-							cd_cns_profissional) 
+							cd_profissional_registro) 
 						VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 		//preparando o statement para o insert
@@ -89,7 +89,7 @@ class Paciente
 								$this -> cd_cnes, 
 								$this -> dt_adesao, 
 								$this -> hr_adesao, 
-								$this -> cd_cns_profissional);
+								$this -> cd_profissional_registro);
 
 		//executando o statement
 		$stmt -> execute();
@@ -145,7 +145,7 @@ class Paciente
 							cd_cnes, 
 							dt_adesao, 
 							hr_adesao, 
-							cd_cns_profissional
+							cd_profissional_registro
 				   	FROM tb_paciente 
 				   	WHERE cd_paciente = ?";
 
@@ -206,7 +206,7 @@ class Paciente
 				$this->set_cd_cnes($attr_22);
 				$this->set_dt_adesao($attr_23);
 				$this->set_hr_adesao($attr_24);
-				$this->set_cd_cns_profissional($attr_25);
+				$this->set_cd_profissional_registro($attr_25);
 		    }
 		}
 
@@ -313,9 +313,9 @@ class Paciente
 	{
 		$this->hr_adesao = $aux;
 	}
-	public function set_cd_cns_profissional($aux)
+	public function set_cd_profissional_registro($aux)
 	{
-		$this->cd_cns_profissional = $aux;
+		$this->cd_profissional_registro = $aux;
 	}
 
 	//FUNÇÕES DE GET----------------------------------------------------------------------------------------------
@@ -415,9 +415,9 @@ class Paciente
 	{
 		return $this->hr_adesao;
 	}
-	public function get_cd_cns_profissional()
+	public function get_cd_profissional_registro()
 	{
-		return $this->cd_cns_profissional;
+		return $this->cd_profissional_registro;
 	}
 
 }

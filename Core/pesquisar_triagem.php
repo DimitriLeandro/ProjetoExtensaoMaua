@@ -90,7 +90,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
           <label for="idestab" class="margem3" >Identificação do SUS</label>
           <input type="text" name="cd_cnes" id="idstab"  /><br />
           <label for="profregist" class="margem3">Identificação do cadastrante </label>
-          <input type="number" name="cd_cns_profissional" id="profregist"  /><br />
+          <input type="number" name="cd_profissional_registro" id="profregist"  /><br />
       </fieldset><br />  -->      
     </form>
   </div>

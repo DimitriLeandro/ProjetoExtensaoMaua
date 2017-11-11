@@ -44,10 +44,10 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		$paciente -> set_nm_responsavel(''.$_POST['nm_responsavel']);     
 		$paciente -> set_cd_documento_responsavel(''.$_POST['cd_documento_responsavel']);
 		$paciente -> set_nm_orgao_emissor(''.$_POST['nm_orgao_emissor']);    
-		$paciente -> set_cd_cnes('123');      
+		$paciente -> set_cd_cnes('1234567');      
 		$paciente -> set_dt_adesao(''.date("Y-m-d"));       
 		$paciente -> set_hr_adesao(''.date("H:i:s"));       
-		$paciente -> set_cd_cns_profissional('12345');
+		$paciente -> set_cd_profissional_registro('12345');
 
 		$ok = $paciente -> cadastrar_paciente();
 		
@@ -99,6 +99,47 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		$("#"+id).show();
 		window.scrollTo(0, 0);
 	}
+
+	function pesquisar_cep()
+	{
+		//limpa os campos
+		$("#nm_municipio_residencia").val("");
+		$("#nm_bairro").val("");
+		$("#nm_logradouro").val("");
+
+		//Nova variável "cep" somente com numeros.
+		var cep = $("#cd_cep").val().replace(/\D/g, '');
+
+		if(cep != "") 
+		{
+			//validando o cep
+			var validacep = /^[0-9]{8}$/;
+			if(validacep.test(cep))
+			{
+				$("#p_carregando").show();
+
+				$.getJSON("//viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+					if (!("erro" in dados)) 
+					{
+						//Atualiza os campos com os valores da consulta.
+						$("#nm_municipio_residencia").val(dados.localidade+" - "+dados.uf);
+						$("#nm_bairro").val(dados.bairro);
+						$("#nm_logradouro").val(dados.logradouro);
+						//$("#uf").val(dados.uf);
+						//$("#ibge").val(dados.ibge);
+						$("#p_carregando").hide();
+					}
+					else 
+					{
+						//CEP pesquisado não foi encontrado.
+						alert("CEP não encontrado.");
+						$("#p_carregando").hide();
+					}
+				});
+			}
+		}
+	}
+
 </script>
 <body>
   <div>
@@ -147,18 +188,19 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		<input type="text" name="nm_municipio_nascimento" id="munnasc" /><br />
 		<label for="paisresd" class="margem1">País de residência</label>
 		<input type="text" name="nm_pais_residencia" id="paisresd" /><br />
-		<label for="munresd" class="margem1">Município de residência</label>
-		<input type="text" name="nm_municipio_residencia" id="munresd" /><br />
 		<label for="cep" class="margem1">CEP</label>
-		<input type="text" name="cd_cep" id="cep" size="9" maxlength="9"/> 
+		<input type="text" name="cd_cep" id="cd_cep" size="9" maxlength="9" onblur="pesquisar_cep();" />
+		<p id="p_carregando" hidden>Carregando...</p>
+		<label for="munresd" class="margem1">Município de residência</label>
+		<input type="text" name="nm_municipio_residencia" id="nm_municipio_residencia" /><br />
+		<label for="bairro" class="margem1">Bairro de residência</label>
+		<input type="text" name="nm_bairro" id="nm_bairro" /><br />
 		<label for="endereco" class="margem1">Logradouro de residência</label>
-		<input type="text" name="nm_logradouro" id="endereco" />
+		<input type="text" name="nm_logradouro" id="nm_logradouro" />
 		<label for="numresd" class="margemnumero">Número </label>
 		<input type="text" name="nm_numero_residencia" id="numresd" size="05" placeholder="ex: 320" /><br />
 		<label for="complemresd" class="margem1">Complemento do endereço</label>
 		<input type="text" name="nm_complemento" id="complemresd" /><br />
-		<label for="bairro" class="margem1">Bairro de residência</label>
-		<input type="text" name="nm_bairro" id="bairro" /><br />
 		<button type="button" onclick="voltar('fieldset_1');">Voltar</button>
 		<button type="button" onclick="avancar('fieldset_3');">Avançar</button>
 	  </fieldset><br />
@@ -180,7 +222,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		  <label for="idestab" class="margem3" >Identificação do SUS</label>
 		  <input type="text" name="cd_cnes" id="idstab"  /><br />
 		  <label for="profregist" class="margem3">Identificação do cadastrante </label>
-		  <input type="number" name="cd_cns_profissional" id="profregist"  /><br />
+		  <input type="number" name="cd_profissional_registro" id="profregist"  /><br />
 	  </fieldset><br />  -->      
 	</form>
   </div>

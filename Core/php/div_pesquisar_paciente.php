@@ -118,5 +118,5 @@
                         //echo $paciente -> get_cd_cnes().'<br/>';
                         //echo $paciente -> get_dt_adesao().'<br/>';
                         //echo $paciente -> get_hr_adesao().'<br/>';
-                        //echo $paciente -> get_cd_cns_profissional().'<br/>';
+                        //echo $paciente -> get_cd_profissional_registro().'<br/>';
 ?>
