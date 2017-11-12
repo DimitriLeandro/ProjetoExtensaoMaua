@@ -107,81 +107,108 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 	<form method="post" class="form-style" id="cadastro_paciente">
 		<h1>SISTEMA DE CADASTRAMENTO SUS</h1>
 	<fieldset id="fieldset_1" class="field_set">
-		<label for="ncns" class="margem">Número CNS</label>
-		<input type="number" name="cd_cns_paciente" id="ncns" /><br />
-		<label for="justificativa" class="margem">Justificativa da ausência do CNS</label>
-		<select name="nm_justificativa" id="justificativa">
-			<option value="" ></option>
-			<option value="graves">Pacientes acidentados graves</option>
-			<option value="encontrados">Pacientes psiquiátricos encontrados em vias públicas</option>
-			<option value="problemas">Pacientes com problemas neurológicos graves ou comatosos</option>
-			<option value="incapacitados">Pacientes incapacitados por motivos sociais e/ou culturais</option>
-			<option value="doador">Doador de Órgãos Falecido</option>
-		</select><br />
+		<div id="div_possui_cns">
+			<label for="ncns" class="margem">Número CNS</label>
+			<input type="number" name="cd_cns_paciente" id="cd_cns_paciente" onblur="validar_cd_cns_paciente()" /><br />
+		</div>
+		<div id="div_nao_possui_cns" hidden>
+			<label for="justificativa" class="margem">Justificativa da ausência do CNS</label>
+			<select name="nm_justificativa" id="nm_justificativa" onblur="validar_nm_justificativa()">
+				<option value="" selected></option>
+				<option value="graves">Pacientes acidentados graves</option>
+				<option value="encontrados">Pacientes psiquiátricos encontrados em vias públicas</option>
+				<option value="problemas">Pacientes com problemas neurológicos graves ou comatosos</option>
+				<option value="incapacitados">Pacientes incapacitados por motivos sociais e/ou culturais</option>
+				<option value="doador">Doador de Órgãos Falecido</option>
+			</select>
+		</div>
+		<p id="p_troca_cns_justificativa" style="cursor: pointer; color: lightblue;" onclick="trocar_cns_justificativa();">O paciente não possui CNS</p>
+		
 		<label for="nomep" class="margem">Nome completo</label>
-		<input type="text" name="nm_paciente" id="nm_paciente" onblur="validarNome()" /><br />
+		<input type="text" name="nm_paciente" id="nm_paciente" onblur="validar_nm_paciente()" /><br />
+		
 		<label for="nomem"class="margem">Nome completo da mãe</label>
-		<input type="text" name="nm_mae" id="nomem"/><br />
+		<input type="text" name="nm_mae" id="nm_mae" onblur="validar_nm_mae()"/><br />
+		
 		<label for="sexop"class="margem">Sexo</label>
-		<select name="ic_sexo" id="sexop">
-			<option value="masculino">Masculino</option>
-			<option value="feminino">Feminino</option>
-			<option value="ninformado">Não informado</option>
+		<select name="ic_sexo" id="ic_sexo" onblur="validar_ic_sexo()">
+			<option value="Masculino">Masculino</option>
+			<option value="Feminino">Feminino</option>
+			<option value="Não informado">Não informado</option>
 		</select> <br />
+		
 		<label for="corp" class="margem">Raça/Cor</label>
-		<select name="ic_raca" id="corp">
-			<option value="branca">Branca</option>
-			<option value="preta">Preta</option>
-			<option value="parda">Parda</option>
-			<option value="amarela">Amarela</option>
-			<option value="indigena">Indígena</option>
-			<option value="sinformacao">Sem informação</option>
+		<select name="ic_raca" id="ic_raca" onblur="validar_ic_raca()">
+			<option value="Branca">Branca</option>
+			<option value="Preta">Preta</option>
+			<option value="Parda">Parda</option>
+			<option value="Amarela">Amarela</option>
+			<option value="Indígena">Indígena</option>
+			<option value="Sem informação">Sem informação</option>
 		</select><br />
+		
 		<label for="nascp" class="margem">Data de Nascimento</label>
-		<input type="date" name="dt_nascimento" id="nascp" /><br />
+		<input type="text" maxlength="10" name="dt_nascimento" id="dt_nascimento" onkeypress="mascarar_data()" onblur="validar_dt_nascimento()"/><br />
+
 		<button type="button" onclick="avancar('fieldset_2');">Avançar</button>
 	</fieldset><br />
 
 	<fieldset id="fieldset_2" class="field_set" style="display: none;">
 		<label for="paisnasc" class="margem1" >País de nascimento</label>
-		<input type="text" name="nm_pais_nascimento" id="paisnasc" /><br />
+		<input type="text" name="nm_pais_nascimento" id="nm_pais_nascimento" /><br />
+		
 		<label for=munnasc class="margem1">Município de nascimento</label>
-		<input type="text" name="nm_municipio_nascimento" id="munnasc" /><br />
+		<input type="text" name="nm_municipio_nascimento" id="nm_municipio_nascimento" /><br />
+		
 		<label for="paisresd" class="margem1">País de residência</label>
-		<input type="text" name="nm_pais_residencia" id="paisresd" /><br />
+		<input type="text" name="nm_pais_residencia" id="nm_pais_residencia" /><br />
+		
 		<label for="cep" class="margem1">CEP</label>
 		<input type="text" name="cd_cep" id="cd_cep" size="9" maxlength="9" onblur="pesquisar_cep();" />
 		<p id="p_carregando" hidden>Carregando...</p>
+		
 		<label for="munresd" class="margem1">Município de residência</label>
 		<input type="text" name="nm_municipio_residencia" id="nm_municipio_residencia" /><br />
+		
 		<label for="bairro" class="margem1">Bairro de residência</label>
 		<input type="text" name="nm_bairro" id="nm_bairro" /><br />
+		
 		<label for="endereco" class="margem1">Logradouro de residência</label>
 		<input type="text" name="nm_logradouro" id="nm_logradouro" />
+		
 		<label for="numresd" class="margemnumero">Número </label>
-		<input type="text" name="nm_numero_residencia" id="numresd" size="05" placeholder="ex: 320" /><br />
+		<input type="text" name="nm_numero_residencia" id="nm_numero_residencia" size="05" placeholder="ex: 320" /><br />
+		
 		<label for="complemresd" class="margem1">Complemento do endereço</label>
-		<input type="text" name="nm_complemento" id="complemresd" /><br />
+		<input type="text" name="nm_complemento" id="nm_complemento" /><br />
+
 		<button type="button" onclick="voltar('fieldset_1');">Voltar</button>
 		<button type="button" onclick="avancar('fieldset_3');">Avançar</button>
 	  </fieldset><br />
 
 	<fieldset id="fieldset_3" class="field_set" style="display: none;">
-		<!-- <label for="ubsref" class="margem2">UBS de referência</label> --> 
+		<!-- 
+			<label for="ubsref" class="margem2">UBS de referência</label> --> 
 		<!-- <input type="number" name="cd_ubs_referencia" id="ubsref" /><br /> -->
+		
 		<label for="nomeresp" class="margem2">Nome completo do responsável</label>
-		<input type="text" name="nm_responsavel" id="nomeresp" /><br />
+		<input type="text" name="nm_responsavel" id="nm_responsavel" /><br />
+		
 		<label for="docresp" class="margem2">Documento do responsavel</label>
-		<input type="text" name="cd_documento_responsavel" id="docresp" /><br />
+		<input type="text" name="cd_documento_responsavel" id="cd_documento_responsavel" /><br />
+		
 		<label for="orgaoresp" class="margem2">Órgão emissor</label>
-		<input type="text" name="nm_orgao_emissor" id="orgaoresp" /><br />
+		<input type="text" name="nm_orgao_emissor" id="nm_orgao_emissor" /><br />
+
 		<button type="button" onclick="voltar('fieldset_2');">Voltar</button>
 		<input  type="submit" name='btn_cadastrar' value="Cadastrar e Imprimir Etiqueta" />
 	</fieldset><br />
 	
 	  <!-- <fieldset>
+		  
 		  <label for="idestab" class="margem3" >Identificação do SUS</label>
 		  <input type="text" name="cd_cnes" id="idstab"  /><br />
+		  
 		  <label for="profregist" class="margem3">Identificação do cadastrante </label>
 		  <input type="number" name="cd_profissional_registro" id="profregist"  /><br />
 	  </fieldset><br />  -->      
