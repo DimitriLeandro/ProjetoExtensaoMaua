@@ -78,6 +78,8 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
   <meta charset="utf-8" />
   <link href="css/formulario.css" rel="stylesheet">
   <script src="users/js/jquery.js"></script>
+  <script src="users/js/buscaCEP.js"></script>
+  <script src="users/js/validacao_cadastrar_paciente.js"></script>
 </head>
 <script>
 	function imprimir()
@@ -99,51 +101,10 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		$("#"+id).show();
 		window.scrollTo(0, 0);
 	}
-
-	function pesquisar_cep()
-	{
-		//limpa os campos
-		$("#nm_municipio_residencia").val("");
-		$("#nm_bairro").val("");
-		$("#nm_logradouro").val("");
-
-		//Nova variável "cep" somente com numeros.
-		var cep = $("#cd_cep").val().replace(/\D/g, '');
-
-		if(cep != "") 
-		{
-			//validando o cep
-			var validacep = /^[0-9]{8}$/;
-			if(validacep.test(cep))
-			{
-				$("#p_carregando").show();
-
-				$.getJSON("//viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
-					if (!("erro" in dados)) 
-					{
-						//Atualiza os campos com os valores da consulta.
-						$("#nm_municipio_residencia").val(dados.localidade+" - "+dados.uf);
-						$("#nm_bairro").val(dados.bairro);
-						$("#nm_logradouro").val(dados.logradouro);
-						//$("#uf").val(dados.uf);
-						//$("#ibge").val(dados.ibge);
-						$("#p_carregando").hide();
-					}
-					else 
-					{
-						//CEP pesquisado não foi encontrado.
-						alert("CEP não encontrado.");
-						$("#p_carregando").hide();
-					}
-				});
-			}
-		}
-	}
-
 </script>
 <body>
   <div>
-	<form method="post" class="form-style">
+	<form method="post" class="form-style" id="cadastro_paciente">
 		<h1>SISTEMA DE CADASTRAMENTO SUS</h1>
 	<fieldset id="fieldset_1" class="field_set">
 		<label for="ncns" class="margem">Número CNS</label>
@@ -158,7 +119,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 			<option value="doador">Doador de Órgãos Falecido</option>
 		</select><br />
 		<label for="nomep" class="margem">Nome completo</label>
-		<input type="text" name="nm_paciente" id="nomep" /><br />
+		<input type="text" name="nm_paciente" id="nm_paciente" onblur="validarNome()" /><br />
 		<label for="nomem"class="margem">Nome completo da mãe</label>
 		<input type="text" name="nm_mae" id="nomem"/><br />
 		<label for="sexop"class="margem">Sexo</label>
