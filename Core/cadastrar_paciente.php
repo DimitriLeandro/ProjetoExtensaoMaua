@@ -86,7 +86,6 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		window.frames["pdf_etiqueta"].focus();
 		window.frames["pdf_etiqueta"].print();
 		$("#div_etiqueta").hide();
-
 	}
 	function avancar(id)
 	{

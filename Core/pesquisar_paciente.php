@@ -34,6 +34,15 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
   <meta charset="utf-8" />
   <link href="css/formulario.css" rel="stylesheet">
 </head>
+<script>
+    function imprimir(html_frame)
+    {
+        $("#"+html_frame+"").show();
+        window.frames[html_frame].focus();
+        window.frames[html_frame].print();
+        $("#"+html_frame+"").hide();
+    }
+</script>
 <body>
 
   <div>

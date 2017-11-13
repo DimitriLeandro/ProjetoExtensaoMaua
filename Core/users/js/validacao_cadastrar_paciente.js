@@ -1,3 +1,4 @@
+
 function validar_cd_cns_paciente()
 {
 	var vlrCNS = document.forms.cadastro_paciente.cd_cns_paciente.value;
