@@ -58,11 +58,10 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		else
 		{
 			$codigo_paciente = $paciente -> get_cd_paciente();
-			//$header = 'cadastrar_triagem.php?cd_paciente='.$codigo_paciente;
+
+			//A PARTE DE IMPRIMIR ETIQUETA ESTÁ LA PRA BAIXO
 			unset($paciente);
-			header('location: index.php');
-			//header('location: '.$header);
-			//echo $chave_primaria;
+			//header('location: index.php');
 		}   
 
 		unset($paciente);

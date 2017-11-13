@@ -5,7 +5,23 @@
 ?>
 
 <?php
-	require_once('php/model/triagem.Class.php');
+		$codigo_paciente = 32;
+		if(isset($codigo_paciente) && $codigo_paciente > 0)
+		{
+?>
+			<div id="div_etiqueta">
+				<iframe id="pdf_etiqueta" name="pdf_etiqueta" src="php/gerar_etiqueta.php?cd_paciente=<?php echo $codigo_paciente; ?>"></iframe>
+				<script>
+					imprimir();
+					window.location = "index.php";
+				</script>
+			</div>
+<?php
+		}
+?>
+
+<?php
+	/*require_once('php/model/triagem.Class.php');
 	require_once('php/model/paciente.Class.php');
 	$triagem = new Triagem();
 	$paciente = new Paciente();
@@ -36,7 +52,7 @@
 	$ok = $triagem -> cadastrar_triagem();
 	echo $ok;*/
 
-	//selecionando a informação
+	/*selecionando a informação
 	$triagem -> selecionar_triagem(2);
 	$paciente -> selecionar_paciente($triagem -> get_cd_paciente());
 
@@ -86,6 +102,6 @@
 	echo $paciente -> get_ic_sexo().'<br/>';
 	echo $paciente -> get_nm_pais_residencia(); */
 
-	unset($triagem);
-	unset($paciente);
+	//unset($triagem);
+	//unset($paciente);
 ?>
