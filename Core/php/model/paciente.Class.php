@@ -92,17 +92,22 @@ class Paciente
 								$this -> cd_profissional_registro);
 
 		//executando o statement
-		$stmt -> execute();
-
-		//verificando se o statement deu certo
-		$ok = 1;
-		if($stmt -> affected_rows == 0)
+		if($stmt -> execute())
 		{
-			$ok = 0;
+			//verificando se o statement deu certo
+			$ok = 1;
+			if($stmt -> affected_rows == 0)
+			{
+				$ok = 0;
+			}
+			else
+			{
+				$this -> cd_paciente = $stmt -> insert_id;
+			}
 		}
 		else
 		{
-			$this -> cd_paciente = $stmt -> insert_id;
+			$ok = 0;
 		}
 
 		//encerrando a conexão com o banco e o statement

@@ -30,7 +30,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		$paciente -> set_nm_mae(''.$_POST['nm_mae']);      
 		$paciente -> set_ic_sexo(''.$_POST['ic_sexo']);          
 		$paciente -> set_ic_raca(''.$_POST['ic_raca']);       
-		$paciente -> set_dt_nascimento(''.$_POST['dt_nascimento']);
+		$paciente -> set_dt_nascimento(''.date("Y-m-d", strtotime($_POST['dt_nascimento'])));
 		$paciente -> set_nm_pais_nascimento(''.$_POST['nm_pais_nascimento']);       
 		$paciente -> set_nm_municipio_nascimento(''.$_POST['nm_municipio_nascimento']);          
 		$paciente -> set_nm_pais_residencia(''.$_POST['nm_pais_residencia']);       
@@ -47,25 +47,25 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		$paciente -> set_cd_cnes('1234567');      
 		$paciente -> set_dt_adesao(''.date("Y-m-d"));       
 		$paciente -> set_hr_adesao(''.date("H:i:s"));       
-		$paciente -> set_cd_profissional_registro('12345');
+		$paciente -> set_cd_profissional_registro('4');
 
 		$ok = $paciente -> cadastrar_paciente();
-		
-			//$mensagem = 'Paciente cadastrado com sucesso';
+		//$mensagem = 'Paciente cadastrado com sucesso';
 		if($ok == 0)
 		{
-			$mensagem = 'Erro ao cadastrar paciente';
+			?> <script> alert('Erro ao cadastrar paciente'); </script> <?php
 		}
 		else
 		{
 			$codigo_paciente = $paciente -> get_cd_paciente();
 			//$header = 'cadastrar_triagem.php?cd_paciente='.$codigo_paciente;
 			unset($paciente);
+			header('location: index.php');
 			//header('location: '.$header);
 			//echo $chave_primaria;
 		}   
 
-		unset($paciente); 
+		unset($paciente);
 	}
 				
 ?>
