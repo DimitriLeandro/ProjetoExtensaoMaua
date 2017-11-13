@@ -2,7 +2,7 @@
 
 if(file_exists("install/index.php")){
   //perform redirect if installer files exist
-  //this if{} block may be deleted once installed
+  //thiis if{} block may be deleted once installed
   header("Location: install/index.php");
 }
 
@@ -228,4 +228,20 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		}
 ?>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+<script>
+    function avancar(id)
+    {
+        $(".field_set").hide();
+        $("#"+id).show();
+    }
+    function voltar(id)
+    {
+        $(".field_set").hide();
+        $("#"+id).show();
+    }
+</script>
+</html>
+>>>>>>> master

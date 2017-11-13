@@ -62,7 +62,7 @@
 	echo $triagem -> get_hr_triagem()."<br/>";
 
 
-	/*instanciando o objeto
+	/*instanciando o objetoooo
 	require_once('php/model/paciente.Class.php');
 	$paciente = new Paciente();
 	
@@ -102,6 +102,12 @@
 	echo $paciente -> get_ic_sexo().'<br/>';
 	echo $paciente -> get_nm_pais_residencia(); */
 
+<<<<<<< HEAD
 	//unset($triagem);
 	//unset($paciente);
 ?>
+=======
+	unset($triagem);
+	unset($paciente);
+?>
+>>>>>>> master
