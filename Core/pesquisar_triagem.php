@@ -18,7 +18,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
   if (!securePage($_SERVER['PHP_SELF'])){die();} 
 ?>
 <?php
-    //essa pagina precisa do codigo do paciente no metodo GET para fazer o insert na chave estrangeira do banco, aqui esta sendo feita uma verificaçao pra saber se esse get foi setado e se o valor setado realmente existe como um usuario. Caso contrario, o usuario volta pra pagina de pesquisar_paciente.php
+    //essa pagina precisa do codigo do paciente no metodo GET para pesquisar as triagens desse paciente. Aqui esta sendo feita uma verificaçao pra saber se esse get foi setado e se o valor setado realmente existe como um usuario. Caso contrario, o usuario volta pra pagina de pesquisar_paciente.php
 
     if(isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '')
     {
@@ -55,7 +55,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
   <div>
 
     <form method="post" class="form-style">
-        <h1>TRIAGENS DE </h1>
+        <h1>Triagens de <?php echo $paciente -> get_nm_paciente(); ?></h1>
 
         <?php
 
@@ -75,12 +75,15 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
                     while ($stmt->fetch()) 
                     {
                     	$triagem -> selecionar_triagem($codigo_triagem);
+                    	$redirect_ver_mais = 'visualizar_triagem.php?cd_triagem='.$triagem -> get_cd_triagem();
                     	?>
-                    		<fieldset>
-                    			<label>Queixa: <?php echo $triagem -> get_ds_queixa() ?> </label><br/>
-                    			<label>Data: <?php echo $triagem -> get_dt_triagem() ?> </label><br/>
-                    			<label>Hora: <?php echo $triagem -> get_hr_triagem() ?></label><br/>
+                    		<fieldset style="border: solid 1px; padding: 15px;">
+                    			<p><label>Queixa: <?php echo $triagem -> get_ds_queixa() ?> </label><p/>
+                    			<p><label>Data: <?php echo $triagem -> get_dt_triagem() ?> </label><p/>
+                    			<p><label>Hora: <?php echo $triagem -> get_hr_triagem() ?></label><p/>
+                    			<p><button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_ver_mais; ?>';">Ver Mais</button></p>
                     		</fieldset>
+                    		<br/>
                     	<?php
                     }
                 }
@@ -90,7 +93,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
           <label for="idestab" class="margem3" >Identificação do SUS</label>
           <input type="text" name="cd_cnes" id="idstab"  /><br />
           <label for="profregist" class="margem3">Identificação do cadastrante </label>
-          <input type="number" name="cd_cns_profissional" id="profregist"  /><br />
+          <input type="number" name="cd_profissional_registro" id="profregist"  /><br />
       </fieldset><br />  -->      
     </form>
   </div>

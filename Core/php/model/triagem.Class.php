@@ -82,11 +82,16 @@ class Triagem
 								$this->cd_cns_profissional_triagem);
 
 		//executando o statement
-		$stmt -> execute();
-
-		//verificando se o statement deu certo
-		$ok = 1;
-		if($stmt -> affected_rows == 0)
+		if($stmt -> execute())
+		{
+			//verificando se o statement deu certo
+			$ok = 1;
+			if($stmt -> affected_rows == 0)
+			{
+				$ok = 0;
+			}
+		}
+		else
 		{
 			$ok = 0;
 		}

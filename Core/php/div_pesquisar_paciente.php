@@ -21,7 +21,8 @@
                         //enquanto houverem pacientes, o objeto da classe Paciente chama a funç~ao de pesquisar paciente, dessa forma, ´e possivel obter os dados de cada paciente conforme o while vai rodando
                         //a variavel $var_endereço ´e necess´aria para mandar o m´etodo GET para a p´agina de triagem
                         $paciente -> selecionar_paciente($codigo_paciente);
-                        $var_endereco = 'cadastrar_triagem.php?cd_paciente='.$codigo_paciente;
+                        $redirect_nova_triagem = 'cadastrar_triagem.php?cd_paciente='.$codigo_paciente;
+                        $redirect_visualizar_triagens = 'pesquisar_triagem.php?cd_paciente='.$codigo_paciente;
                     ?>
                         <fieldset>
                             <p>
@@ -32,7 +33,8 @@
                             <p>
                               <label class="margem">Bairro: <?php echo $paciente -> get_nm_bairro(); ?></label>
                               <label class="margem">Cidade: <?php echo $paciente -> get_nm_municipio_residencia(); ?></label>
-                              <button type="button" class="botao" onclick="window.location.href = '<?php echo $var_endereco; ?>';">Triagem</button>
+                              <button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_nova_triagem; ?>';">Nova Triagem</button>
+                              <button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_visualizar_triagens; ?>';">Triagens do Paciente</button>
                             </p>
                         </fieldset><br />
 
@@ -65,7 +67,8 @@
                     while ($stmt->fetch()) 
                     {
                         $paciente -> selecionar_paciente($codigo_paciente);
-                        $var_endereco = 'cadastrar_triagem.php?cd_paciente='.$codigo_paciente.'';
+                        $redirect_nova_triagem = 'cadastrar_triagem.php?cd_paciente='.$codigo_paciente;
+                        $redirect_visualizar_triagens = 'pesquisar_triagem.php?cd_paciente='.$codigo_paciente;
 
                         ?>
                         <fieldset>
@@ -77,7 +80,8 @@
                             <p>
                               <label class="margem">Bairro: <?php echo $paciente -> get_nm_bairro(); ?></label>
                               <label class="margem">Cidade: <?php echo $paciente -> get_nm_municipio_residencia(); ?></label>
-                              <button type="button" class="botao" onclick="window.location.href = '<?php echo $var_endereco; ?>';">Triagem</button>
+                              <button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_nova_triagem; ?>';">Nova Triagem</button>
+                              <button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_visualizar_triagens; ?>';">Triagens do Paciente</button>
                             </p>
                         </fieldset><br />
                         
@@ -118,5 +122,5 @@
                         //echo $paciente -> get_cd_cnes().'<br/>';
                         //echo $paciente -> get_dt_adesao().'<br/>';
                         //echo $paciente -> get_hr_adesao().'<br/>';
-                        //echo $paciente -> get_cd_cns_profissional().'<br/>';
+                        //echo $paciente -> get_cd_profissional_registro().'<br/>';
 ?>

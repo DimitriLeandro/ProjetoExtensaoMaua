@@ -55,7 +55,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 
             //setando as informações 
             $triagem -> set_cd_paciente($_GET['cd_paciente']);
-            $triagem -> set_cd_cnes('123');
+            $triagem -> set_cd_cnes('1234567');
             $triagem -> set_ds_queixa($_POST['ds_queixa']);
             $triagem -> set_dt_triagem(date("Y-m-d"));
             $triagem -> set_hr_triagem(date("H:i:s"));
@@ -78,17 +78,17 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 
             //cadastrando 
             $ok = $triagem -> cadastrar_triagem();
-            
-            $mensagem = 'Triagem cadastrada com sucesso';
-            if($ok == 0)
-            {
-              $mensagem = 'Erro ao cadastrar triagem';
-            }
-
             unset($triagem);
 
-            ?> <script> alert("<?php echo ''.$mensagem; ?>"); </script> <?php
-            header('location: pesquisar_paciente.php');
+            //$mensagem = 'Triagem cadastrada com sucesso';
+            if($ok == 0)
+            {
+              ?> <script> alert('Erro ao registrar triagem. Verifique os dados inseridos.'); </script> <?php
+            }
+            else
+            {
+              header('location: pesquisar_paciente.php');
+            }
         }
         else
         {

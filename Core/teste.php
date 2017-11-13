@@ -5,14 +5,30 @@
 ?>
 
 <?php
-	require_once('php/model/triagem.Class.php');
+		$codigo_paciente = 32;
+		if(isset($codigo_paciente) && $codigo_paciente > 0)
+		{
+?>
+			<div id="div_etiqueta">
+				<iframe id="pdf_etiqueta" name="pdf_etiqueta" src="php/gerar_etiqueta.php?cd_paciente=<?php echo $codigo_paciente; ?>"></iframe>
+				<script>
+					imprimir();
+					window.location = "index.php";
+				</script>
+			</div>
+<?php
+		}
+?>
+
+<?php
+	/*require_once('php/model/triagem.Class.php');
 	require_once('php/model/paciente.Class.php');
 	$triagem = new Triagem();
 	$paciente = new Paciente();
 
 	/*insert em triagem
 	$triagem -> set_cd_paciente('8'); 
-	$triagem -> set_cd_cnes('2356'); 
+	$triagem -> set_cd_cnes('1234567'); 
 	$triagem -> set_ds_queixa('Conjutivite'); 
 	$triagem -> set_dt_triagem(date("Y-m-d")); 
 	$triagem -> set_hr_triagem(date("H:i:s")); 
@@ -36,7 +52,7 @@
 	$ok = $triagem -> cadastrar_triagem();
 	echo $ok;*/
 
-	//selecionando a informação
+	/*selecionando a informação
 	$triagem -> selecionar_triagem(2);
 	$paciente -> selecionar_paciente($triagem -> get_cd_paciente());
 
@@ -72,10 +88,10 @@
 	$paciente -> set_nm_responsavel('Joao');
 	$paciente -> set_cd_documento_responsavel('3814578293');
 	$paciente -> set_nm_orgao_emissor('ssp');
-	$paciente -> set_cd_cnes('23425');
+	$paciente -> set_cd_cnes('1234567');
 	$paciente -> set_dt_adesao(date("Y-m-d"));
 	$paciente -> set_hr_adesao(date("H:i:s"));
-	$paciente -> set_cd_cns_profissional('236745');
+	$paciente -> set_cd_profissional_registro('236745');
 	//cadastrando 
 	$ok = $paciente -> cadastrar_paciente();
 	echo $ok;
@@ -86,6 +102,6 @@
 	echo $paciente -> get_ic_sexo().'<br/>';
 	echo $paciente -> get_nm_pais_residencia(); */
 
-	unset($triagem);
-	unset($paciente);
+	//unset($triagem);
+	//unset($paciente);
 ?>
