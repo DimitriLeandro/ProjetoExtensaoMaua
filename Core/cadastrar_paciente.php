@@ -228,9 +228,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		}
 ?>
 </body>
-<<<<<<< HEAD
 </html>
-=======
 <script>
     function avancar(id)
     {
@@ -244,4 +242,3 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
     }
 </script>
 </html>
->>>>>>> master

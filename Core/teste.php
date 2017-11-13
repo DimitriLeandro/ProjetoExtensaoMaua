@@ -102,12 +102,6 @@
 	echo $paciente -> get_ic_sexo().'<br/>';
 	echo $paciente -> get_nm_pais_residencia(); */
 
-<<<<<<< HEAD
 	//unset($triagem);
 	//unset($paciente);
 ?>
-=======
-	unset($triagem);
-	unset($paciente);
-?>
->>>>>>> master
