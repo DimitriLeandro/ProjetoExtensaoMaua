@@ -48,7 +48,8 @@
 				$redirect_nova_triagem = "cadastrar_triagem.php?cd_paciente=".$codigo_paciente;
 				$redirect_visualizar_triagens = "pesquisar_triagem.php?cd_paciente=".$codigo_paciente;
 				?>
-					<fieldset>
+					<fieldset style="border: solid 1px; padding: 15px;">
+						<iframe id="frame_etiqueta_<?php echo $codigo_paciente; ?>" name="frame_etiqueta_<?php echo $codigo_paciente; ?>" src="php/gerar_etiqueta.php?cd_paciente=<?php echo $codigo_paciente; ?>" hidden></iframe>
 						<p>
 							<label class="margem">Nome: <?php echo $paciente -> get_nm_paciente(); ?></label>
 							<label class="margem">CNS: <?php echo $paciente -> get_cd_cns_paciente(); ?></label>
@@ -57,6 +58,9 @@
 						<p>
 							<label class="margem">Bairro: <?php echo $paciente -> get_nm_bairro(); ?></label>
 							<label class="margem">Cidade: <?php echo $paciente -> get_nm_municipio_residencia(); ?></label>
+						</p>
+						<p align="right">
+							<button type="button" class="botao" onclick="imprimir('frame_etiqueta_<?php echo $codigo_paciente; ?>')">Gerar Etiqueta</button>
 							<button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_nova_triagem; ?>';">Nova Triagem</button>
 							<button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_visualizar_triagens; ?>';">Triagens do Paciente</button>
 						</p>
