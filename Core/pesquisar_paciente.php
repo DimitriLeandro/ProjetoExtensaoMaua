@@ -22,7 +22,9 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 <html>
 <head>
   	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
   	<script src="users/js/jquery.js"></script>
+  	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   	<title>Pesquisar Paciente</title>
   	<meta charset="utf-8" />
   	<link href="css/formulario.css" rel="stylesheet">
@@ -48,6 +50,38 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 	</div>
 	</form>
   </div>
+  	<script>
+  		//funçao para completar o nome do paciente automaticamente
+  		//exemplo usado desse link: https://www.devmedia.com.br/jquery-autocomplete-dica/28697
+  		//primeiro ´e necess´ario buscar todos os nomes no banco
+  		<?php
+			require_once('php/model/conexao.Class.php');
+			$conexao = new Conexao();
+			$db_maua = $conexao -> conectar();
+
+	  		$select = "SELECT nm_paciente FROM tb_paciente WHERE cd_paciente > ?;";
+			if ($stmt = $db_maua->prepare($select))
+			{
+				$zero = 0; 
+				$stmt -> bind_param('i', $zero);
+				$stmt->execute();
+				$stmt->bind_result($nome_paciente);
+			}
+  		?>
+		$(function(){
+			var nome_pacientes = [
+				<?php
+					while($stmt->fetch()) 
+					{
+						echo '"'.$nome_paciente.'",';
+					}
+				?>
+		  	];
+		  	$("#nm_paciente").autocomplete({
+		    	source: nome_pacientes
+		  	});
+		});
+	</script>
   	<script>
 			//funçao de pesquisar
 			$("#btn_pesquisar").on("click", function(){
