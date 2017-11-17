@@ -77,31 +77,43 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 				$stmt->bind_result($nome_paciente);
 			}
   		?>
-		$(function(){
-			var nome_pacientes = [
-				<?php
+
+  		//agora sim a funç~ao propriamente dita
+		$("#nm_paciente").autocomplete({
+		   	source: [
+		    	<?php
 					while($stmt->fetch()) 
 					{
 						echo '"'.$nome_paciente.'",';
 					}
 				?>
-		  	];
-		  	$("#nm_paciente").autocomplete({
-		    	source: nome_pacientes
-		  	});
+		    ],
+		    select: function(){
+         		$("#btn_pesquisar").click();
+    		}
 		});
 	</script>
   	<script>
 			//funçao de pesquisar
 			$("#btn_pesquisar").on("click", function(){
-				var txt_nome = $("#nm_paciente").val();
+				var txt_nome = $("#nm_paciente").val().replace(/\ /g, '_');
 				var txt_cns = $("#cd_cns_paciente").val();
 				var redirect = "php/div_pesquisar_paciente.php?nm_paciente="+txt_nome+"&cd_cns_paciente="+txt_cns;
 				$("#div_resultados").load(redirect+"");
+
+				//aquele replace ali em cima serve pra tirar os espaços que estiverem no nome, substituindo-os por underline
+				//o mysql n~ao vai diferenciar espaço de underline na hora de fazer o SELECT com LIKE
 			});
 
 			$("#btn_cadastrar").on("click", function(){
 				window.location = "cadastrar_paciente.php";
+			});
+
+			$("#nm_paciente").keypress(function(e){
+			    if(e.which == 13) 
+			    {
+			        $("#btn_pesquisar").click();
+			    }
 			});
 
 	</script>
