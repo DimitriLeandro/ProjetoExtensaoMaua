@@ -30,7 +30,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		$paciente -> set_nm_mae(''.$_POST['nm_mae']);      
 		$paciente -> set_ic_sexo(''.$_POST['ic_sexo']);          
 		$paciente -> set_ic_raca(''.$_POST['ic_raca']);       
-		$paciente -> set_dt_nascimento(''.date("Y-m-d", strtotime($_POST['dt_nascimento'])));
+		$paciente -> set_dt_nascimento(date('Y-m-d', strtotime(str_replace('/', '-', $_POST['dt_nascimento']))));
 		$paciente -> set_nm_pais_nascimento(''.$_POST['nm_pais_nascimento']);       
 		$paciente -> set_nm_municipio_nascimento(''.$_POST['nm_municipio_nascimento']);          
 		$paciente -> set_nm_pais_residencia(''.$_POST['nm_pais_residencia']);       
