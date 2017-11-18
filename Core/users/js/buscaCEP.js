@@ -26,11 +26,12 @@
 						//$("#uf").val(dados.uf);
 						//$("#ibge").val(dados.ibge);
 						$("#p_carregando").hide();
+						$("#cd_cep").css({"outline": "solid 1px #00FF00"});
 					}
 					else 
 					{
 						//CEP pesquisado não foi encontrado.
-						alert("CEP não encontrado.");
+						$("#cd_cep").css({"outline": "solid 1px #FF0000"});
 						$("#p_carregando").hide();
 					}
 				});

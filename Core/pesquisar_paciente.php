@@ -114,6 +114,15 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 			    {
 			        $("#btn_pesquisar").click();
 			    }
+			    $("#cd_cns_paciente").val("");
+			});
+
+			$("#cd_cns_paciente").keypress(function(e){
+			    if(e.which == 13) 
+			    {
+			        $("#btn_pesquisar").click();
+			    }
+			    $("#nm_paciente").val("");
 			});
 
 	</script>

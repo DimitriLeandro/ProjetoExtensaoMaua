@@ -1,4 +1,4 @@
-
+//--------------------PRIMEIRA PARTE DO FURMULARIO
 function validar_cd_cns_paciente()
 {
 	var vlrCNS = document.forms.cadastro_paciente.cd_cns_paciente.value;
@@ -200,6 +200,116 @@ function validar_dt_nascimento()
 				document.getElementById("dt_nascimento").style.outline = "solid 1px #00FF00";
 			}
 		}
+	}
+}
+//-----------------	SEGUNDA PARTE DO FORMULARIO
+function validar_nm_pais_nascimento()
+{
+	if($("#nm_pais_nascimento").val().length < 3 || $("#nm_pais_nascimento").val().length > 40) 
+	{
+		$("#nm_pais_nascimento").css({"outline": "solid 1px #FF0000"});	
+	}
+	else
+	{
+		$("#nm_pais_nascimento").css({"outline": "solid 1px #00FF00"});
+	}
+}
+
+function validar_nm_municipio_nascimento()
+{
+	if($("#nm_municipio_nascimento").val().length < 3 || $("#nm_municipio_nascimento").val().length > 60) 
+	{
+		$("#nm_municipio_nascimento").css({"outline": "solid 1px #FF0000"});	
+	}
+	else
+	{
+		$("#nm_municipio_nascimento").css({"outline": "solid 1px #00FF00"});
+	}
+}
+
+function validar_nm_pais_residencia()
+{
+	if($("#nm_pais_residencia").val().length < 3 || $("#nm_pais_residencia").val().length > 40) 
+	{
+		$("#nm_pais_residencia").css({"outline": "solid 1px #FF0000"});	
+	}
+	else
+	{
+		$("#nm_pais_residencia").css({"outline": "solid 1px #00FF00"});
+	}
+}
+
+function validar_cd_cep()
+{
+	//removendo tudo que n~ao for n´umero
+	var cep = $("#cd_cep").val().replace(/[^0-9]/g, '');
+	if(cep.length == 8)
+	{
+		pesquisar_cep();
+	}
+	else
+	{
+		$("#cd_cep").css({"outline": "solid 1px #FF0000"});
+	}
+}
+
+function validar_nm_municipio_residencia()
+{
+	if($("#nm_municipio_residencia").val().length < 3 || $("#nm_municipio_residencia").val().length > 60) 
+	{
+		$("#nm_municipio_residencia").css({"outline": "solid 1px #FF0000"});	
+	}
+	else
+	{
+		$("#nm_municipio_residencia").css({"outline": "solid 1px #00FF00"});
+	}
+}
+
+function validar_nm_bairro()
+{
+	if($("#nm_bairro").val().length < 3 || $("#nm_bairro").val().length > 40) 
+	{
+		$("#nm_bairro").css({"outline": "solid 1px #FF0000"});	
+	}
+	else
+	{
+		$("#nm_bairro").css({"outline": "solid 1px #00FF00"});
+	}
+}
+
+function validar_nm_logradouro()
+{
+	if($("#nm_logradouro").val().length < 3 || $("#nm_logradouro").val().length > 60) 
+	{
+		$("#nm_logradouro").css({"outline": "solid 1px #FF0000"});	
+	}
+	else
+	{
+		$("#nm_logradouro").css({"outline": "solid 1px #00FF00"});
+	}
+}
+
+function validar_nm_numero_residencia()
+{
+	if($("#nm_numero_residencia").val().length < 1 || $("#nm_numero_residencia").val().length > 9) 
+	{
+		$("#nm_numero_residencia").css({"outline": "solid 1px #FF0000"});	
+	}
+	else
+	{
+		$("#nm_numero_residencia").css({"outline": "solid 1px #00FF00"});
+	}
+}
+
+function validar_nm_complemento()
+{
+	if($("#nm_complemento").val().length > 9) 
+	{
+		$("#nm_complemento").css({"outline": "solid 1px #FF0000"});	
+	}
+	else
+	{
+		$("#nm_complemento").css({"outline": "solid 1px #00FF00"});
 	}
 }
 

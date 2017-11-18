@@ -79,31 +79,20 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
   <script src="users/js/jquery.js"></script>
   <script src="users/js/buscaCEP.js"></script>
   <script src="users/js/validacao_cadastrar_paciente.js"></script>
+  <script>
+  		//essa funç~ao precisa ficar aqui em cima pro php funcionar la em baixo
+  		function imprimir()
+		{           
+			window.frames["pdf_etiqueta"].focus();
+			window.frames["pdf_etiqueta"].print();
+			$("#div_etiqueta").hide();
+		}
+  </script>
 </head>
-<script>
-	function imprimir()
-	{           
-		window.frames["pdf_etiqueta"].focus();
-		window.frames["pdf_etiqueta"].print();
-		$("#div_etiqueta").hide();
-	}
-	function avancar(id)
-	{
-		$(".field_set").hide();
-		$("#"+id).show();
-		window.scrollTo(0, 0);
-	}
-	function voltar(id)
-	{
-		$(".field_set").hide();
-		$("#"+id).show();
-		window.scrollTo(0, 0);
-	}
-</script>
 <body>
-  <div>
-	<form method="post" class="form-style" id="cadastro_paciente">
-		<h1>SISTEMA DE CADASTRAMENTO SUS</h1>
+<div>
+<form method="post" class="form-style" id="cadastro_paciente">
+	<h1>SISTEMA DE CADASTRAMENTO SUS</h1>
 	<fieldset id="fieldset_1" class="field_set">
 		<div id="div_possui_cns">
 			<label for="ncns" class="margem">Número CNS</label>
@@ -153,36 +142,36 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 
 	<fieldset id="fieldset_2" class="field_set" style="display: none;">
 		<label for="paisnasc" class="margem1" >País de nascimento</label>
-		<input type="text" name="nm_pais_nascimento" id="nm_pais_nascimento" /><br />
+		<input type="text" name="nm_pais_nascimento" id="nm_pais_nascimento" onblur="validar_nm_pais_nascimento()" /><br />
 		
 		<label for=munnasc class="margem1">Município de nascimento</label>
-		<input type="text" name="nm_municipio_nascimento" id="nm_municipio_nascimento" /><br />
+		<input type="text" name="nm_municipio_nascimento" id="nm_municipio_nascimento" onblur="validar_nm_municipio_nascimento();" /><br />
 		
 		<label for="paisresd" class="margem1">País de residência</label>
-		<input type="text" name="nm_pais_residencia" id="nm_pais_residencia" /><br />
+		<input type="text" name="nm_pais_residencia" id="nm_pais_residencia" onblur="validar_nm_pais_residencia();" /><br />
 		
 		<label for="cep" class="margem1">CEP</label>
-		<input type="text" name="cd_cep" id="cd_cep" size="9" maxlength="9" onblur="pesquisar_cep();" />
+		<input type="text" name="cd_cep" id="cd_cep" size="9" maxlength="9" onblur="validar_cd_cep();" />
 		<p id="p_carregando" hidden>Carregando...</p>
 		
 		<label for="munresd" class="margem1">Município de residência</label>
-		<input type="text" name="nm_municipio_residencia" id="nm_municipio_residencia" /><br />
+		<input type="text" name="nm_municipio_residencia" id="nm_municipio_residencia" onblur="validar_nm_municipio_residencia();" /><br />
 		
 		<label for="bairro" class="margem1">Bairro de residência</label>
-		<input type="text" name="nm_bairro" id="nm_bairro" /><br />
+		<input type="text" name="nm_bairro" id="nm_bairro" onblur="validar_nm_bairro();" /><br />
 		
 		<label for="endereco" class="margem1">Logradouro de residência</label>
-		<input type="text" name="nm_logradouro" id="nm_logradouro" />
+		<input type="text" name="nm_logradouro" id="nm_logradouro" onblur="validar_nm_logradouro();" />
 		
 		<label for="numresd" class="margemnumero">Número </label>
-		<input type="text" name="nm_numero_residencia" id="nm_numero_residencia" size="05" placeholder="ex: 320" /><br />
+		<input type="text" name="nm_numero_residencia" id="nm_numero_residencia" size="05" placeholder="ex: 320" onblur="validar_nm_numero_residencia();" /><br />
 		
 		<label for="complemresd" class="margem1">Complemento do endereço</label>
-		<input type="text" name="nm_complemento" id="nm_complemento" /><br />
+		<input type="text" name="nm_complemento" id="nm_complemento" onblur="validar_nm_complemento();" /><br />
 
 		<button type="button" onclick="voltar('fieldset_1');">Voltar</button>
 		<button type="button" onclick="avancar('fieldset_3');">Avançar</button>
-	  </fieldset><br />
+	</fieldset><br />
 
 	<fieldset id="fieldset_3" class="field_set" style="display: none;">
 		<!-- 
@@ -199,7 +188,9 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		<input type="text" name="nm_orgao_emissor" id="nm_orgao_emissor" /><br />
 
 		<button type="button" onclick="voltar('fieldset_2');">Voltar</button>
-		<input  type="submit" name='btn_cadastrar' value="Cadastrar e Imprimir Etiqueta" />
+		<button  type="button" onclick="submeter_formulario();" >Cadastrar e Imprimir Etiqueta</button>
+
+		<input  type="submit" name='btn_cadastrar' id="btn_cadastrar" disabled hidden />
 	</fieldset><br />
 	
 	  <!-- <fieldset>
@@ -210,8 +201,8 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		  <label for="profregist" class="margem3">Identificação do cadastrante </label>
 		  <input type="number" name="cd_profissional_registro" id="profregist"  /><br />
 	  </fieldset><br />  -->      
-	</form>
-  </div>
+</form>
+</div>
 <?php
 		if(isset($codigo_paciente) && $codigo_paciente > 0)
 		{
@@ -226,18 +217,37 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 <?php
 		}
 ?>
+	<script>
+		$('input:visible:enabled:first').focus();
+
+		$('input').keypress(function(e){
+			if(e.which == 13) 
+			{
+				$('button:visible:enabled:last').click();
+			}
+		});
+
+		function submeter_formulario()
+		{
+			$("#btn_cadastrar").attr("disabled", false);
+			$("#btn_cadastrar").click();
+		}
+
+    	function avancar(id)
+		{
+			$(".field_set").hide();
+			$("#"+id).show();
+			window.scrollTo(0, 0);
+			$('input:visible:enabled:first').focus();
+		}
+		function voltar(id)
+		{
+			$(".field_set").hide();
+			$("#"+id).show();
+			window.scrollTo(0, 0);
+			$('input:visible:enabled:first').focus();
+		}
+	</script>
 </body>
 </html>
-<script>
-    function avancar(id)
-    {
-        $(".field_set").hide();
-        $("#"+id).show();
-    }
-    function voltar(id)
-    {
-        $(".field_set").hide();
-        $("#"+id).show();
-    }
-</script>
 </html>
