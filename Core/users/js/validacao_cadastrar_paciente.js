@@ -313,6 +313,45 @@ function validar_nm_complemento()
 	}
 }
 
+//------------------TERCEIRA PARTE DO FORMUL´ARIO
+function validar_nm_responsavel()
+{
+	if($("#nm_responsavel").val().length < 3 || $("#nm_responsavel").val().length > 60) 
+	{
+		$("#nm_responsavel").css({"outline": "solid 1px #FF0000"});	
+	}
+	else
+	{
+		$("#nm_responsavel").css({"outline": "solid 1px #00FF00"});
+	}
+}
+
+function validar_cd_documento_responsavel()
+{
+	//removendo tudo que n~ao for n´umero
+	var documento_rg = $("#cd_documento_responsavel").val().replace(/[^0-9]/g, '');
+	if(documento_rg.length == 9)
+	{
+		$("#cd_documento_responsavel").css({"outline": "solid 1px #00FF00"});
+	}
+	else
+	{
+		$("#cd_documento_responsavel").css({"outline": "solid 1px #FF0000"});
+	}
+}
+
+function validar_nm_orgao_emissor()
+{
+	if($("#nm_orgao_emissor").val().length < 1 || $("#nm_orgao_emissor").val().length > 9) 
+	{
+		$("#nm_orgao_emissor").css({"outline": "solid 1px #FF0000"});	
+	}
+	else
+	{
+		$("#nm_orgao_emissor").css({"outline": "solid 1px #00FF00"});
+	}
+}
+
 //----------------- MASCARAS E OUTRAS COISAS
 var aux = 0;
 
@@ -350,4 +389,17 @@ function mascarar_data()
 	var data = document.forms.cadastro_paciente.dt_nascimento;
 	if(data.value.length == 2 || data.value.length == 5)
 		data.value =  data.value + '/'; 
+}
+
+function mascarar_rg()
+{
+	var rg = document.forms.cadastro_paciente.cd_documento_responsavel;
+	if(rg.value.length == 2 || rg.value.length == 6)
+	{
+		rg.value = rg.value + ".";
+	}
+	if(rg.value.length == 10)
+	{
+		rg.value = rg.value + "-";
+	}
 }
