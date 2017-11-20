@@ -1,22 +1,5 @@
 <?php
-/*
-UserSpice 4
-An Open Source PHP User Management System
-by the UserSpice Team at http://UserSpice.com
- 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
- 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
- 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+
 // error_reporting(E_ALL);
 // ini_set('display_errors', 1);
 ini_set("allow_url_fopen", 1);
@@ -110,8 +93,82 @@ if (empty($dest = sanitizedDest('dest'))) {
 }
  
 ?>
- 
-<div id="page-wrapper">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <?php
+if($settings->glogin==1 && !$user->isLoggedIn()){
+require_once $abs_us_root.$us_url_root.'users/includes/google_oauth_login.php';
+}
+if($settings->fblogin==1 && !$user->isLoggedIn()){
+require_once $abs_us_root.$us_url_root.'users/includes/facebook_oauth.php';
+}
+?>
+
+    <div class="bg-danger"><?=$error_message;?></div>
+    
+    <!-- Meta tags -->
+    <title>Página de Login</title>
+    <meta name="keywords" content="Winter Login Form Responsive widget, Flat Web Templates, Android Compatible web template, 
+    Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="css/font-awesomelogin.css">
+    <link rel="stylesheet" href="css/stylelogin.css">
+    <!-- google fonts  -->
+    <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet">
+</head>
+<body>
+    <div class="agile-login">
+        <h1>Página de Login ao sistema</h1>
+        <div class="wrapper">
+            <h2>LOG IN</h2>
+            <div class="w3ls-form">
+               <form name="login" class="form-signin" action="login.php" method="post">
+                
+                <input type="hidden" name="dest" value="<?= $dest ?>" />
+                    <label for="username">Username</label>
+                    <input  class="form-control" type="text" name="username" id="username" placeholder="Username/Email" required autofocus>
+                    <label>Password</label>
+                    <input type="password" class="form-control"  name="password" id="password"  placeholder="Password" required autocomplete="off">
+                    <a href='forgot_password.php' class="pass">Forgot Password ?</a>
+                  <div class="form-group">
+                    <label for="remember">
+                    <input type="checkbox" name="remember" id="remember" > Lembrar-me</label>
+                 </div>
+                    <input type="hidden" name="csrf" value="<?=Token::generate(); ?>">
+                    <button class="submit  btn  btn-primary" type="submit"><?=lang("SIGNIN_BUTTONTEXT","");?></button>
+                    
+                </form>
+            </div>
+            <?php
+    if($settings->recaptcha == 1){
+    ?>
+    <div class="form-group">
+    <label>Please check the box below to continue</label>
+    <div class="g-recaptcha" data-sitekey="<?=$publickey; ?>"></div>
+    </div>
+    <?php } ?>
+            
+        </div>
+        <br>
+        <div class="copyright">
+        <p>All rights reserved | Design by <a href="www.w3layouts.com">W3layouts</a></p> 
+    </div>
+    </div>
+ </div>
+    
+</body>
+</html>
+
+
+<?php 
+/*
+ <div id="page-wrapper">
 <div class="container">
 <div class="row">
     <div class="col-xs-12">
@@ -168,6 +225,8 @@ require_once $abs_us_root.$us_url_root.'users/includes/facebook_oauth.php';
 </div>
 </div>
 </div>
+*/
+?>
  
     <!-- footers -->
 <?php require_once $abs_us_root.$us_url_root.'users/includes/page_footer.php'; // the final html footer copyright row + the external js calls ?>
