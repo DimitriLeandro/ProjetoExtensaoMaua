@@ -78,7 +78,6 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
   <link href="css/formulario.css" rel="stylesheet">
   <script src="users/js/jquery.js"></script>
   <script src="users/js/buscaCEP.js"></script>
-  <script src="users/js/validacao_cadastrar_paciente.js"></script>
   <script>
   		//essa funç~ao precisa ficar aqui em cima pro php funcionar la em baixo
   		function imprimir()
@@ -179,13 +178,13 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		<!-- <input type="number" name="cd_ubs_referencia" id="ubsref" /><br /> -->
 		
 		<label for="nomeresp" class="margem2">Nome completo do responsável</label>
-		<input type="text" name="nm_responsavel" id="nm_responsavel" /><br />
+		<input type="text" name="nm_responsavel" id="nm_responsavel" onblur="validar_nm_responsavel()" /><br />
 		
 		<label for="docresp" class="margem2">Documento do responsavel</label>
-		<input type="text" name="cd_documento_responsavel" id="cd_documento_responsavel" /><br />
+		<input type="text" maxlength="12" name="cd_documento_responsavel" id="cd_documento_responsavel" onkeypress="mascarar_rg()" onblur="validar_cd_documento_responsavel()" /><br />
 		
 		<label for="orgaoresp" class="margem2">Órgão emissor</label>
-		<input type="text" name="nm_orgao_emissor" id="nm_orgao_emissor" /><br />
+		<input type="text" name="nm_orgao_emissor" id="nm_orgao_emissor"  onblur="validar_nm_orgao_emissor()" /><br />
 
 		<button type="button" onclick="voltar('fieldset_2');">Voltar</button>
 		<button  type="button" onclick="submeter_formulario();" >Cadastrar e Imprimir Etiqueta</button>
@@ -248,6 +247,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 			$('input:visible:enabled:first').focus();
 		}
 	</script>
+	<script src="users/js/validacao_cadastrar_paciente.js"></script>
 </body>
 </html>
 </html>
