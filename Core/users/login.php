@@ -229,6 +229,9 @@ require_once $abs_us_root.$us_url_root.'users/includes/facebook_oauth.php';
 ?>
  
     <!-- footers -->
+
+
+<?php /*
 <?php require_once $abs_us_root.$us_url_root.'users/includes/page_footer.php'; // the final html footer copyright row + the external js calls ?>
  
     <!-- Place any per-page javascript here -->
@@ -236,4 +239,5 @@ require_once $abs_us_root.$us_url_root.'users/includes/facebook_oauth.php';
 <?php   if($settings->recaptcha == 1){ ?>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <?php } ?>
-<?php require_once $abs_us_root.$us_url_root.'users/includes/html_footer.php'; // currently just the closing /body and /html ?>
+<?php require_once $abs_us_root.$us_url_root.'users/includes/html_footer.php'; // currently just the closing /body and /html ?> */
+?>
