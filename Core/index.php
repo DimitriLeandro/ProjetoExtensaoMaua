@@ -1,70 +1,58 @@
 <?php
 
-if(file_exists("install/index.php")){
-	//perform redirect if installer files exist
-	//this if{} block may be deleted once installed
-	header("Location: install/index.php");
-}
-
 require_once 'users/init.php';
 require_once $abs_us_root.$us_url_root.'users/includes/header.php';
-require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
+
 ?>
 
-<div id="page-wrapper">
-<div class="container">
-<div class="row">
-	<div class="col-xs-12">
-		<div class="jumbotron">
-			<h1>Bem vindo ao <?php echo $settings->site_name;?></h1>
-			<p class="text-muted"> <?php //print_r($_SESSION);?></p>
-			<p>
-			<?php if($user->isLoggedIn()){$uid = $user->data()->id;?>
-				<a class="btn btn-default" href="users/account.php" role="button">User Account &raquo;</a>
-			<?php }else{?>
-				<a class="btn btn-warning" href="users/login.php" role="button">Log In &raquo;</a>
-				<a class="btn btn-info" href="users/join.php" role="button">Sign Up &raquo;</a>
-			<?php } ?>
-			</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<link rel="stylesheet" href="css/font-awesome.css">
+	<link rel="stylesheet" href="css/styleindex.css">
+	<!-- google fonts  -->
+	<link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet">
+</head>
+<body>
+	<div class="agile-login">
+		
+		<div class="wrapper">
+			<h2>Bem-Vindo ao Gerenciador SUS</h2>
+			<div class="w3ls-form">
+				<form action="/" method="post">
+					
+					<p class="text-muted"> <?php //print_r($_SESSION);?></p>
+					<p>
+						<?php if($user->isLoggedIn()){$uid = $user->data()->id;?>
+						<a href="pesquisar_paciente.php"><button type="button">Pesquisar paciente</button><a/>
+						<a href="cadastrar_paciente.php"><button type="button">Cadastro</button><a/>
+
+						<?php }else{?>
+					<a href="users/login.php"><button type="button">Log In</button><a/>
+					<a href="users/join.php"><button type="button">Sing Up</button><a/>
+						<?php } ?>
+				
+
+					
+					
+				</form>
+			</div>
+			
+			
 		</div>
+		<br>
+		<div class="copyright">
+		<p> Design by <a href="www.w3layouts.com">W3layouts</a></p> 
 	</div>
-</div>
-
-
-
-		</div>
-	</div><!-- /panel -->
-</div><!-- /.col -->
-</div><!-- /.row -->
-
-<div class="row">
-<div class="col-md-6">
-	<div class="panel panel-default">
-		<div class="panel-heading"><strong><a href="cadastrar_paciente.php">Cadastro</a> </strong></div>
-		<div class="panel-body">Para realizar o cadastro de novos pacientes
-		</div>
-	</div><!-- /panel -->
-</div><!-- /.col -->
-
-<div class="row">
-<div class="col-md-6">
-	<div class="panel panel-default">
-		<div class="panel-heading"><strong><a href="pesquisar_paciente.php">Fazer Consulta</a></strong></div>
-		<div class="panel-body">Para realizar consultas de pacientes.
-		</div>
-	</div><!-- /panel -->
-</div><!-- /.col -->
-
-
-
-</div> <!-- /container -->
-
-</div> <!-- /#page-wrapper -->
-
-<!-- footers -->
-<?php require_once $abs_us_root.$us_url_root.'users/includes/page_footer.php'; // the final html footer copyright row + the external js calls ?>
-
-<!-- Place any per-page javascript here -->
-
-
+	</div>
+	
+</body>
+</html>
 <?php require_once $abs_us_root.$us_url_root.'users/includes/html_footer.php'; // currently just the closing /body and /html ?>
+
+<?php
+
+require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
+?>
