@@ -32,7 +32,7 @@ CREATE TABLE `audit` (
   `ip` varchar(255) NOT NULL,
   `viewed` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `audit` (
 
 LOCK TABLES `audit` WRITE;
 /*!40000 ALTER TABLE `audit` DISABLE KEYS */;
-INSERT INTO `audit` VALUES (1,1,'42','2017-02-20 17:31:13','::1',0),(2,0,'47','2017-10-22 22:31:51','::1',0),(3,0,'47','2017-10-22 22:34:42','::1',0),(4,4,'46','2017-10-22 22:36:52','::1',0),(5,4,'47','2017-10-22 22:37:04','::1',0),(6,3,'46','2017-10-22 22:37:21','::1',0),(7,0,'47','2017-10-22 22:37:37','::1',0),(8,0,'48','2017-10-22 22:37:41','::1',0),(9,0,'46','2017-10-22 22:37:44','::1',0),(10,3,'46','2017-10-22 22:38:54','::1',0),(11,0,'48','2017-10-23 01:07:18','::1',0),(12,0,'48','2017-10-23 22:24:26','::1',0),(13,0,'48','2017-10-23 22:32:02','::1',0),(14,0,'47','2017-11-10 20:29:50','::1',0),(15,0,'48','2017-11-12 13:28:42','::1',0),(16,0,'47','2017-11-12 16:59:32','::1',0),(17,0,'47','2017-11-12 21:38:03','::1',0),(18,0,'47','2017-11-13 01:57:50','::1',0),(19,0,'47','2017-11-13 15:20:40','::1',0),(20,4,'49','2017-11-13 17:42:29','::1',0),(21,4,'50','2017-11-13 17:42:38','::1',0),(22,0,'48','2017-11-17 20:03:59','::1',0),(23,0,'48','2017-11-17 21:15:58','::1',0),(24,0,'48','2017-11-18 01:13:09','::1',0),(25,0,'47','2017-11-18 02:15:02','::1',0),(26,0,'47','2017-11-18 02:46:01','::1',0),(27,0,'47','2017-11-18 03:20:31','::1',0),(28,0,'47','2017-11-18 03:54:44','::1',0),(29,0,'47','2017-11-20 19:12:39','::1',0),(30,0,'47','2017-11-20 19:43:11','::1',0),(31,0,'47','2017-11-20 19:43:55','::1',0),(32,0,'48','2017-11-20 20:34:50','::1',0),(33,0,'50','2017-11-20 22:42:00','::1',0);
+INSERT INTO `audit` VALUES (1,1,'42','2017-02-20 17:31:13','::1',0),(2,0,'47','2017-10-22 22:31:51','::1',0),(3,0,'47','2017-10-22 22:34:42','::1',0),(4,4,'46','2017-10-22 22:36:52','::1',0),(5,4,'47','2017-10-22 22:37:04','::1',0),(6,3,'46','2017-10-22 22:37:21','::1',0),(7,0,'47','2017-10-22 22:37:37','::1',0),(8,0,'48','2017-10-22 22:37:41','::1',0),(9,0,'46','2017-10-22 22:37:44','::1',0),(10,3,'46','2017-10-22 22:38:54','::1',0),(11,0,'48','2017-10-23 01:07:18','::1',0),(12,0,'48','2017-10-23 22:24:26','::1',0),(13,0,'48','2017-10-23 22:32:02','::1',0),(14,0,'47','2017-11-10 20:29:50','::1',0),(15,0,'48','2017-11-12 13:28:42','::1',0),(16,0,'47','2017-11-12 16:59:32','::1',0),(17,0,'47','2017-11-12 21:38:03','::1',0),(18,0,'47','2017-11-13 01:57:50','::1',0),(19,0,'47','2017-11-13 15:20:40','::1',0),(20,4,'49','2017-11-13 17:42:29','::1',0),(21,4,'50','2017-11-13 17:42:38','::1',0),(22,0,'48','2017-11-17 20:03:59','::1',0),(23,0,'48','2017-11-17 21:15:58','::1',0),(24,0,'48','2017-11-18 01:13:09','::1',0),(25,0,'47','2017-11-18 02:15:02','::1',0),(26,0,'47','2017-11-18 02:46:01','::1',0),(27,0,'47','2017-11-18 03:20:31','::1',0),(28,0,'47','2017-11-18 03:54:44','::1',0),(29,0,'47','2017-11-20 19:12:39','::1',0),(30,0,'47','2017-11-20 19:43:11','::1',0),(31,0,'47','2017-11-20 19:43:55','::1',0),(32,0,'48','2017-11-20 20:34:50','::1',0),(33,0,'50','2017-11-20 22:42:00','::1',0),(34,0,'47','2017-11-21 00:46:42','::1',0),(35,0,'47','2017-11-21 01:59:15','::1',0),(36,0,'47','2017-11-21 02:57:32','::1',0),(37,0,'49','2017-12-03 00:46:21','::1',0);
 /*!40000 ALTER TABLE `audit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -248,7 +248,7 @@ CREATE TABLE `profiles` (
   `user_id` int(11) NOT NULL,
   `bio` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,7 +257,7 @@ CREATE TABLE `profiles` (
 
 LOCK TABLES `profiles` WRITE;
 /*!40000 ALTER TABLE `profiles` DISABLE KEYS */;
-INSERT INTO `profiles` VALUES (1,1,'<h1>This is the Admin\'s bio.</h1>'),(2,2,'This is your bio'),(3,3,'This is your bio'),(4,4,'This is your bio');
+INSERT INTO `profiles` VALUES (1,1,'<h1>This is the Admin\'s bio.</h1>'),(2,2,'This is your bio'),(3,3,'This is your bio'),(4,4,'This is your bio'),(5,5,'This is your bio');
 /*!40000 ALTER TABLE `profiles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -330,6 +330,99 @@ INSERT INTO `settings` VALUES (1,0,0,'',1,'../users/css/color_schemes/standard.c
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tb_diagnostico`
+--
+
+DROP TABLE IF EXISTS `tb_diagnostico`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_diagnostico` (
+  `cd_diagnostico` int(11) NOT NULL AUTO_INCREMENT,
+  `cd_cnes` int(11) DEFAULT NULL,
+  `ds_avaliacao` text,
+  `cd_cid` varchar(30) DEFAULT NULL,
+  `ds_prescricao` text,
+  `dt_diagnostico` date DEFAULT NULL,
+  `hr_diagnostico` time DEFAULT NULL,
+  `ic_situacao` varchar(40) DEFAULT NULL,
+  `cd_cns_profissional_diagnostico` int(11) DEFAULT NULL,
+  `cd_triagem` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cd_diagnostico`),
+  KEY `fk_diagnostico_triagem` (`cd_triagem`),
+  CONSTRAINT `fk_diagnostico_triagem` FOREIGN KEY (`cd_triagem`) REFERENCES `tb_triagem` (`cd_triagem`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_diagnostico`
+--
+
+LOCK TABLES `tb_diagnostico` WRITE;
+/*!40000 ALTER TABLE `tb_diagnostico` DISABLE KEYS */;
+INSERT INTO `tb_diagnostico` VALUES (1,6950043,'Requiro exame de Raio X para melhor avaliação do paciente','CID 10 - J15.9','Tomar mel para tosse 3x ao dia','2017-12-02','19:53:50','Alta sem encaminhamento a UBS',1,13),(5,6950043,'Requiro exame de Raio X para melhor avaliação do paciente','CID 10 - J15.9','Tomar mel para tosse 3x ao dia','2017-12-02','21:00:26','Alta sem encaminhamento a UBS',1,14),(6,6950043,'Requiro exame de Raio X para melhor avaliação do paciente','CID 10 - J15.9','Tomar mel para tosse 3x ao dia','2017-12-02','21:00:37','Alta sem encaminhamento a UBS',1,15);
+/*!40000 ALTER TABLE `tb_diagnostico` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER tr_finalizar_triagem BEFORE INSERT ON tb_diagnostico
+FOR EACH ROW BEGIN
+	-- declarando as variaveis que serão necessárias
+    DECLARE codigo_triagem INT;
+    
+    -- pegando o código da triagem na qual esse diagnóstico se refere
+	SET codigo_triagem = new.cd_triagem;
+    
+    -- verificando se existe mais de um diagnostico para a mesma triagem
+	-- se houver, excluir todos exceto o primeiro
+    IF ((SELECT COUNT(cd_diagnostico) FROM tb_diagnostico WHERE cd_triagem = codigo_triagem) = 0) THEN
+		-- finalizando a triagem
+		UPDATE tb_triagem SET ic_finalizada = 1 WHERE cd_triagem = codigo_triagem;
+	ELSE
+		-- alterando os valores para o insert ter erro, essa é a unica maneira de fazer isso
+        -- pois nao é possivel usar insert/update/delete na mesma tabela em que a trigger está
+        -- ver mais: erro 1442
+        SET new.cd_cnes = 'abc';
+    END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `tb_estabelecimento`
+--
+
+DROP TABLE IF EXISTS `tb_estabelecimento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_estabelecimento` (
+  `cd_estabelecimento` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_estabelecimento` varchar(60) DEFAULT NULL,
+  `cd_cnes_estabelecimento` int(11) NOT NULL,
+  PRIMARY KEY (`cd_estabelecimento`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_estabelecimento`
+--
+
+LOCK TABLES `tb_estabelecimento` WRITE;
+/*!40000 ALTER TABLE `tb_estabelecimento` DISABLE KEYS */;
+INSERT INTO `tb_estabelecimento` VALUES (1,'UPA ZAIRA',6919456),(2,'UPA VILA ASSIS',6950043),(3,'UPA MAGINI CENTRO',6950051),(4,'UPA BARAO DE MAUA',2061562);
+/*!40000 ALTER TABLE `tb_estabelecimento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tb_paciente`
 --
 
@@ -339,6 +432,7 @@ DROP TABLE IF EXISTS `tb_paciente`;
 CREATE TABLE `tb_paciente` (
   `cd_paciente` int(11) NOT NULL AUTO_INCREMENT,
   `cd_cns_paciente` bigint(15) DEFAULT NULL,
+  `ic_ubs_espera` int(11) DEFAULT '0',
   `nm_justificativa` varchar(100) DEFAULT NULL,
   `nm_paciente` varchar(60) DEFAULT NULL,
   `nm_mae` varchar(60) DEFAULT NULL,
@@ -365,7 +459,7 @@ CREATE TABLE `tb_paciente` (
   PRIMARY KEY (`cd_paciente`),
   KEY `cd_profissional_registro` (`cd_profissional_registro`),
   CONSTRAINT `tb_paciente_ibfk_1` FOREIGN KEY (`cd_profissional_registro`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -374,7 +468,7 @@ CREATE TABLE `tb_paciente` (
 
 LOCK TABLES `tb_paciente` WRITE;
 /*!40000 ALTER TABLE `tb_paciente` DISABLE KEYS */;
-INSERT INTO `tb_paciente` VALUES (12,123,'','Joao da Silva','Joana Silva','masculino','parda','1975-04-27','Brasil','Piracicaba','Brasil','Sao Bernardo','123123123','Rua B','33','35B','Bairro A',8,'Joao Silva','123473457','ssp',1234567,'2017-10-23','00:48:39',4),(13,0,'graves','Jose da SIlva','Josefina Silva','masculino','indigena','1983-03-30','Brasil','Sao Paulo','Brasil','Sao Paulo','882342342','Rua J','234','','Bairro C',234,'Josefina','335313569','ssp',1234567,'2017-10-23','00:50:33',4),(14,5503,'','Gabriel da Silva','Gabriela da Silva','masculino','branca','1978-12-26','Brasil','Sao Paulo','Brasil','Sao Bernardo','232342342','Rua K','400','','Bairro K',234,'Gabriel','239085568','ssp',1234567,'2017-10-23','23:32:47',4),(15,4848,'','Douglas da SIlva','Giovana','masculino','parda','1994-07-26','Brasil','Piracicaba','Brasil','Sao Paulo','283472342','Rua B','33','35B','Bairro C',8,'Douglas','148974467','ssp',1234567,'2017-10-23','23:35:49',4),(16,0,'encontrados','Ana Silva','Maria Silva','feminino','branca','1998-07-31','Brasil','Piracicaba','Brasil','Sao Paulo','234242423','Rua J','33','35B','Bairro C',3423,'Ana','445672345','ssp',1234567,'2017-10-23','23:37:31',4),(17,33456,'','David Gilmour','Maria Gilmour ','masculino','branca','1950-12-12','Brasil','Itanhaem','Brasil','SÃ£o Paulo','112120120','Rua Rosa','29','','Bairro XYZ',123,'David Gilmour','129083348','ssp',1234567,'2017-11-10','20:32:17',4),(18,33902,'','David Bowie','Maria Bowie','masculino','branca','1950-02-02','','','Brasil','Sao Bernardo','113234434','Rua Abolicao','4401','','Vila Sao Pedro',123,'David Bowie','445501234','ssp',1234567,'2017-11-10','20:52:45',4),(20,0,'problemas','Joaquina Da Silva','Joana Silva','feminino','parda','1987-12-31','','Maua','Brasil','Maua','112993000','Rua Mauazopolis','23','B3','ABC',123,'Joana Silva','44030203','ssp',1234567,'2017-11-10','21:02:34',4),(21,23423,'','Monica Silva','Maraisa SIlva','feminino','branca','1997-08-25','Brasil','Sao Paulo','Brasil','Maua','11320342','RUA PERO CORREA','234','113','Bairro A B e C',123,'Monica Silva','332342341','ssp',1234567,'2017-11-10','21:12:52',4),(23,120055207650018,'','James Hetfield','Joana Hetfield','Masculino','Branca','1960-10-10','Estados Unidos','São Francisco','Brasil','Brasília - DF','73370-045','Conjunto Residencial 45','450','','Vale do Amanhecer (Planaltina)',123,'James Hetfield','440302033','ssp',1234567,'2017-11-12','23:23:05',4),(24,154419349730008,'','Lars Ulrich','Joana Ulrich','Masculino','Branca','1970-01-01','Dinamarca','Dinatown','Brasil','Brasília - DF','72669-260','Condomínio Residencial Galiléia Quadra 7','440','55 - A','Recanto das Emas',123,'Lars Ulrich','334568975','ssp',1234567,'2017-11-12','23:46:23',4),(25,192275082170003,'','Kirk Hammett','Joana Hammet','Masculino','Parda','1963-08-06','Estados Unidos','SÃ£o Francisco','Brasil','Salvador - BA','41311','Caminho 04','10','','Ãguas Claras',123,'Kirk Hammett','456789093','ssp',1234567,'2017-11-12','23:51:49',4),(26,0,'incapacitados','Roberto Trujillo','Roberta Trujillo','Masculino','Parda','1968-09-09','Mexico','Cidade do Mexico','Brasil','GravataÃ­ - RS','94150','Rua Augusto Rocha','550','40','SÃ£o Geraldo',123,'Roberto Trujillo','345678901','ssp',1234567,'2017-11-12','23:56:37',4),(28,118620075870006,'','Dave Mustaine','Maria Mustaine','Masculino','Branca','1960-05-10','Estados Unidos','SÃ£o Francisco','Brasil','Palmas - TO','77066','Avenida Tocantins','90','A 30','Setor Morada do Sol (Taquaralto)',123,'Dave Mustaine','345678901','ssp',1234567,'2017-11-12','23:58:35',4),(29,0,'incapacitados','Jimi Hendrix','Joana Hendrix','Masculino','Preta','1970-01-01','Inglaterra','Manchester','Brasil','Ji-ParanÃ¡ - RO','76908','Rua Idelfonso da Silva','550','B 54','SÃ£o Francisco',123,'Jimi Hendrix','445678901','ssp',1234567,'2017-11-13','02:00:23',4),(30,252221445320006,'','Joe Duplantier','Josefina Duplantier','Masculino','Branca','1970-10-02','FranÃ§a','Paris','Brasil','GoiÃ¢nia - GO','74686','Estrada Bom Retiro','400','','ChÃ¡caras Bom Retiro',123,'Joe Duplantier','309871237','ssp',1234567,'2017-11-13','15:22:01',4),(33,966011384220003,'','William de Souza Gomes','Claudia Regina','Masculino','Branca','1970-01-01','Brasil','SÃ£o Paulo','Brasil','SÃ£o Paulo - SP','5877260','Rua LetÃ­cia','320','Casa','Jardim GuarujÃ¡',123,'William de Souza','368465371','SSP',1234567,'2017-11-13','15:43:07',4),(34,277003257480009,'','Dimitri Leandro','Ana Paula','Masculino','Branca','1998-08-10','Russia','Moscou','Brasil','SÃ£o Vicente - SP','11320140','Rua Pero Correa','113','94','ItararÃ©',123,'Dimitri Leandro','368485361','SSP',1234567,'2017-11-13','15:45:51',4),(35,264466531040004,'','Maria Rosario','Marianete de Souza','Feminino','Parda','0178-05-02','Brasil','SÃ£o Caetano','Brasil','Aracaju - SE','49044','Rua JoÃ£o Jones Sevidanes','354','Casa','Santa Maria',123,'Maria do Rosario','0','',1234567,'2017-11-13','15:48:04',4),(36,943476845820004,'','Mario Gomes','Judiana Carma','Masculino','Branca','1982-12-12','Eua','Nova Iorque','Brasil','MacapÃ¡ - AP','68903','Avenida Quinta da universidade','458','98','Universidade',123,'HElena ','0','',1234567,'2017-11-13','15:49:37',4),(37,280419906490001,'','Janaina Jesus','Cida ConceiÃ§Ã£o','Feminino','Preta','1970-01-01','Brasil','SÃ£o Paulo','Brasil','JoÃ£o Pessoa - PB','58020','Parque Arruda CÃ¢mara','4587','casa','Roger',123,'Janaina Jesus','0','',1234567,'2017-11-13','15:51:31',4),(38,868194911330006,'','Herculana Amorim','Afrodite Noma ','Masculino','Branca','1925-02-05','Brasil','Santo Andre','Brasil','Sinop - MT','78552','Avenida das ItaÃºbas','124','Casa','Jardim das Palmeiras',123,'Herculana','0','',1234567,'2017-11-13','15:56:53',4),(39,0,'incapacitados','Eduardo Nogueira','Roselinda Maria','Masculino','Preta','1970-01-01','Brasil','SÃ£o Paulo','Brasil','Pato Branco - PR','85502','Rua ErcÃ­lia Corona','4450','B 23','Menino Deus',123,'Eduardo Nogueira','234569084','ssp',1234567,'2017-11-13','17:12:33',4),(58,0,'incapacitados','Jeremias Silva','Josefa Augusta','Masculino','Preta','2010-10-09','Brasil','AraÃ§atuba','Brasil','SÃ£o Vicente - SP','11340150','Rua Nicolino Simone','334','','Parque SÃ£o Vicente',123,'Jeremias Silva','345678912','ssp',1234567,'2017-11-18','04:29:52',4),(59,0,'incapacitados','Ozzy Osbourne','Roselinda Osbourne ','Masculino','Branca','1953-08-09','Inglaterra','Manchester','Brasil','Feira de Santana - BA','44065','Rua Boa Ãgua','9001','Camp 1A','ConceiÃ§Ã£o',123,'Ozzy Osbourne','334501234','ssp',1234567,'2017-11-20','19:16:54',4);
+INSERT INTO `tb_paciente` VALUES (12,123,6950043,'','Joao da Silva','Joana Silva','masculino','parda','1975-04-27','Brasil','Piracicaba','Brasil','Sao Bernardo','123123123','Rua B','33','35B','Bairro A',6950043,'Joao Silva','123473457','ssp',6950043,'2017-10-23','00:48:39',4),(13,0,6950043,'graves','Jose da SIlva','Josefina Silva','masculino','indigena','1983-03-30','Brasil','Sao Paulo','Brasil','Sao Paulo','882342342','Rua J','234','','Bairro C',6950043,'Josefina','335313569','ssp',6950043,'2017-10-23','00:50:33',4),(14,5503,6950043,'','Gabriel da Silva','Gabriela da Silva','masculino','branca','1978-12-26','Brasil','Sao Paulo','Brasil','Sao Bernardo','232342342','Rua K','400','','Bairro K',6950043,'Gabriel','239085568','ssp',6950043,'2017-10-23','23:32:47',4),(15,4848,6950043,'','Douglas da SIlva','Giovana','masculino','parda','1994-07-26','Brasil','Piracicaba','Brasil','Sao Paulo','283472342','Rua B','33','35B','Bairro C',6950043,'Douglas','148974467','ssp',6950043,'2017-10-23','23:35:49',4),(16,0,6950043,'encontrados','Ana Silva','Maria Silva','feminino','branca','1998-07-31','Brasil','Piracicaba','Brasil','Sao Paulo','234242423','Rua J','33','35B','Bairro C',6950043,'Ana','445672345','ssp',6950043,'2017-10-23','23:37:31',4),(17,33456,6950043,'','David Gilmour','Maria Gilmour ','masculino','branca','1950-12-12','Brasil','Itanhaem','Brasil','SÃ£o Paulo','112120120','Rua Rosa','29','','Bairro XYZ',6950043,'David Gilmour','129083348','ssp',6950043,'2017-11-10','20:32:17',4),(18,33902,6950043,'','David Bowie','Maria Bowie','masculino','branca','1950-02-02','','','Brasil','Sao Bernardo','113234434','Rua Abolicao','4401','','Vila Sao Pedro',6950043,'David Bowie','445501234','ssp',6950043,'2017-11-10','20:52:45',4),(20,0,6950043,'problemas','Joaquina Da Silva','Joana Silva','feminino','parda','1987-12-31','','Maua','Brasil','Maua','112993000','Rua Mauazopolis','23','B3','ABC',6950043,'Joana Silva','44030203','ssp',6950043,'2017-11-10','21:02:34',4),(21,23423,6950043,'','Monica Silva','Maraisa SIlva','feminino','branca','1997-08-25','Brasil','Sao Paulo','Brasil','Maua','11320342','RUA PERO CORREA','234','113','Bairro A B e C',6950043,'Monica Silva','332342341','ssp',6950043,'2017-11-10','21:12:52',4),(23,120055207650018,0,'','James Hetfield','Joana Hetfield','Masculino','Branca','1960-10-10','Estados Unidos','São Francisco','Brasil','Brasília - DF','73370-045','Conjunto Residencial 45','450','','Vale do Amanhecer (Planaltina)',6950043,'James Hetfield','440302033','ssp',6950043,'2017-11-12','23:23:05',4),(24,154419349730008,6950043,'','Lars Ulrich','Joana Ulrich','Masculino','Branca','1970-01-01','Dinamarca','Dinatown','Brasil','Brasília - DF','72669-260','Condomínio Residencial Galiléia Quadra 7','440','55 - A','Recanto das Emas',6950043,'Lars Ulrich','334568975','ssp',6950043,'2017-11-12','23:46:23',4),(25,192275082170003,6950043,'','Kirk Hammett','Joana Hammet','Masculino','Parda','1963-08-06','Estados Unidos','SÃ£o Francisco','Brasil','Salvador - BA','41311','Caminho 04','10','','Ãguas Claras',6950043,'Kirk Hammett','456789093','ssp',6950043,'2017-11-12','23:51:49',4),(26,0,6950043,'incapacitados','Roberto Trujillo','Roberta Trujillo','Masculino','Parda','1968-09-09','Mexico','Cidade do Mexico','Brasil','GravataÃ­ - RS','94150','Rua Augusto Rocha','550','40','SÃ£o Geraldo',6950043,'Roberto Trujillo','345678901','ssp',6950043,'2017-11-12','23:56:37',4),(28,118620075870006,6950043,'','Dave Mustaine','Maria Mustaine','Masculino','Branca','1960-05-10','Estados Unidos','SÃ£o Francisco','Brasil','Palmas - TO','77066','Avenida Tocantins','90','A 30','Setor Morada do Sol (Taquaralto)',6950043,'Dave Mustaine','345678901','ssp',6950043,'2017-11-12','23:58:35',4),(29,0,6950043,'incapacitados','Jimi Hendrix','Joana Hendrix','Masculino','Preta','1970-01-01','Inglaterra','Manchester','Brasil','Ji-ParanÃ¡ - RO','76908','Rua Idelfonso da Silva','550','B 54','SÃ£o Francisco',6950043,'Jimi Hendrix','445678901','ssp',6950043,'2017-11-13','02:00:23',4),(30,252221445320006,6950043,'','Joe Duplantier','Josefina Duplantier','Masculino','Branca','1970-10-02','FranÃ§a','Paris','Brasil','GoiÃ¢nia - GO','74686','Estrada Bom Retiro','400','','ChÃ¡caras Bom Retiro',6950043,'Joe Duplantier','309871237','ssp',6950043,'2017-11-13','15:22:01',4),(33,966011384220003,6950043,'','William de Souza Gomes','Claudia Regina','Masculino','Branca','1970-01-01','Brasil','SÃ£o Paulo','Brasil','SÃ£o Paulo - SP','5877260','Rua LetÃ­cia','320','Casa','Jardim GuarujÃ¡',6950043,'William de Souza','368465371','SSP',6950043,'2017-11-13','15:43:07',4),(34,277003257480009,6950043,'','Dimitri Leandro','Ana Paula','Masculino','Branca','1998-08-10','Russia','Moscou','Brasil','SÃ£o Vicente - SP','11320140','Rua Pero Correa','113','94','ItararÃ©',6950043,'Dimitri Leandro','368485361','SSP',6950043,'2017-11-13','15:45:51',4),(35,264466531040004,6950043,'','Maria Rosario','Marianete de Souza','Feminino','Parda','0178-05-02','Brasil','SÃ£o Caetano','Brasil','Aracaju - SE','49044','Rua JoÃ£o Jones Sevidanes','354','Casa','Santa Maria',6950043,'Maria do Rosario','0','',6950043,'2017-11-13','15:48:04',4),(36,943476845820004,6950043,'','Mario Gomes','Judiana Carma','Masculino','Branca','1982-12-12','Eua','Nova Iorque','Brasil','MacapÃ¡ - AP','68903','Avenida Quinta da universidade','458','98','Universidade',6950043,'HElena ','0','',6950043,'2017-11-13','15:49:37',4),(37,280419906490001,6950043,'','Janaina Jesus','Cida ConceiÃ§Ã£o','Feminino','Preta','1970-01-01','Brasil','SÃ£o Paulo','Brasil','JoÃ£o Pessoa - PB','58020','Parque Arruda CÃ¢mara','4587','casa','Roger',6950043,'Janaina Jesus','0','',6950043,'2017-11-13','15:51:31',4),(38,868194911330006,6950043,'','Herculana Amorim','Afrodite Noma ','Masculino','Branca','1925-02-05','Brasil','Santo Andre','Brasil','Sinop - MT','78552','Avenida das ItaÃºbas','124','Casa','Jardim das Palmeiras',6950043,'Herculana','0','',6950043,'2017-11-13','15:56:53',4),(39,0,6950043,'incapacitados','Eduardo Nogueira','Roselinda Maria','Masculino','Preta','1970-01-01','Brasil','SÃ£o Paulo','Brasil','Pato Branco - PR','85502','Rua ErcÃ­lia Corona','4450','B 23','Menino Deus',6950043,'Eduardo Nogueira','234569084','ssp',6950043,'2017-11-13','17:12:33',4),(58,0,6950043,'incapacitados','Jeremias Silva','Josefa Augusta','Masculino','Preta','2010-10-09','Brasil','AraÃ§atuba','Brasil','SÃ£o Vicente - SP','11340150','Rua Nicolino Simone','334','','Parque SÃ£o Vicente',6950043,'Jeremias Silva','345678912','ssp',6950043,'2017-11-18','04:29:52',4),(59,0,6950043,'incapacitados','Ozzy Osbourne','Roselinda Osbourne ','Masculino','Branca','1953-08-09','Inglaterra','Manchester','Brasil','Feira de Santana - BA','44065','Rua Boa Ãgua','9001','Camp 1A','ConceiÃ§Ã£o',6950043,'Ozzy Osbourne','334501234','ssp',6950043,'2017-11-20','19:16:54',4);
 /*!40000 ALTER TABLE `tb_paciente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -414,6 +508,7 @@ CREATE TABLE `tb_triagem` (
   `cd_triagem` int(11) NOT NULL AUTO_INCREMENT,
   `cd_paciente` int(11) NOT NULL,
   `cd_cnes` int(11) NOT NULL,
+  `ic_finalizada` tinyint(1) DEFAULT '0',
   `ds_queixa` varchar(100) NOT NULL,
   `dt_triagem` date NOT NULL,
   `hr_triagem` time NOT NULL,
@@ -436,7 +531,7 @@ CREATE TABLE `tb_triagem` (
   PRIMARY KEY (`cd_triagem`),
   KEY `fk_triagem_paciente` (`cd_paciente`),
   CONSTRAINT `fk_triagem_paciente` FOREIGN KEY (`cd_paciente`) REFERENCES `tb_paciente` (`cd_paciente`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -445,9 +540,30 @@ CREATE TABLE `tb_triagem` (
 
 LOCK TABLES `tb_triagem` WRITE;
 /*!40000 ALTER TABLE `tb_triagem` DISABLE KEYS */;
-INSERT INTO `tb_triagem` VALUES (13,12,1234567,'Dor de Dente','2017-10-23','00:54:53',0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,1,'desconhece','','',0,'Nenhuma','Nenhuma',2),(14,12,1234567,'Dor de Dente','2017-10-23','00:55:40',10.80,12.80,80.00,36.00,30.00,3.00,3.00,9,1,'sim','Dipirona','',0,'Nenhuma','Nenhuma',234),(15,12,1234567,'Dor de Dente','2017-10-23','00:56:47',0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,1,'desconhece','','',0,'Nenhuma','Nenhuma',23),(16,13,1234567,'Febre','2017-10-23','22:50:30',14.50,18.90,140.00,38.00,40.00,30.00,5.00,13,3,'desconhece','','Paciente com pressÃ£o muito alta',2,'Nenhuma','asma',151),(17,17,1234567,'Dor de Cabeca','2017-11-12','14:29:00',12.80,13.10,89.00,37.00,50.00,30.00,400.00,14,4,'desconhece','','O paciente se queixa de dores muscalares alÃ©m da dor de cabeÃ§a',1,'Nenhuma','asma',12345),(18,29,1234567,'ConvulÃ§Ãµes','2017-11-13','02:02:04',15.90,17.80,110.00,38.00,55.00,40.00,400.00,15,4,'sim','Dipirona','Paciente aparenta ter tido overdose',3,'Nenhuma','onco',12345),(19,20,1234567,'Enjoo','2017-11-13','02:10:09',0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,1,'desconhece','','',0,'Nenhuma','Nenhuma',12345),(20,59,1234567,'Falta de Ar','2017-11-20','19:21:01',17.80,18.10,140.00,37.00,35.00,40.00,80.00,11,2,'nao','','',2,'Nenhuma','onco',12345);
+INSERT INTO `tb_triagem` VALUES (13,12,6950043,1,'Dor de Dente','2017-10-23','00:54:53',0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,1,'desconhece','','',0,'Nenhuma','Nenhuma',2),(14,12,6950043,1,'Dor de Dente','2017-10-23','00:55:40',10.80,12.80,80.00,36.00,30.00,3.00,3.00,9,1,'sim','Dipirona','',0,'Nenhuma','Nenhuma',234),(15,12,6950043,1,'Dor de Dente','2017-10-23','00:56:47',0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,1,'desconhece','','',0,'Nenhuma','Nenhuma',23),(16,13,6950043,0,'Febre','2017-10-23','22:50:30',14.50,18.90,140.00,38.00,40.00,30.00,5.00,13,3,'desconhece','','Paciente com pressÃ£o muito alta',2,'Nenhuma','asma',151),(17,17,6950043,0,'Dor de Cabeca','2017-11-12','14:29:00',12.80,13.10,89.00,37.00,50.00,30.00,400.00,14,4,'desconhece','','O paciente se queixa de dores muscalares alÃ©m da dor de cabeÃ§a',1,'Nenhuma','asma',12345),(18,29,6950043,0,'ConvulÃ§Ãµes','2017-11-13','02:02:04',15.90,17.80,110.00,38.00,55.00,40.00,400.00,15,4,'sim','Dipirona','Paciente aparenta ter tido overdose',3,'Nenhuma','onco',12345),(19,20,6950043,0,'Enjoo','2017-11-13','02:10:09',0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,1,'desconhece','','',0,'Nenhuma','Nenhuma',12345),(20,59,6950043,0,'Falta de Ar','2017-11-20','19:21:01',17.80,18.10,140.00,37.00,35.00,40.00,80.00,11,2,'nao','','',2,'Nenhuma','onco',12345),(23,23,6950043,0,'Dor de Dente','2017-12-03','00:47:32',12.80,12.90,90.00,37.00,30.00,40.00,400.00,15,2,'nao','','',0,'Nenhuma','Nenhuma',12345),(24,23,6950043,0,'Dor de Dente','2017-12-03','00:51:37',12.60,12.90,90.00,37.00,30.00,40.00,400.00,15,1,'desconhece','','',1,'Nenhuma','Nenhuma',12345);
 /*!40000 ALTER TABLE `tb_triagem` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER tr_finalizar_espera AFTER INSERT ON tb_triagem
+FOR EACH ROW
+BEGIN
+	DECLARE codigo_paciente INT;
+	SET codigo_paciente = new.cd_paciente;
+	UPDATE tb_paciente SET ic_ubs_espera = 0 WHERE cd_paciente = codigo_paciente; 
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `user_permission_matches`
@@ -461,7 +577,7 @@ CREATE TABLE `user_permission_matches` (
   `user_id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -470,7 +586,7 @@ CREATE TABLE `user_permission_matches` (
 
 LOCK TABLES `user_permission_matches` WRITE;
 /*!40000 ALTER TABLE `user_permission_matches` DISABLE KEYS */;
-INSERT INTO `user_permission_matches` VALUES (100,1,1),(101,1,2),(102,2,1),(103,3,1),(105,4,1),(108,3,6),(109,4,5);
+INSERT INTO `user_permission_matches` VALUES (100,1,1),(101,1,2),(102,2,1),(103,3,1),(105,4,1),(108,3,6),(109,4,5),(110,5,1);
 /*!40000 ALTER TABLE `user_permission_matches` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -523,7 +639,7 @@ CREATE TABLE `users` (
   `un_changed` int(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `EMAIL` (`email`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -532,7 +648,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'userspicephp@gmail.com','admin','$2y$12$1v06jm2KMOXuuo3qP7erTuTIJFOnzhpds1Moa8BadnUUeX0RV3ex.','Dan','Hoover',1,75,1,0,'UserSpice','','','','','','','','2016-01-01 00:00:00','2017-11-20 22:42:06',1,'322418','',0,'','','','','','','','','','','','0000-00-00 00:00:00','1899-11-30 00:00:00','',0),(2,'noreply@userspice.com','user','$2y$12$HZa0/d7evKvuHO8I3U8Ff.pOjJqsGTZqlX8qURratzP./EvWetbkK','Sample','User',1,5,1,0,'none','','','','','','','','2016-01-02 00:00:00','2017-02-20 12:14:10',1,'970748','',1,'','','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','',0),(3,'dimitri.leandro@gmail.com','Dimi','$2y$12$fn9VuFilW2DSZOHFsST6g.Z3gEtDnPHW1I.WPGca5Vi5KoZe5Ukxm','Dimitri','Leandro',1,5,1,0,'','','','','','','','','2017-10-22 22:06:19','2017-10-23 01:07:27',1,'111111','',1,'','','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','',0),(4,'suyama@gmail.com','Suyama','$2y$12$fgMRznlXOVATJ3jp2lLFEOuLkfHcexDxGFpBeHjqHDAIf8gt1mHDu','Ricardo','Suyama',1,3,1,0,'','','','','','','','','2017-10-22 22:06:44','2017-11-13 17:42:17',1,'111111','',1,'','','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','',0);
+INSERT INTO `users` VALUES (1,'userspicephp@gmail.com','admin','$2y$12$1v06jm2KMOXuuo3qP7erTuTIJFOnzhpds1Moa8BadnUUeX0RV3ex.','Dan','Hoover',1,82,1,0,'UserSpice','','','','','','','','2016-01-01 00:00:00','2017-12-03 00:46:29',1,'322418','',0,'','','','','','','','','','','','0000-00-00 00:00:00','1899-11-30 00:00:00','',0),(2,'noreply@userspice.com','user','$2y$12$HZa0/d7evKvuHO8I3U8Ff.pOjJqsGTZqlX8qURratzP./EvWetbkK','Sample','User',1,5,1,0,'none','','','','','','','','2016-01-02 00:00:00','2017-02-20 12:14:10',1,'970748','',1,'','','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','',0),(3,'dimitri.leandro@gmail.com','Dimi','$2y$12$fn9VuFilW2DSZOHFsST6g.Z3gEtDnPHW1I.WPGca5Vi5KoZe5Ukxm','Dimitri','Leandro',1,5,1,0,'','','','','','','','','2017-10-22 22:06:19','2017-10-23 01:07:27',1,'111111','',1,'','','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','',0),(4,'suyama@gmail.com','Suyama','$2y$12$fgMRznlXOVATJ3jp2lLFEOuLkfHcexDxGFpBeHjqHDAIf8gt1mHDu','Ricardo','Suyama',1,3,1,0,'','','','','','','','','2017-10-22 22:06:44','2017-11-13 17:42:17',1,'111111','',1,'','','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','',0),(5,'teste@teste.com','TeteUsername','$2y$12$25EQJw0ymOjc.rRzi/1EEeX/L2jl.UJDWe8Qe8EPXauWmwZgIOI.6','Teste','Username',1,0,1,0,'','','','','','','','','2017-11-22 00:43:53','0000-00-00 00:00:00',1,'944132','',1,'','','','','','','','','','','','0000-00-00 00:00:00','0000-00-00 00:00:00','',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -550,7 +666,7 @@ CREATE TABLE `users_online` (
   `user_id` int(10) NOT NULL,
   `session` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -559,7 +675,7 @@ CREATE TABLE `users_online` (
 
 LOCK TABLES `users_online` WRITE;
 /*!40000 ALTER TABLE `users_online` DISABLE KEYS */;
-INSERT INTO `users_online` VALUES (1,'::1','1511220126',1,''),(2,'::1','1510598472',4,'');
+INSERT INTO `users_online` VALUES (1,'::1','1512262297',1,'');
 /*!40000 ALTER TABLE `users_online` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -576,7 +692,7 @@ CREATE TABLE `users_session` (
   `hash` varchar(255) NOT NULL,
   `uagent` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -587,6 +703,45 @@ LOCK TABLES `users_session` WRITE;
 /*!40000 ALTER TABLE `users_session` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users_session` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `vw_espera`
+--
+
+DROP TABLE IF EXISTS `vw_espera`;
+/*!50001 DROP VIEW IF EXISTS `vw_espera`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `vw_espera` AS SELECT 
+ 1 AS `cd_paciente`,
+ 1 AS `ic_ubs_espera`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping events for database 'db_maua'
+--
+
+--
+-- Dumping routines for database 'db_maua'
+--
+
+--
+-- Final view structure for view `vw_espera`
+--
+
+/*!50001 DROP VIEW IF EXISTS `vw_espera`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_espera` AS select `tb_paciente`.`cd_paciente` AS `cd_paciente`,`tb_paciente`.`ic_ubs_espera` AS `ic_ubs_espera` from `tb_paciente` where (`tb_paciente`.`ic_ubs_espera` <> 0) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -597,4 +752,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-20 21:22:55
+-- Dump completed on 2017-12-02 22:56:06
