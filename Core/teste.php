@@ -5,7 +5,34 @@
 ?>
 
 <?php
-		$codigo_paciente = 32;
+	//TESTE PARA CHAMAR A STORED PROCEDURE sp_insert_diagnostico
+					require_once('php/model/conexao.Class.php');
+					$conexao = new Conexao();
+					$db_maua = $conexao -> conectar();
+
+					$cd_cnes = "6950043";
+					$ds_avaliacao = "Dor de dente muito forte devido a carie";
+					$cd_cid = "CID 14 - J15.9";
+					$ds_prescricao = "Encaminhamento ao dentista para obturação";
+					$ic_situacao = "Alta sem encaminhamento a UBS";
+					$cd_cns_profissional_diagnostico = "1";
+					$cd_triagem = "16";
+
+					if ($stmt = $db_maua->prepare("CALL sp_insert_diagnostico (?, ?, ?, ?, ?, ?, ?);"))
+					{
+						$stmt -> bind_param('issssii', $cd_cnes, $ds_avaliacao, $cd_cid, $ds_prescricao, $ic_situacao, $cd_cns_profissional_diagnostico, $cd_triagem);
+						$stmt->execute();
+						$stmt->bind_result($codigo_diagnostico);
+
+						while ($stmt->fetch()) 
+						{
+							echo $codigo_diagnostico."";
+						}
+					}
+?>
+
+<?php
+/*		$codigo_paciente = 32;
 		if(isset($codigo_paciente) && $codigo_paciente > 0)
 		{
 ?>
@@ -103,5 +130,5 @@
 	echo $paciente -> get_nm_pais_residencia(); */
 
 	//unset($triagem);
-	//unset($paciente);
+	//unset($paciente); 
 ?>
