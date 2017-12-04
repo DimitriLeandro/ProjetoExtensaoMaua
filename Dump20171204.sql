@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `db_maua` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `db_maua`;
--- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.19, for Linux (x86_64)
 --
 -- Host: localhost    Database: db_maua
 -- ------------------------------------------------------
--- Server version	5.7.20-0ubuntu0.16.04.1
+-- Server version	5.7.19-0ubuntu0.16.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -350,7 +350,7 @@ CREATE TABLE `tb_diagnostico` (
   PRIMARY KEY (`cd_diagnostico`),
   KEY `fk_diagnostico_triagem` (`cd_triagem`),
   CONSTRAINT `fk_diagnostico_triagem` FOREIGN KEY (`cd_triagem`) REFERENCES `tb_triagem` (`cd_triagem`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -359,43 +359,9 @@ CREATE TABLE `tb_diagnostico` (
 
 LOCK TABLES `tb_diagnostico` WRITE;
 /*!40000 ALTER TABLE `tb_diagnostico` DISABLE KEYS */;
-INSERT INTO `tb_diagnostico` VALUES (1,6950043,'Requiro exame de Raio X para melhor avaliação do paciente','CID 10 - J15.9','Tomar mel para tosse 3x ao dia','2017-12-02','19:53:50','Alta sem encaminhamento a UBS',1,13),(5,6950043,'Requiro exame de Raio X para melhor avaliação do paciente','CID 10 - J15.9','Tomar mel para tosse 3x ao dia','2017-12-02','21:00:26','Alta sem encaminhamento a UBS',1,14),(6,6950043,'Requiro exame de Raio X para melhor avaliação do paciente','CID 10 - J15.9','Tomar mel para tosse 3x ao dia','2017-12-02','21:00:37','Alta sem encaminhamento a UBS',1,15);
+INSERT INTO `tb_diagnostico` VALUES (9,6950043,'Dor de dente muito forte devido a carie','CID 14 - J15.9','Encaminhamento ao dentista para obturação','2017-12-04','11:06:32','Alta sem encaminhamento a UBS',1,23),(10,6950043,'Dor de dente muito forte devido a carie','CID 14 - J15.9','Encaminhamento ao dentista para obturação','2017-12-04','11:08:19','Alta sem encaminhamento a UBS',1,13),(11,6950043,'Dor de dente muito forte devido a carie','CID 14 - J15.9','Encaminhamento ao dentista para obturação','2017-12-04','11:08:48','Alta sem encaminhamento a UBS',1,14);
 /*!40000 ALTER TABLE `tb_diagnostico` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER tr_finalizar_triagem BEFORE INSERT ON tb_diagnostico
-FOR EACH ROW BEGIN
-	-- declarando as variaveis que serão necessárias
-    DECLARE codigo_triagem INT;
-    
-    -- pegando o código da triagem na qual esse diagnóstico se refere
-	SET codigo_triagem = new.cd_triagem;
-    
-    -- verificando se existe mais de um diagnostico para a mesma triagem
-	-- se houver, excluir todos exceto o primeiro
-    IF ((SELECT COUNT(cd_diagnostico) FROM tb_diagnostico WHERE cd_triagem = codigo_triagem) = 0) THEN
-		-- finalizando a triagem
-		UPDATE tb_triagem SET ic_finalizada = 1 WHERE cd_triagem = codigo_triagem;
-	ELSE
-		-- alterando os valores para o insert ter erro, essa é a unica maneira de fazer isso
-        -- pois nao é possivel usar insert/update/delete na mesma tabela em que a trigger está
-        -- ver mais: erro 1442
-        SET new.cd_cnes = 'abc';
-    END IF;
-END */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `tb_estabelecimento`
@@ -540,7 +506,7 @@ CREATE TABLE `tb_triagem` (
 
 LOCK TABLES `tb_triagem` WRITE;
 /*!40000 ALTER TABLE `tb_triagem` DISABLE KEYS */;
-INSERT INTO `tb_triagem` VALUES (13,12,6950043,1,'Dor de Dente','2017-10-23','00:54:53',0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,1,'desconhece','','',0,'Nenhuma','Nenhuma',2),(14,12,6950043,1,'Dor de Dente','2017-10-23','00:55:40',10.80,12.80,80.00,36.00,30.00,3.00,3.00,9,1,'sim','Dipirona','',0,'Nenhuma','Nenhuma',234),(15,12,6950043,1,'Dor de Dente','2017-10-23','00:56:47',0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,1,'desconhece','','',0,'Nenhuma','Nenhuma',23),(16,13,6950043,0,'Febre','2017-10-23','22:50:30',14.50,18.90,140.00,38.00,40.00,30.00,5.00,13,3,'desconhece','','Paciente com pressÃ£o muito alta',2,'Nenhuma','asma',151),(17,17,6950043,0,'Dor de Cabeca','2017-11-12','14:29:00',12.80,13.10,89.00,37.00,50.00,30.00,400.00,14,4,'desconhece','','O paciente se queixa de dores muscalares alÃ©m da dor de cabeÃ§a',1,'Nenhuma','asma',12345),(18,29,6950043,0,'ConvulÃ§Ãµes','2017-11-13','02:02:04',15.90,17.80,110.00,38.00,55.00,40.00,400.00,15,4,'sim','Dipirona','Paciente aparenta ter tido overdose',3,'Nenhuma','onco',12345),(19,20,6950043,0,'Enjoo','2017-11-13','02:10:09',0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,1,'desconhece','','',0,'Nenhuma','Nenhuma',12345),(20,59,6950043,0,'Falta de Ar','2017-11-20','19:21:01',17.80,18.10,140.00,37.00,35.00,40.00,80.00,11,2,'nao','','',2,'Nenhuma','onco',12345),(23,23,6950043,0,'Dor de Dente','2017-12-03','00:47:32',12.80,12.90,90.00,37.00,30.00,40.00,400.00,15,2,'nao','','',0,'Nenhuma','Nenhuma',12345),(24,23,6950043,0,'Dor de Dente','2017-12-03','00:51:37',12.60,12.90,90.00,37.00,30.00,40.00,400.00,15,1,'desconhece','','',1,'Nenhuma','Nenhuma',12345);
+INSERT INTO `tb_triagem` VALUES (13,12,6950043,1,'Dor de Dente','2017-10-23','00:54:53',0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,1,'desconhece','','',0,'Nenhuma','Nenhuma',2),(14,12,6950043,1,'Dor de Dente','2017-10-23','00:55:40',10.80,12.80,80.00,36.00,30.00,3.00,3.00,9,1,'sim','Dipirona','',0,'Nenhuma','Nenhuma',234),(15,12,6950043,0,'Dor de Dente','2017-10-23','00:56:47',0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,1,'desconhece','','',0,'Nenhuma','Nenhuma',23),(16,13,6950043,0,'Febre','2017-10-23','22:50:30',14.50,18.90,140.00,38.00,40.00,30.00,5.00,13,3,'desconhece','','Paciente com pressÃ£o muito alta',2,'Nenhuma','asma',151),(17,17,6950043,0,'Dor de Cabeca','2017-11-12','14:29:00',12.80,13.10,89.00,37.00,50.00,30.00,400.00,14,4,'desconhece','','O paciente se queixa de dores muscalares alÃ©m da dor de cabeÃ§a',1,'Nenhuma','asma',12345),(18,29,6950043,0,'ConvulÃ§Ãµes','2017-11-13','02:02:04',15.90,17.80,110.00,38.00,55.00,40.00,400.00,15,4,'sim','Dipirona','Paciente aparenta ter tido overdose',3,'Nenhuma','onco',12345),(19,20,6950043,0,'Enjoo','2017-11-13','02:10:09',0.00,0.00,0.00,0.00,0.00,0.00,0.00,0,1,'desconhece','','',0,'Nenhuma','Nenhuma',12345),(20,59,6950043,0,'Falta de Ar','2017-11-20','19:21:01',17.80,18.10,140.00,37.00,35.00,40.00,80.00,11,2,'nao','','',2,'Nenhuma','onco',12345),(23,23,6950043,1,'Dor de Dente','2017-12-03','00:47:32',12.80,12.90,90.00,37.00,30.00,40.00,400.00,15,2,'nao','','',0,'Nenhuma','Nenhuma',12345),(24,23,6950043,0,'Dor de Dente','2017-12-03','00:51:37',12.60,12.90,90.00,37.00,30.00,40.00,400.00,15,1,'desconhece','','',1,'Nenhuma','Nenhuma',12345);
 /*!40000 ALTER TABLE `tb_triagem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -724,6 +690,42 @@ SET character_set_client = @saved_cs_client;
 --
 -- Dumping routines for database 'db_maua'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `sp_insert_diagnostico` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_insert_diagnostico`(IN cnes INT, IN avaliacao TEXT, IN cid VARCHAR(30), IN prescricao TEXT, IN situacao VARCHAR(40), IN cns_medico INT(11), IN triagem INT(11))
+BEGIN 
+	-- USANDO UMA VARIAVEL PARA SABER A QUANTIDADE DE DIAGNOSTICOS QUE A TRIAGEM EM QUESTÃO TEM
+    DECLARE id INT;
+	DECLARE qtd INT;
+    SET qtd = (SELECT COUNT(cd_diagnostico) FROM tb_diagnostico WHERE cd_triagem = triagem);
+	-- SE FOR 0, OK, PODE FAZER O INSERT, SENÃO, ALGO DE ERRADO NÃO ESTÁ CERTO, POIS UMA TRIAGEM NÃO PODE TER MAIS DE UM DIAGNOSTICO
+    IF qtd = 0 THEN
+		INSERT IGNORE INTO tb_diagnostico (cd_cnes, ds_avaliacao, cd_cid, ds_prescricao, dt_diagnostico, hr_diagnostico, ic_situacao, cd_cns_profissional_diagnostico, cd_triagem) VALUES
+		(cnes, avaliacao, cid, prescricao, now(), now(), situacao, cns_medico, triagem);
+        SET id = LAST_INSERT_ID();
+	ELSE
+		SET id = 0;
+    END IF;
+    -- AGORA É NECESSÁRIO VERIFICAR SE HOUVE INSERT, CASO SIM, ENTÃO A TRIAGEM DEVE SER FINALIZADA.
+    IF id != 0 THEN
+		UPDATE tb_triagem SET ic_finalizada = 1 WHERE cd_triagem = triagem;
+    END IF;
+    -- FAZENDO O SELECT PARA SER O RETORNO DO PROCEDIMENTO
+    SELECT id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Final view structure for view `vw_espera`
@@ -752,4 +754,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-02 22:56:06
+-- Dump completed on 2017-12-04 11:09:38
