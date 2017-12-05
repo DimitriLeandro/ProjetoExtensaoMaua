@@ -5,7 +5,25 @@
 ?>
 
 <?php
-	//TESTE DE CADASTRAR DIAGNOSTICO COM A CLASSE DE DIAGNOSTICO
+	//TESTE DE SELECT NA CLASSE DIAGNOSTICO
+	require_once("php/model/diagnostico.Class.php");
+	$obj_diagnostico = new Diagnostico();
+
+	$obj_diagnostico -> selecionar_diagnostico('18');
+
+	echo "<br/>".$obj_diagnostico -> get_cd_diagnostico();
+	echo "<br/>".$obj_diagnostico -> get_cd_cnes();
+	echo "<br/>".$obj_diagnostico -> get_ds_avaliacao();
+	echo "<br/>".$obj_diagnostico -> get_cd_cid();
+	echo "<br/>".$obj_diagnostico -> get_ds_prescricao();
+	echo "<br/>".$obj_diagnostico -> get_dt_diagnostico();
+	echo "<br/>".$obj_diagnostico -> get_hr_diagnostico();
+	echo "<br/>".$obj_diagnostico -> get_ic_situacao();
+	echo "<br/>".$obj_diagnostico -> get_cd_cns_profissional_diagnostico();
+	echo "<br/>".$obj_diagnostico -> get_cd_triagem();
+
+
+	/*TESTE DE CADASTRAR DIAGNOSTICO COM A CLASSE DE DIAGNOSTICO
 	require_once("php/model/diagnostico.Class.php");
 	$obj_diagnostico = new Diagnostico();
 
@@ -13,9 +31,9 @@
 	$obj_diagnostico -> set_ds_avaliacao('Dores de cabeça devido a sinusite. Requiro Raio X da face para melhor avaliação.');
 	$obj_diagnostico -> set_cd_cid('CID 10 - J01.1');
 	$obj_diagnostico -> set_ds_prescricao('1 comprimido de Amoxicilina a cada 12h por 7 dias.');
-	/*	DATA E HORA NÃO SÃO NECESSÁRIAS PQ A PROCEDURE FAZ O INSERT COM O COMANDO NOW() DO MYSQL
-	$obj_diagnostico -> set_dt_diagnostico();
-	$obj_diagnostico -> set_hr_diagnostico();*/
+	//DATA E HORA NÃO SÃO NECESSÁRIAS PQ A PROCEDURE FAZ O INSERT COM O COMANDO NOW() DO MYSQL
+	//$obj_diagnostico -> set_dt_diagnostico();
+	//$obj_diagnostico -> set_hr_diagnostico();
 	$obj_diagnostico -> set_ic_situacao('Alta sem encaminhamento a UBS');
 	$obj_diagnostico -> set_cd_cns_profissional_diagnostico('1');
 	$obj_diagnostico -> set_cd_triagem('26');

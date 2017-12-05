@@ -56,6 +56,51 @@ class Diagnostico
 		return $ok;
 	}
 
+	public function selecionar_diagnostico($codigo_diagnostico)
+	{
+		require_once('conexao.Class.php');
+		$conexao = new Conexao();
+		$db_maua = $conexao -> conectar();
+
+		$txt_select = "SELECT *
+						FROM tb_diagnostico
+						WHERE cd_diagnostico = ?;";
+
+		if ($stmt = $db_maua->prepare($txt_select)) 
+		{
+			$stmt -> bind_param('i', $codigo_diagnostico);
+		    $stmt->execute();
+		    $stmt->bind_result(	$attr_01, 
+		    					$attr_02, 
+		    					$attr_03,
+		    					$attr_04,
+		    					$attr_05,
+		    					$attr_06,
+		    					$attr_07,
+		    					$attr_08,
+		    					$attr_09,
+		    					$attr_10);
+		    while ($stmt->fetch()) 
+		    {
+		    	$this -> set_cd_diagnostico($attr_01);
+		        $this -> set_cd_cnes($attr_02);
+				$this -> set_ds_avaliacao($attr_03);
+				$this -> set_cd_cid($attr_04);
+				$this -> set_ds_prescricao($attr_05);
+				$this -> set_dt_diagnostico($attr_06);
+				$this -> set_hr_diagnostico($attr_07);
+				$this -> set_ic_situacao($attr_08);
+				$this -> set_cd_cns_profissional_diagnostico($attr_09);
+				$this -> set_cd_triagem($attr_10);
+		    }
+
+		    $stmt->close();
+		}
+
+		$db_maua->close();
+		unset($conexão);
+	}
+
 	//------------------------------FUNÇÕES DE SET 
 	public function set_cd_diagnostico($aux)
 	{
