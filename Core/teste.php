@@ -5,6 +5,27 @@
 ?>
 
 <?php
+	//teste de update de pacientes
+	require_once('php/model/paciente.Class.php');
+	$paciente = new Paciente();
+
+	$paciente -> selecionar_paciente('14');
+
+	$paciente -> set_cd_cns_paciente('158830076810004');
+	$paciente -> set_ic_ubs_espera('0');
+	$paciente -> set_nm_paciente('Alexandre Ottoni');
+	$paciente -> set_nm_mae('Alessandra Ottoni');
+	$paciente -> set_dt_nascimento('1978-10-01');
+	$paciente -> set_ic_sexo('Masculino');
+	$paciente -> set_nm_municipio_nascimento('Curitiba');
+
+	$ok = $paciente -> atualizar_paciente();
+	echo $ok."";
+
+	unset($paciente);
+?>
+
+<?php /*
 	//TESTE PARA CHAMAR A STORED PROCEDURE sp_insert_diagnostico
 					require_once('php/model/conexao.Class.php');
 					$conexao = new Conexao();
@@ -16,7 +37,7 @@
 					$ds_prescricao = "Encaminhamento ao dentista para obturação";
 					$ic_situacao = "Alta sem encaminhamento a UBS";
 					$cd_cns_profissional_diagnostico = "1";
-					$cd_triagem = "16";
+					$cd_triagem = "13";
 
 					if ($stmt = $db_maua->prepare("CALL sp_insert_diagnostico (?, ?, ?, ?, ?, ?, ?);"))
 					{

@@ -4,6 +4,7 @@ class Triagem
 	private $cd_triagem = '';
 	private $cd_paciente = '';
 	private $cd_cnes = '';
+	private $ic_finalizada = '';
 	private $ds_queixa = '';
 	private $dt_triagem = '';
 	private $hr_triagem = '';
@@ -34,7 +35,8 @@ class Triagem
 
 		$txt_insert = 	"INSERT INTO  tb_triagem (
 							cd_paciente, 
-							cd_cnes, 
+							cd_cnes,
+							ic_finalizada,
 							ds_queixa, 
 							dt_triagem, 
 							hr_triagem, 
@@ -54,13 +56,14 @@ class Triagem
 							ds_linha_cuidado, 
 							ds_outras_condicoes, 
 							cd_cns_profissional_triagem) 
-						VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+						VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 		//preparando o statement para o insert
 		$stmt = $db_maua -> prepare($txt_insert);
-		$stmt -> bind_param("iisssdddddddiisssissi", 
+		$stmt -> bind_param("iiisssdddddddiisssissi", 
 								$this->cd_paciente, 
 								$this->cd_cnes, 
+								$this->ic_finalizada,
 								$this->ds_queixa, 
 								$this->dt_triagem, 
 								$this->hr_triagem, 
@@ -106,33 +109,11 @@ class Triagem
 
 	public function selecionar_triagem($codigo_triagem)
 	{
-		//esse método ainda não está completo, todos os atributos da tabela devem ser selecionados
 		require_once('conexao.Class.php');
 		$conexao = new Conexao();
 		$db_maua = $conexao -> conectar();
 
-		$txt_select = "SELECT 	cd_triagem,
-								cd_paciente,
-						        cd_cnes,
-						        ds_queixa,
-						        dt_triagem,
-						        hr_triagem,
-						        vl_pressao_min,
-						        vl_pressao_max,
-						        vl_pulso,
-						        vl_temperatura,
-						        vl_respiracao,
-						        vl_saturacao,
-						        vl_glicemia,
-						        vl_nivel_consciencia,
-						        vl_escala_dor,
-						        ic_alergia,
-						        ds_alergia,
-						        ds_observacao,
-						        vl_classificacao_risco,
-						        ds_linha_cuidado,
-						        ds_outras_condicoes,
-						        cd_cns_profissional_triagem
+		$txt_select = "SELECT *
 						FROM tb_triagem
 						WHERE cd_triagem = ?;";
 
@@ -140,15 +121,15 @@ class Triagem
 		{
 			$stmt -> bind_param('i', $codigo_triagem);
 		    $stmt->execute();
-		    $stmt->bind_result(	$attr_1, 
-		    					$attr_2, 
-		    					$attr_3,
-		    					$attr_4,
-		    					$attr_5,
-		    					$attr_6,
-		    					$attr_7,
-		    					$attr_8,
-		    					$attr_9,
+		    $stmt->bind_result(	$attr_01, 
+		    					$attr_02, 
+		    					$attr_03,
+		    					$attr_04,
+		    					$attr_05,
+		    					$attr_06,
+		    					$attr_07,
+		    					$attr_08,
+		    					$attr_09,
 		    					$attr_10,
 		    					$attr_11,
 		    					$attr_12,
@@ -161,31 +142,33 @@ class Triagem
 		    					$attr_19, 
 		    					$attr_20,
 		    					$attr_21,
-		    					$attr_22);
+		    					$attr_22,
+		    					$attr_23);
 		    while ($stmt->fetch()) 
 		    {
-		        $this -> set_cd_triagem($attr_1);
-				$this -> set_cd_paciente($attr_2); 
-				$this -> set_cd_cnes($attr_3);
-				$this -> set_ds_queixa($attr_4);
-				$this -> set_dt_triagem($attr_5);
-				$this -> set_hr_triagem($attr_6);
-				$this -> set_vl_pressao_min($attr_7);
-				$this -> set_vl_pressao_max($attr_8);
-				$this -> set_vl_pulso($attr_9);
-				$this -> set_vl_temperatura($attr_10);
-				$this -> set_vl_respiracao($attr_11);
-				$this -> set_vl_saturacao($attr_12);
-				$this -> set_vl_glicemia($attr_13);
-				$this -> set_vl_nivel_consciencia($attr_14);
-				$this -> set_vl_escala_dor($attr_15);
-				$this -> set_ic_alergia($attr_16);
-				$this -> set_ds_alergia($attr_17);
-				$this -> set_ds_observacao($attr_18);
-				$this -> set_vl_classificacao_risco($attr_19); 
-				$this -> set_ds_linha_cuidado($attr_20);
-				$this -> set_ds_outras_condicoes($attr_21);
-				$this -> set_cd_cns_profissional_triagem($attr_22);
+		        $this -> set_cd_triagem($attr_01);
+				$this -> set_cd_paciente($attr_02); 
+				$this -> set_cd_cnes($attr_03);
+				$this -> set_ic_finalizada($attr_04);
+				$this -> set_ds_queixa($attr_05);
+				$this -> set_dt_triagem($attr_06);
+				$this -> set_hr_triagem($attr_07);
+				$this -> set_vl_pressao_min($attr_08);
+				$this -> set_vl_pressao_max($attr_09);
+				$this -> set_vl_pulso($attr_10);
+				$this -> set_vl_temperatura($attr_11);
+				$this -> set_vl_respiracao($attr_12);
+				$this -> set_vl_saturacao($attr_13);
+				$this -> set_vl_glicemia($attr_14);
+				$this -> set_vl_nivel_consciencia($attr_15);
+				$this -> set_vl_escala_dor($attr_16);
+				$this -> set_ic_alergia($attr_17);
+				$this -> set_ds_alergia($attr_18);
+				$this -> set_ds_observacao($attr_19);
+				$this -> set_vl_classificacao_risco($attr_20); 
+				$this -> set_ds_linha_cuidado($attr_21);
+				$this -> set_ds_outras_condicoes($attr_22);
+				$this -> set_cd_cns_profissional_triagem($attr_23);
 		    }
 
 		    $stmt->close();
@@ -208,6 +191,10 @@ class Triagem
 	public function set_cd_cnes($aux)
 	{
 		$this->cd_cnes = $aux;
+	} 
+	public function set_ic_finalizada($aux)
+	{
+		$this->ic_finalizada = $aux;
 	} 
 	public function set_ds_queixa($aux)
 	{
@@ -298,6 +285,10 @@ class Triagem
 	public function get_cd_cnes()
 	{
 		return $this->cd_cnes;
+	} 
+	public function get_ic_finalizada()
+	{
+		return $this->ic_finalizada;
 	} 
 	public function get_ds_queixa()
 	{

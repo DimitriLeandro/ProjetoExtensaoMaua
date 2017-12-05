@@ -68,7 +68,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 			$conexao = new Conexao();
 			$db_maua = $conexao -> conectar();
 
-	  		$select = "SELECT nm_paciente FROM tb_paciente WHERE cd_paciente > ?;";
+	  		$select = "SELECT nm_paciente FROM tb_paciente WHERE cd_paciente > ? ORDER BY nm_paciente;";
 			if ($stmt = $db_maua->prepare($select))
 			{
 				$zero = 0; 
@@ -88,9 +88,13 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 					}
 				?>
 		    ],
-		    select: function(){
-         		$("#btn_pesquisar").click();
-    		}
+		    select: function(event, ui) {
+		        if(ui.item)
+		        {
+		            $('#nm_paciente').val(ui.item.value);
+		        }
+		        $("#btn_pesquisar").click();
+		    }
 		});
 	</script>
   	<script>

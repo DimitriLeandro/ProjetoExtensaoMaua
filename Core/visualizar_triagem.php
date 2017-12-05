@@ -57,6 +57,18 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
     <form method="post" class="form-style">
         <h1>Dados da Triagem</h1>
         <fieldset style="border: solid 1px; padding: 15px;">
+           <p>
+            <?php if($triagem -> get_ic_finalizada() == 1)
+                  {
+                    echo "Um diagnóstico para essa triagem já foi realizado.";
+                  }
+                  else
+                  {
+                    echo "Essa triagem ainda não foi finalizada. É necesário que um médico realize diagnóstico específico.";
+                  }
+            ?> 
+          </p>
+          <p>UBS: <?php echo $triagem -> get_cd_cnes(); ?> </p>
           <p>Queixa: <?php echo $triagem -> get_ds_queixa(); ?> </p>
           <p>Data: <?php echo $triagem -> get_dt_triagem(); ?> </p>
           <p>Hora: <?php echo $triagem -> get_hr_triagem(); ?> </p>

@@ -14,7 +14,7 @@
 		//esse IF escrever´a o SELECT de acordo com o campo preenchido e iniciar o statement
 		if(isset($_GET['nm_paciente']) && $_GET['nm_paciente'] != "")
 		{
-			$select = "SELECT cd_paciente FROM tb_paciente WHERE nm_paciente LIKE ?;";
+			$select = "SELECT cd_paciente FROM tb_paciente WHERE nm_paciente LIKE ? ORDER BY nm_paciente;";
 			if ($stmt = $db_maua->prepare($select))
 			{
 				$nome_inserido = "%".$_GET['nm_paciente']."%";

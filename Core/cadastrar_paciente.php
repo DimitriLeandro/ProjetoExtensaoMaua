@@ -25,6 +25,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		$paciente = new Paciente();
 
 		$paciente -> set_cd_cns_paciente(''.$_POST['cd_cns_paciente']);  
+		$paciente -> set_ic_ubs_espera('6950043');
 		$paciente -> set_nm_justificativa(''.$_POST['nm_justificativa']);      
 		$paciente -> set_nm_paciente(''.$_POST['nm_paciente']);     
 		$paciente -> set_nm_mae(''.$_POST['nm_mae']);      

@@ -56,6 +56,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
             //setando as informações 
             $triagem -> set_cd_paciente($_GET['cd_paciente']);
             $triagem -> set_cd_cnes('6950043');
+            $triagem -> set_ic_finalizada('0');
             $triagem -> set_ds_queixa($_POST['ds_queixa']);
             $triagem -> set_dt_triagem(date("Y-m-d"));
             $triagem -> set_hr_triagem(date("H:i:s"));
