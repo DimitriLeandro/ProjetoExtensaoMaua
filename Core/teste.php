@@ -5,6 +5,29 @@
 ?>
 
 <?php
+	//TESTE DE CADASTRAR DIAGNOSTICO COM A CLASSE DE DIAGNOSTICO
+	require_once("php/model/diagnostico.Class.php");
+	$obj_diagnostico = new Diagnostico();
+
+	$obj_diagnostico -> set_cd_cnes('6950043');
+	$obj_diagnostico -> set_ds_avaliacao('Dores de cabeça devido a sinusite. Requiro Raio X da face para melhor avaliação.');
+	$obj_diagnostico -> set_cd_cid('CID 10 - J01.1');
+	$obj_diagnostico -> set_ds_prescricao('1 comprimido de Amoxicilina a cada 12h por 7 dias.');
+	/*	DATA E HORA NÃO SÃO NECESSÁRIAS PQ A PROCEDURE FAZ O INSERT COM O COMANDO NOW() DO MYSQL
+	$obj_diagnostico -> set_dt_diagnostico();
+	$obj_diagnostico -> set_hr_diagnostico();*/
+	$obj_diagnostico -> set_ic_situacao('Alta sem encaminhamento a UBS');
+	$obj_diagnostico -> set_cd_cns_profissional_diagnostico('1');
+	$obj_diagnostico -> set_cd_triagem('26');
+
+	$ok = $obj_diagnostico -> cadastrar_diagnostico();
+	echo $ok;
+
+	unset($obj_diagnostico);
+/*	
+?>
+
+<?php
 	//teste de update de pacientes
 	require_once('php/model/paciente.Class.php');
 	$paciente = new Paciente();
