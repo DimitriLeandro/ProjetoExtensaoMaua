@@ -88,10 +88,15 @@ class Triagem
 		if($stmt -> execute())
 		{
 			//verificando se o statement deu certo
-			$ok = 1;
 			if($stmt -> affected_rows == 0)
 			{
 				$ok = 0;
+			}
+			else
+			{
+				$ok = 1;
+				//atribuindo o id da triagem no atributo da classe
+				$this -> cd_triagem = $stmt -> insert_id;
 			}
 		}
 		else
