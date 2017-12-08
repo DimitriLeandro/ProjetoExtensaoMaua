@@ -45,11 +45,9 @@
 				//enquanto houverem pacientes, o objeto da classe Paciente chama a funç~ao de pesquisar paciente, dessa forma, ´e possivel obter os dados de cada paciente conforme o while vai rodando
 				//a variavel $var_endereço ´e necess´aria para mandar o m´etodo GET para a p´agina de triagem
 				$paciente -> selecionar_paciente($codigo_paciente);
-				$redirect_nova_triagem = "cadastrar_triagem.php?cd_paciente=".$codigo_paciente;
 				$redirect_visualizar_triagens = "pesquisar_triagem.php?cd_paciente=".$codigo_paciente;
 				?>
 					<fieldset style="border: solid 1px; padding: 15px;">
-						<iframe id="frame_etiqueta_<?php echo $codigo_paciente; ?>" name="frame_etiqueta_<?php echo $codigo_paciente; ?>" src="php/gerar_etiqueta.php?cd_paciente=<?php echo $codigo_paciente; ?>" hidden></iframe>
 						<p>
 							<label class="margem">Nome: <?php echo $paciente -> get_nm_paciente(); ?></label>
 							<label class="margem">CNS: <?php echo $paciente -> get_cd_cns_paciente(); ?></label>
@@ -60,8 +58,7 @@
 							<label class="margem">Cidade: <?php echo $paciente -> get_nm_municipio_residencia(); ?></label>
 						</p>
 						<p align="right">
-							<button type="button" class="botao" onclick="imprimir('frame_etiqueta_<?php echo $codigo_paciente; ?>')">Gerar Etiqueta</button>
-							<button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_nova_triagem; ?>';">Nova Triagem</button>
+							<button type="button" class="botao" onclick="imprimir('<?php echo $codigo_paciente; ?>')">Gerar Etiqueta</button>
 							<button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_visualizar_triagens; ?>';">Triagens do Paciente</button>
 						</p>
 					</fieldset><br />
