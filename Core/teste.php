@@ -5,7 +5,96 @@
 ?>
 
 <?php
-		$codigo_paciente = 32;
+	//TESTE DE SELECT NA CLASSE DIAGNOSTICO
+	require_once("php/model/diagnostico.Class.php");
+	$obj_diagnostico = new Diagnostico();
+
+	$obj_diagnostico -> selecionar_diagnostico('18');
+
+	echo "<br/>".$obj_diagnostico -> get_cd_diagnostico();
+	echo "<br/>".$obj_diagnostico -> get_cd_cnes();
+	echo "<br/>".$obj_diagnostico -> get_ds_avaliacao();
+	echo "<br/>".$obj_diagnostico -> get_cd_cid();
+	echo "<br/>".$obj_diagnostico -> get_ds_prescricao();
+	echo "<br/>".$obj_diagnostico -> get_dt_diagnostico();
+	echo "<br/>".$obj_diagnostico -> get_hr_diagnostico();
+	echo "<br/>".$obj_diagnostico -> get_ic_situacao();
+	echo "<br/>".$obj_diagnostico -> get_cd_cns_profissional_diagnostico();
+	echo "<br/>".$obj_diagnostico -> get_cd_triagem();
+
+
+	/*TESTE DE CADASTRAR DIAGNOSTICO COM A CLASSE DE DIAGNOSTICO
+	require_once("php/model/diagnostico.Class.php");
+	$obj_diagnostico = new Diagnostico();
+
+	$obj_diagnostico -> set_cd_cnes('6950043');
+	$obj_diagnostico -> set_ds_avaliacao('Dores de cabeça devido a sinusite. Requiro Raio X da face para melhor avaliação.');
+	$obj_diagnostico -> set_cd_cid('CID 10 - J01.1');
+	$obj_diagnostico -> set_ds_prescricao('1 comprimido de Amoxicilina a cada 12h por 7 dias.');
+	//DATA E HORA NÃO SÃO NECESSÁRIAS PQ A PROCEDURE FAZ O INSERT COM O COMANDO NOW() DO MYSQL
+	//$obj_diagnostico -> set_dt_diagnostico();
+	//$obj_diagnostico -> set_hr_diagnostico();
+	$obj_diagnostico -> set_ic_situacao('Alta sem encaminhamento a UBS');
+	$obj_diagnostico -> set_cd_cns_profissional_diagnostico('1');
+	$obj_diagnostico -> set_cd_triagem('26');
+
+	$ok = $obj_diagnostico -> cadastrar_diagnostico();
+	echo $ok;
+
+	unset($obj_diagnostico);
+/*	
+?>
+
+<?php
+	//teste de update de pacientes
+	require_once('php/model/paciente.Class.php');
+	$paciente = new Paciente();
+
+	$paciente -> selecionar_paciente('14');
+
+	$paciente -> set_cd_cns_paciente('158830076810004');
+	$paciente -> set_ic_ubs_espera('0');
+	$paciente -> set_nm_paciente('Alexandre Ottoni');
+	$paciente -> set_nm_mae('Alessandra Ottoni');
+	$paciente -> set_dt_nascimento('1978-10-01');
+	$paciente -> set_ic_sexo('Masculino');
+	$paciente -> set_nm_municipio_nascimento('Curitiba');
+
+	$ok = $paciente -> atualizar_paciente();
+	echo $ok."";
+
+	unset($paciente);
+?>
+
+<?php /*
+	//TESTE PARA CHAMAR A STORED PROCEDURE sp_insert_diagnostico
+					require_once('php/model/conexao.Class.php');
+					$conexao = new Conexao();
+					$db_maua = $conexao -> conectar();
+
+					$cd_cnes = "6950043";
+					$ds_avaliacao = "Dor de dente muito forte devido a carie";
+					$cd_cid = "CID 14 - J15.9";
+					$ds_prescricao = "Encaminhamento ao dentista para obturação";
+					$ic_situacao = "Alta sem encaminhamento a UBS";
+					$cd_cns_profissional_diagnostico = "1";
+					$cd_triagem = "13";
+
+					if ($stmt = $db_maua->prepare("CALL sp_insert_diagnostico (?, ?, ?, ?, ?, ?, ?);"))
+					{
+						$stmt -> bind_param('issssii', $cd_cnes, $ds_avaliacao, $cd_cid, $ds_prescricao, $ic_situacao, $cd_cns_profissional_diagnostico, $cd_triagem);
+						$stmt->execute();
+						$stmt->bind_result($codigo_diagnostico);
+
+						while ($stmt->fetch()) 
+						{
+							echo $codigo_diagnostico."";
+						}
+					}
+?>
+
+<?php
+/*		$codigo_paciente = 32;
 		if(isset($codigo_paciente) && $codigo_paciente > 0)
 		{
 ?>
@@ -103,5 +192,5 @@
 	echo $paciente -> get_nm_pais_residencia(); */
 
 	//unset($triagem);
-	//unset($paciente);
+	//unset($paciente); 
 ?>

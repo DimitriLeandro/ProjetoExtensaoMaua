@@ -26,8 +26,10 @@ require_once $abs_us_root.$us_url_root.'users/includes/header.php';
 					<p class="text-muted"> <?php //print_r($_SESSION);?></p>
 					<p>
 						<?php if($user->isLoggedIn()){$uid = $user->data()->id;?>
-						<a href="pesquisar_paciente.php"><button type="button">Pesquisar paciente</button><a/>
-						<a href="cadastrar_paciente.php"><button type="button">Cadastro</button><a/>
+						<a href="pesquisar_paciente.php"><button type="button">Pesquisar Paciente</button><a/>
+						<a href="cadastrar_paciente.php"><button type="button">Cadastrar Paciente</button><a/>
+						<a href="pesquisar_triagem.php"><button type="button">Visualizar Triagens</button><a/>
+						<a href="visualizar_espera.php"><button type="button">Lista de Espera</button><a/>
 
 						<?php }else{?>
 					<a href="users/login.php"><button type="button">Log In</button><a/>

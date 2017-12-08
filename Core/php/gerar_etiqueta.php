@@ -15,6 +15,13 @@
             unset($paciente);
             header("location: ../");
         }
+        else 
+        { 
+            //Se uma etiqueta está sendo impressa, então algum paciente está esperando pela triagem,
+            //Então é necessário fazer update no campo ic_ubs_espera colocando o id da UBS em que o paciente está
+            $paciente -> set_ic_ubs_espera("6950043");
+            $paciente -> atualizar_paciente();
+        }
     }
     else
     {

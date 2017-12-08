@@ -3,6 +3,7 @@ class Paciente
 {
 	private $cd_paciente = '';
 	private $cd_cns_paciente = '';
+	private $ic_ubs_espera = '';
 	private $nm_justificativa = '';
 	private $nm_paciente = '';
 	private $nm_mae = '';
@@ -37,7 +38,8 @@ class Paciente
 		$db_maua = $conexao -> conectar();
 
 		$txt_insert = 	"INSERT INTO tb_paciente (
-							cd_cns_paciente, 
+							cd_cns_paciente,
+							ic_ubs_espera,
 							nm_justificativa, 
 							nm_paciente, 
 							nm_mae, 
@@ -61,12 +63,13 @@ class Paciente
 							dt_adesao, 
 							hr_adesao, 
 							cd_profissional_registro) 
-						VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+						VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 		//preparando o statement para o insert
 		$stmt = $db_maua -> prepare($txt_insert);
-		$stmt -> bind_param("issssssssssissssisisissi", 
+		$stmt -> bind_param("iissssssssssissssisisissi", 
 								$this -> cd_cns_paciente, 
+								$this -> ic_ubs_espera,
 								$this -> nm_justificativa, 
 								$this -> nm_paciente, 
 								$this -> nm_mae, 
@@ -126,31 +129,7 @@ class Paciente
 		$db_maua = $conexao -> conectar();
 
 		//escrevendo o comando select
-		$select = "	SELECT 	cd_paciente,
-							cd_cns_paciente, 
-							nm_justificativa, 
-							nm_paciente, 
-							nm_mae, 
-							ic_sexo, 
-							ic_raca, 
-							dt_nascimento, 
-							nm_pais_nascimento,
-							nm_municipio_nascimento, 
-							nm_pais_residencia, 
-							nm_municipio_residencia, 
-							cd_cep, 
-							nm_logradouro, 
-							nm_numero_residencia, 
-							nm_complemento, 
-							nm_bairro, 
-							cd_ubs_referencia, 
-							nm_responsavel, 
-							cd_documento_responsavel, 
-							nm_orgao_emissor, 
-							cd_cnes, 
-							dt_adesao, 
-							hr_adesao, 
-							cd_profissional_registro
+		$select = "	SELECT *
 				   	FROM tb_paciente 
 				   	WHERE cd_paciente = ?";
 
@@ -159,15 +138,15 @@ class Paciente
 		{
 			$stmt->bind_param('i', $codigo_paciente);
 		    $stmt->execute();
-		    $stmt->bind_result(	$attr_1, 
-		    					$attr_2,
-								$attr_3,
-								$attr_4,
-								$attr_5,
-								$attr_6,
-								$attr_7,
-								$attr_8,
-								$attr_9,
+		    $stmt->bind_result(	$attr_01, 
+		    					$attr_02,
+								$attr_03,
+								$attr_04,
+								$attr_05,
+								$attr_06,
+								$attr_07,
+								$attr_08,
+								$attr_09,
 								$attr_10,
 								$attr_11,
 								$attr_12,
@@ -183,41 +162,140 @@ class Paciente
 								$attr_22,
 								$attr_23,
 								$attr_24,
-								$attr_25);
+								$attr_25,
+								$attr_26);
 		    //setando os atributos da classe
 		    while ($stmt->fetch()) 
 		    {
-		        $this->set_cd_paciente($attr_1);
-				$this->set_cd_cns_paciente($attr_2);
-				$this->set_nm_justificativa($attr_3);
-				$this->set_nm_paciente($attr_4);
-				$this->set_nm_mae($attr_5);
-				$this->set_ic_sexo($attr_6);
-				$this->set_ic_raca($attr_7);
-				$this->set_dt_nascimento($attr_8);
-				$this->set_nm_pais_nascimento($attr_9);
-				$this->set_nm_municipio_nascimento($attr_10);
-				$this->set_nm_pais_residencia($attr_11);
-				$this->set_nm_municipio_residencia($attr_12);
-				$this->set_cd_cep($attr_13);
-				$this->set_nm_logradouro($attr_14);
-				$this->set_nm_numero_residencia($attr_15);
-				$this->set_nm_complemento($attr_16);
-				$this->set_nm_bairro($attr_17);
-				$this->set_cd_ubs_referencia($attr_18);
-				$this->set_nm_responsavel($attr_19);
-				$this->set_cd_documento_responsavel($attr_20);
-				$this->set_nm_orgao_emissor($attr_21);
-				$this->set_cd_cnes($attr_22);
-				$this->set_dt_adesao($attr_23);
-				$this->set_hr_adesao($attr_24);
-				$this->set_cd_profissional_registro($attr_25);
+		        $this->set_cd_paciente($attr_01);
+				$this->set_cd_cns_paciente($attr_02);
+				$this->set_ic_ubs_espera($attr_03);
+				$this->set_nm_justificativa($attr_04);
+				$this->set_nm_paciente($attr_05);
+				$this->set_nm_mae($attr_06);
+				$this->set_ic_sexo($attr_07);
+				$this->set_ic_raca($attr_08);
+				$this->set_dt_nascimento($attr_09);
+				$this->set_nm_pais_nascimento($attr_10);
+				$this->set_nm_municipio_nascimento($attr_11);
+				$this->set_nm_pais_residencia($attr_12);
+				$this->set_nm_municipio_residencia($attr_13);
+				$this->set_cd_cep($attr_14);
+				$this->set_nm_logradouro($attr_15);
+				$this->set_nm_numero_residencia($attr_16);
+				$this->set_nm_complemento($attr_17);
+				$this->set_nm_bairro($attr_18);
+				$this->set_cd_ubs_referencia($attr_19);
+				$this->set_nm_responsavel($attr_20);
+				$this->set_cd_documento_responsavel($attr_21);
+				$this->set_nm_orgao_emissor($attr_22);
+				$this->set_cd_cnes($attr_23);
+				$this->set_dt_adesao($attr_24);
+				$this->set_hr_adesao($attr_25);
+				$this->set_cd_profissional_registro($attr_26);
 		    }
 		}
 
 		$stmt->close();
 		$db_maua->close();
 		unset($conexão);
+	}
+
+	public function atualizar_paciente()
+	{
+		//para fazer o update, primeiro é necessário selecionar_paciente(), depois, mudar os campos que você quer atualizar com os métodos de set "set_nm_paciente('Exemplo');" e só depois atualizar_paciente(), pois essa função faz update em TODOS os campos.
+		//criando uma conexão com o banco
+
+		if($this -> cd_paciente != 0 && $this -> cd_paciente != '')
+		{
+			require_once('conexao.Class.php');
+
+			$conexao = new Conexao();
+			$db_maua = $conexao -> conectar();
+
+			$txt_update = 	"UPDATE tb_paciente SET 
+								cd_cns_paciente = ?,
+								ic_ubs_espera = ?,
+								nm_justificativa = ?, 
+								nm_paciente = ?, 
+								nm_mae = ?, 
+								ic_sexo = ?, 
+								ic_raca = ?, 
+								dt_nascimento = ?, 
+								nm_pais_nascimento = ?, 
+								nm_municipio_nascimento = ?, 
+								nm_pais_residencia = ?, 
+								nm_municipio_residencia = ?, 
+								cd_cep = ?, 
+								nm_logradouro = ?, 
+								nm_numero_residencia = ?, 
+								nm_complemento = ?, 
+								nm_bairro = ?, 
+								cd_ubs_referencia = ?, 
+								nm_responsavel = ?, 
+								cd_documento_responsavel = ?, 
+								nm_orgao_emissor = ?, 
+								cd_cnes = ?, 
+								dt_adesao = ?, 
+								hr_adesao = ?, 
+								cd_profissional_registro = ?
+							WHERE cd_paciente = ?;";
+
+			$stmt = $db_maua -> prepare($txt_update);
+			$stmt -> bind_param("iissssssssssissssisisissii", 
+									$this -> cd_cns_paciente, 
+									$this -> ic_ubs_espera,
+									$this -> nm_justificativa, 
+									$this -> nm_paciente, 
+									$this -> nm_mae, 
+									$this -> ic_sexo, 
+									$this -> ic_raca, 
+									$this -> dt_nascimento, 
+									$this -> nm_pais_nascimento,
+									$this -> nm_municipio_nascimento, 
+									$this -> nm_pais_residencia, 
+									$this -> nm_municipio_residencia, 
+									$this -> cd_cep, 
+									$this -> nm_logradouro, 
+									$this -> nm_numero_residencia, 
+									$this -> nm_complemento, 
+									$this -> nm_bairro, 
+									$this -> cd_ubs_referencia, 
+									$this -> nm_responsavel, 
+									$this -> cd_documento_responsavel, 
+									$this -> nm_orgao_emissor, 
+									$this -> cd_cnes, 
+									$this -> dt_adesao, 
+									$this -> hr_adesao, 
+									$this -> cd_profissional_registro,
+									$this -> cd_paciente);
+
+			//executando o statement
+			if($stmt -> execute())
+			{
+				//verificando se o statement deu certo
+				$ok = 1;
+				if($stmt -> affected_rows == 0)
+				{
+					$ok = 0;
+				}
+			}
+			else
+			{
+				$ok = 0;
+			}
+
+			//encerrando a conexão com o banco e o statement
+			$stmt -> close();
+			$db_maua -> close();
+			unset($conexão);
+
+			return $ok;
+		}
+		else
+		{
+			return 0;
+		}
 	}
 
 
@@ -229,6 +307,10 @@ class Paciente
 	public function set_cd_cns_paciente($aux)
 	{
 		$this->cd_cns_paciente = $aux;
+	}
+	public function set_ic_ubs_espera($aux)
+	{
+		$this->ic_ubs_espera = $aux;
 	}
 	public function set_nm_justificativa($aux)
 	{
@@ -331,6 +413,10 @@ class Paciente
 	public function get_cd_cns_paciente()
 	{
 		return $this->cd_cns_paciente;
+	}
+	public function get_ic_ubs_espera()
+	{
+		return $this->ic_ubs_espera;
 	}
 	public function get_nm_justificativa()
 	{
