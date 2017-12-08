@@ -119,7 +119,10 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 			if($('#frame_triagem').length) 
 			{
 			    imprimir_triagem();
-			    window.location = "index.php";
+			    //é preciso fazer alguma coisa pra esperar imprimir, por isso o fadeOut
+			    $("#frame_triagem").fadeOut(function(){
+			    	window.location = "index.php";
+			    });
 			}
 		}); 
 
