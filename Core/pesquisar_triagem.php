@@ -22,6 +22,8 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 	<meta charset="utf-8" />
 	<link href="css/formulario.css" rel="stylesheet">
 	<script src="users/js/jquery.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 <body>
 <?php

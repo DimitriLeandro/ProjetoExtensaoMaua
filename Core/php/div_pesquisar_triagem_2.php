@@ -24,12 +24,19 @@
 ?>
 
 <div class="form-style">
-	<h1>Triagens do Dia <?php echo date_format(new DateTime($data_triagem), "d/m/Y"); ?></h1>
+	<h1>
+		Triagens do Dia 
+		<span id="span_data"><?php echo date_format(new DateTime($data_triagem), "d/m/Y"); ?></span>
+	</h1>
 	<fieldset>
 		<p>
 			<label for="nascp" style="width: 20%"class="margem">Escolher outra data:</label>
 			<input type="text" style="width: 30%" maxlength="10" name="dt_triagem" id="dt_triagem" />
 			<button type="button" id="btn_buscar">Buscar</button>
+		</p>
+		<p>
+			<label>Mostrar apenas triagens sem diagnóstico</label>
+			<input type="checkbox" id="chk_nao_finalizada" checked />
 		</p>
 	</fieldset>
 	<br/>
@@ -58,7 +65,7 @@
 				$paciente = new Paciente();
 				$paciente -> selecionar_paciente($triagem -> get_cd_paciente());
 			?>
-				<fieldset style="border: solid 1px; padding: 15px;">
+				<fieldset class="<?php if($triagem -> get_ic_finalizada() == 1){echo "finalizada";}else{echo "nao_finalizada";} ?>" style="border: solid 1px; padding: 15px;">
 					<p><label>Paciente: <?php echo $paciente -> get_nm_paciente() ?> </label><p/>
 					<p><label>Queixa: <?php echo $triagem -> get_ds_queixa() ?> </label><p/>
 					<p><label>Data: <?php echo $triagem -> get_dt_triagem() ?> </label><p/>
@@ -72,6 +79,40 @@
 	?> 
 </div>
 <script>
+	$("document").ready(function(){
+		//transformando o input em type date de uma forma que funciona em todos os navegadores
+		$("#dt_triagem").datepicker({
+			dateFormat: 'dd/mm/yy',
+			onSelect: function(){
+				$("#btn_buscar").click();
+			}
+		});
+
+		//arrumando o valor do input para que ele n~ao fique em branco
+		$("#dt_triagem").val($("#span_data").text());
+
+		//mostrando s´o as triagens n~ao finalizadas
+		trocar_triagens_visiveis();
+	});
+
+	//funç~ao para mostrar apenas as triagens finalizadas ou todas
+	$("#chk_nao_finalizada").on("click", function(){
+		trocar_triagens_visiveis();
+	});
+
+	function trocar_triagens_visiveis()
+	{
+		if($("#chk_nao_finalizada").is(':checked'))
+		{
+			//mostra s´o as triagens n~ao finalizadas
+			$(".finalizada").hide();
+		}
+		else
+		{
+			$(".finalizada").show();
+		}
+	}
+
 	function mascarar_data()
 	{
 		if($("#dt_triagem").val().length == 2 || $("#dt_triagem").val().length == 5)

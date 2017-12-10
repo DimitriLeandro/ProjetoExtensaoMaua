@@ -43,7 +43,30 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		//o codigo da triagem será adquirido pelo método get. É necessário verificar se algum valor foi setado
 		if(isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '')
 		{
-			echo "<br/>Tamo ai<br/>";
+			require_once("php/model/diagnostico.Class.php");
+			$obj_diagnostico = new Diagnostico();
+
+			$obj_diagnostico -> set_cd_cnes('6950043');
+			$obj_diagnostico -> set_ds_avaliacao($_POST['ds_avaliacao']);
+			$obj_diagnostico -> set_cd_cid($_POST['cd_cid']);
+			$obj_diagnostico -> set_ds_prescricao($_POST['ds_prescricao']);
+			$obj_diagnostico -> set_ic_situacao($_POST['ic_situacao']);
+			$obj_diagnostico -> set_cd_cns_profissional_diagnostico('1');
+			$obj_diagnostico -> set_cd_triagem($_GET['cd_triagem']);
+
+			$ok = $obj_diagnostico -> cadastrar_diagnostico();
+			//echo "<br/>".$ok."<br/>";
+
+			if($ok == 0)
+			{
+				?> <script> alert('Erro ao cadastrar diagnóstico'); </script> <?php
+			}
+			else
+			{
+				header('location: index.php');
+			}   
+
+			unset($obj_diagnostico);
 		}
 		else
 		{
@@ -63,11 +86,33 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 </head>
 <body>
 	<form method="post" action="" class="form-style">
-		<h1>NOVO DÍAGNÓSITICO</h1>
+		<h1>NOVO DIAGNÓSITICO</h1>
 		<fieldset>
+			<label>Avaliação</label>
+			<textarea id="ds_avaliacao" name="ds_avaliacao"></textarea>
 			
+			<label>CID</label>
+			<input type="text" id="cd_cid" name="cd_cid" />
+			
+			<label>Prescricão</label>
+			<textarea id="ds_prescricao" name="ds_prescricao"></textarea>
+			
+			<label>Situação</label>
+			<select id="ic_situacao" name="ic_situacao">
+				<option value="Alta sem encaminhamento a UBS" selected>Alta sem encaminhamento a UBS</option>
+				<option value="Alta com encaminhamento a UBS">Alta com encaminhamento a UBS</option>
+				<option value="Transferência Hospitalar">Transferência Hospitalar</option>
+				<option value="Óbito">Óbito</option>
+			</select>
 		</fieldset>
 		<input type="submit" name="btn_cadastrar_diagnostico" value="Enviar" />
 	</form>
+	<script>
+		$("document").ready(function(){
+			$("#ds_avaliacao").val("Dores de cabeça devido a sinusite. Requiro Raio X da face para melhor avaliação.");
+			$("#cd_cid").val("10 - J01.1");
+			$("#ds_prescricao").val("1 comprimido de Amoxicilina a cada 12h por 7 dias.");
+		});
+	</script>
 </body>
 </html>

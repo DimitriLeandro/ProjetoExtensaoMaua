@@ -147,7 +147,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		  <option value="Febre">Febre</option>
 		  <option value="Fraqueza">Fraqueza</option>
 		  <option value="Enjoo">Enjoo</option>
-		  <option value="Convulções">Convulsões</option>
+		  <option value="Convulsões">Convulsões</option>
 		  <option value="Falta de Ar">Falta de ar</option>
 		</select><br />
 		<label for="pressaomin">Pressão Arterial mínima</label>

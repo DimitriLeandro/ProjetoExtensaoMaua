@@ -98,6 +98,8 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 					<p>Outras condições: <?php echo $triagem -> get_ds_outras_condicoes(); ?> </p>
 					<p>CNS do Profissional que Realizou a Triagem: <?php echo $triagem -> get_cd_cns_profissional_triagem(); ?> </p>
 				</fieldset>
+				<br />
+				<button type="button" onclick="window.location = 'cadastrar_diagnostico.php?cd_triagem=<?php echo $triagem -> get_cd_triagem(); ?>';">Diagnóstico</button>
 		</form>
 	</div>
 </body>
