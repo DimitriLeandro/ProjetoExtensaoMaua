@@ -63,7 +63,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 			}
 			else
 			{
-				header('location: index.php');
+				header('location: pesquisar_triagem.php');
 			}   
 
 			unset($obj_diagnostico);
@@ -108,11 +108,11 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		<input type="submit" name="btn_cadastrar_diagnostico" value="Enviar" />
 	</form>
 	<script>
-		$("document").ready(function(){
+		/*$("document").ready(function(){
 			$("#ds_avaliacao").val("Dores de cabeça devido a sinusite. Requiro Raio X da face para melhor avaliação.");
 			$("#cd_cid").val("10 - J01.1");
 			$("#ds_prescricao").val("1 comprimido de Amoxicilina a cada 12h por 7 dias.");
-		});
+		});*/
 	</script>
 </body>
 </html>

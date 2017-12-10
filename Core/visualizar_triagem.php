@@ -91,15 +91,63 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 					<p>Nível de Consciência: <?php echo $triagem -> get_vl_nivel_consciencia(); ?> </p>
 					<p>Escala de Dor: <?php echo $triagem -> get_vl_escala_dor(); ?> </p>
 					<p>Alergia a Medicamentos: <?php echo $triagem -> get_ic_alergia(); ?> </p>
-					<p>Descrissão das Alergias: <?php echo $triagem -> get_ds_alergia(); ?> </p>
+					<p>Descrição das Alergias: <?php echo $triagem -> get_ds_alergia(); ?> </p>
 					<p>Observações: <?php echo $triagem -> get_ds_observacao(); ?> </p>
 					<p>Classificação de Risco: <?php echo $triagem -> get_vl_classificacao_risco(); ?> </p>
 					<p>Linha de Cuidado: <?php echo $triagem -> get_ds_linha_cuidado(); ?> </p>
 					<p>Outras condições: <?php echo $triagem -> get_ds_outras_condicoes(); ?> </p>
 					<p>CNS do Profissional que Realizou a Triagem: <?php echo $triagem -> get_cd_cns_profissional_triagem(); ?> </p>
 				</fieldset>
-				<br />
-				<button type="button" onclick="window.location = 'cadastrar_diagnostico.php?cd_triagem=<?php echo $triagem -> get_cd_triagem(); ?>';">Diagnóstico</button>
+				<br/>
+<?php
+				//VERIFICANDO SE H´A ALGUM DIAGNOSTICO PRA ESSA TRIAGEM
+				//SE N~AO TIVER, MOSTRA O BOT~AO PRA FAZER O DIAGNOSTICO
+				//SE TIVER, MOSTRA OS DADOS DO DIAGNOSTICO
+				if($triagem -> get_ic_finalizada() == 0)
+				{
+?>
+					<button type="button" onclick="window.location = 'cadastrar_diagnostico.php?cd_triagem=<?php echo $triagem -> get_cd_triagem(); ?>';">Diagnóstico</button>
+<?php
+				}
+				else
+				{
+					//instanciando um objeto da classe Dignostico para pegar as informaç~oes sobre o diagnostico dessa triagem
+					require_once("php/model/diagnostico.Class.php");
+					$obj_diagnostico = new Diagnostico();
+
+					//inciando uma conex~ao com o banco
+					require_once("php/model/conexao.Class.php");
+					$conexao = new Conexao();
+					$db_maua = $conexao -> conectar();
+
+					//pegando o id do diagnostico dessa triagem
+					if($stmt = $db_maua -> prepare("SELECT cd_diagnostico FROM tb_diagnostico WHERE cd_triagem = ?"))
+					{
+						$stmt -> bind_param("i", $_GET['cd_triagem']);
+						$stmt -> execute();
+						$stmt -> bind_result($codigo_diagnostico);
+						while($stmt -> fetch())
+						{
+							$obj_diagnostico -> selecionar_diagnostico($codigo_diagnostico);
+						}
+						$stmt -> close();
+					}
+
+?>
+					<h4>Dados do Diagnóstico</h4>
+					<fieldset style="border: solid 1px; padding: 15px;">
+						<p>UBS: <?php echo $obj_diagnostico -> get_cd_cnes(); ?></p>
+						<p>Avaliaçao: <?php echo $obj_diagnostico -> get_ds_avaliacao(); ?></p>
+						<p>CID: <?php echo $obj_diagnostico -> get_cd_cid(); ?></p>
+						<p>Prescriçao: <?php echo $obj_diagnostico -> get_ds_prescricao(); ?></p>
+						<p>Data: <?php echo $obj_diagnostico -> get_dt_diagnostico(); ?></p>
+						<p>Hora: <?php echo $obj_diagnostico -> get_hr_diagnostico(); ?></p>
+						<p>Situaçao: <?php echo $obj_diagnostico -> get_ic_situacao(); ?></p>
+						<p>CNS do Profissional que Realizou o diagnostico: <?php echo $obj_diagnostico -> get_cd_cns_profissional_diagnostico(); ?></p>
+					</fieldset>
+<?php
+				}
+?>
 		</form>
 	</div>
 </body>
