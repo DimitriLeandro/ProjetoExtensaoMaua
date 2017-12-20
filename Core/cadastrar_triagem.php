@@ -119,7 +119,10 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 			if($('#frame_triagem').length) 
 			{
 			    imprimir_triagem();
-			    window.location = "index.php";
+			    //é preciso fazer alguma coisa pra esperar imprimir, por isso o fadeOut
+			    $("#frame_triagem").fadeOut(function(){
+			    	window.location = "index.php";
+			    });
 			}
 		}); 
 
@@ -139,13 +142,98 @@ require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
 		<input type="number" min=1 name="cd_cnes" id="cdsus" required /><br /> -->
 		<label for="dsqueixa">Queixa principal</label>
 		<select name="ds_queixa" id="dsqueixa" required>
-		  <option value="Dor de Dente">Dor de dente</option>
-		  <option value="Dor de Cabeca">Dor de cabeça</option>
-		  <option value="Febre">Febre</option>
-		  <option value="Fraqueza">Fraqueza</option>
-		  <option value="Enjoo">Enjoo</option>
-		  <option value="Convulções">Convulsões</option>
-		  <option value="Falta de Ar">Falta de ar</option>
+		  <optgroup label="GERAL E INESPECÍFICO">
+		  	<option value="A01">A01 Dor generalizada /múltipla</option>
+		  	<option value="A02">A02 Arrepios/ calafrios</option>
+		  	<option value="A03">A03 Febre</option>
+		  	<option value="A04">A04 Debilidade/cansaço geral/fadiga</option>
+		  	<option value="A05">A05 Sentir-se doente</option>
+		  	<option value="A06">A06 Desmaio/síncope</option>
+		  	<option value="A07">A07 Coma</option>
+		  	<option value="A08">A08 Inchaço</option>
+		  	<option value="A09">A09 Problemas de sudorese</option>
+		  	<option value="A10">A10 Sangramento/Hemorragia NE</option>
+		  	<option value="A11">A11 Dores torácicas NE</option>
+		  	<option value="A13">A13 Receio/Medo do tratamento</option>
+		  	<option value="A16">A16 Criança irritável</option>
+		  	<option value="A18">A18 Preocupação com aparência</option>
+		  	<option value="A20">A20 Pedido/discussão eutanásia</option>
+		  	<option value="A21">A21 Fator de risco de malignidade</option>
+		  	<option value="A23">A23 Fator de risco NE</option>
+		  	<option value="A25">A25 Medo de morrer/medo da morte</option>
+		  	<option value="A26">A26 Medo de câncer NE</option>
+		  	<option value="A27">A27 Medo de outra doença NE</option>
+		  	<option value="A28">A28 Limitação funcional/incapacidade NE</option>
+		  	<option value="A29">A29 Outros sinais/sintomas gerais</option>
+		  	<option value="A70">A70 Tuberculose</option>
+		  	<option value="A71">A71 Sarampo</option>
+		  	<option value="A72">A72 Varicela</option>
+		  	<option value="A73">A73 Malária</option>
+		  	<option value="A74">A74 Rubéola</option>
+		  	<option value="A75">A75 Mononucleose infecciosa</option>
+		  	<option value="A76">A76 Outro exantema viral</option>
+		  	<option value="A77">A77 Dengue e outras doenças virais NE</option>
+		  	<option value="A78">A78 Hanseníase e outras doenças infecciosas NE</option>
+		  	<option value="A79">A79 Carcinomatose (localização primária desconhecida)</option>
+		  	<option value="A80">A80 Lesão traumática/acidente NE</option>
+		  	<option value="A81">A81 Politraumatismos/ferimentos múltiplos</option>
+		  	<option value="A82">A82 Efeito secundário de lesão traumática</option>
+		  	<option value="A84">A84 Intoxicação por medicamento</option>
+		  	<option value="A85">A85 Efeito adverso de fármaco dose correta</option>
+		  	<option value="A86">A86 Efeito tóxico de substância não medicinal</option>
+		  	<option value="A87">A87 Complicações de tratamento médico</option>
+		  	<option value="A88">A88 Efeito adverso de fator físico</option>
+		  	<option value="A89">A89 Efeito da prótese</option>
+		  	<option value="A90">A90 Malformação congênita NE/múltiplas</option>
+		  	<option value="A91">A91 Investigação com resultado anormal NE</option>
+		  	<option value="A92">A92 Alergia/reação alérgica NE</option>
+		  	<option value="A93">A93 Recém-nascido prematuro</option>
+		  	<option value="A94">A94 Morbidade perinatal, outra</option>
+		  	<option value="A95">A95 Mortalidade perinatal</option>
+		  	<option value="A96">A96 Morte</option>
+		  	<option value="A97">A97 Sem doença</option>
+		  	<option value="A98">A98 Medicina preventiva/manutenção da saúde</option>
+		  	<option value="A99">A99 Outras doenças gerais NE</option>
+		  </optgroup>
+		  <optgroup label="OLHO">
+		  	<option value="F01">F01 Dor no olho</option>
+		  	<option value="F02">F02 Olho vermelho</option>
+		  	<option value="F03">F03 Secreção ocular</option>
+		  	<option value="F04">F04 Moscas volantes/pontos luminosos/escotomas/
+manchas</option>
+		  	<option value="F05">F05 Outras perturbações visuais</option>
+		  	<option value="F13">F13 Sensações oculares anormais</option>
+		  	<option value="F14">F14 Movimentos oculares anormais</option>
+		  	<option value="F15">F15 Aparência anormal nos olhos</option>
+		  	<option value="F16">F16 Sinais/sintomas das pálpebras</option>
+		  	<option value="F17">F17 Sinais/sintomas relacionados a óculos</option>
+		  	<option value="F18">F18 Sinais/sintomasrelacionados a lentesde contato</option>
+		  	<option value="F27">F27 Medo de doença ocular</option>
+		  	<option value="F28">F28 Limitação funcional/incapacidade</option>
+		  	<option value="F29">F29 Outros sinais/sintomas oculares</option>
+		  	<option value="F70">F70 Conjuntivite infecciosa</option>
+		  	<option value="F71">F71 Conjuntivite alérgica</option>
+		  	<option value="F72">F72 Blefarite/hordéolo/calázio</option>
+		  	<option value="F73">F73 Outras infecções/inflamações oculares</option>
+		  	<option value="F74">F74 Neoplasia do olho/anexos</option>
+		  	<option value="F75">F75 Contusão/hemorragia ocular</option>
+		  	<option value="F76">F76 Corpo estranho ocular</option>
+		  	<option value="F79">F79 Outras lesões traumáticas oculares</option>
+		  	<option value="F80">F80 Obstrução canal lacrimal da criança</option>
+		  	<option value="F81">F81 Outras malformações congênitas do olho</option>
+		  	<option value="F82">F82 Descolamento da retina</option>
+		  	<option value="F83">F83 Retinopatia</option>
+		  	<option value="F84">F84 Degeneração macular</option>
+		  	<option value="F85">F85 Ulcera da córnea</option>
+		  	<option value="F86">F86 Tracoma</option>
+		  	<option value="F91">F91 Erro de refração</option>
+		  	<option value="F92">F92 Catarata</option>
+		  	<option value="F93">F93 Glaucoma</option>
+		  	<option value="F94">F94 Cegueira</option>
+		  	<option value="F95">F95 Estrabismo</option>
+		  	<option value="F01">F01 Dor no olho</option>
+		  	<option value="F01">F99 Outra doenças oculares/anexos</option>
+		  </optgroup>
 		</select><br />
 		<label for="pressaomin">Pressão Arterial mínima</label>
 		<input type="number" min=1 step="0.01" name="vl_pressao_min" id="pressaomin" placeholder="mmHg" /><br />
