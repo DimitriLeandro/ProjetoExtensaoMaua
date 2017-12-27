@@ -14,12 +14,14 @@ mysqli_set_charset($conn_link, "utf8");
 
 $nome_tabela = $_GET['tabela'];
 $array_set = array();
+$array_update = array();
 
 $stmt = $conn_link->prepare("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'db_maua' AND TABLE_NAME = ?;");
 $stmt->bind_param('s', $nome_tabela);
 $stmt->execute();
 $stmt->bind_result($att_1);
 while ($stmt->fetch()) {
+    $array_update[] = $att_1." = ?, ";
 	$str_array = explode("_",$att_1);
 	//unset($str_array[0]);
 	foreach ($str_array as $key=>$value) {
@@ -45,4 +47,8 @@ foreach($array_set as $key=>$value)
 {
     echo "<br/>".$array_set[$key];
 }
+
+echo "<br/><br/>";
+$str_update = implode("", $array_update);
+echo "UPDATE ".$_GET['tabela']." SET ".substr($str_update, 0, -2)." WHERE CODIGO = ?;";
 ?>
