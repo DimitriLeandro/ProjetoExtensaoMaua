@@ -32,7 +32,6 @@ $paciente->setCdDocumentoResponsavel('334349085');
 $paciente->setNmOrgaoEmissor('ssp');
 $paciente->setDtRegistro(date("Y-m-d"));
 $paciente->setHrRegistro(date("H:i:s"));
-$paciente->setCdUbsReferencia('4');
 
 print_r($paciente);
 

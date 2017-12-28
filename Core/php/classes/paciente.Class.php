@@ -27,6 +27,7 @@ final class Paciente extends Ciclo {
     private $nmOrgaoEmissor;
     private $cdUbsReferencia;
 
+    //-----------------FUNÇÕES SOBREPOSTAS
     public function cadastrar() {
         //como o insert vai ser implicito, a chave primária deve ser nula
         $this->setCdPaciente(null);
@@ -116,7 +117,7 @@ final class Paciente extends Ciclo {
         return $ok;
     }
 
-    //--------------------------get e set
+    //------------------GET E SET
     function getCdPaciente() {
         return $this->cdPaciente;
     }

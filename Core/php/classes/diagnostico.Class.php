@@ -12,10 +12,12 @@ final class Diagnostico extends Ciclo {
     private $cdTriagem;
 
     public function cadastrar() {
+        //O INSERT NA TABELA DIAGNOSTICO É FEITO ATRAVÉS DE PROCEDURE
+        //O CÓDIGO DA PROCEDURE ESTÁ COMENTADO LA EM BAIXO NO FINAL DESSE ARQUIVO
+
         $this->setCdDiagnostico(null);
-        $txt_insert = "INSERT INTO tb_diagnostico VALUES (?,?,?,?,?,?,?,?,?,?);";
-        $stmt = $this->db_maua->prepare($txt_insert);
-        $stmt->bind_param("issssssiii", $this->cdDiagnostico, $this->dsAvaliacao, $this->cdCid, $this->dsPrescricao, $this->dtRegistro, $this->hrRegistro, $this->icSituacao, $this->cdUbs, $this->cdUsuarioRegistro, $this->cdTriagem);
+        $stmt = $this->db_maua->prepare("CALL sp_insert_diagnostico (?, ?, ?, ?, ?, ?, ?);");
+        $stmt->bind_param("issssii", $this->cdUbs, $this->dsAvaliacao, $this->cdCid, $this->dsPrescricao, $this->icSituacao, $this->cdUsuarioRegistro, $this->cdTriagem);
 
         //executando o statement
         if ($stmt->execute()) {
@@ -53,7 +55,7 @@ final class Diagnostico extends Ciclo {
                 $this->setCdUsuarioRegistro($this->attr[9]);
                 $this->setCdTriagem($this->attr[10]);
             }
-            
+
             $stmt->close();
         }
     }
@@ -112,3 +114,40 @@ final class Diagnostico extends Ciclo {
     }
 
 }
+
+/* ------------------------SCRIPT DA PROCEDURE DE INSERT---------------
+  DELIMITER //
+  --	ESSA PROCEDURE FAZ O INSERT NA TABELA DE DIAGNOSTICO
+  --	UMA TRIAGEM SÓ PODE TER UM DIAGNOSTICO, ESSA PROCEDURE VERIFICA SE JÁ HÁ ALGUM DIAGNOSTICO PARA UMA TRIAGEM ESPECIFICA ANTES DE FAZER O INSERT
+  --	CASO JÁ EXISTA, A PROCEDURE NÃO FARÁ O INSERT
+  --  ESSE PROCEDIMENTO NÃO ODE SER FEITO COM TRIGGER POIS UM TRIGGER NÃO PODE FAZER INSERT/UPDATE/DELETE NA MESMA TABELA QUE DISPARA O TRIGGER
+  --  OS PARAMETROS DE DATA E HORA NÃO PRECISAM SER ENVIADOS PARA ESSA PROCEDURE POIS O MYSQL PODE PEGAR ESSES VALORES SOZINHO COM O COMANDO "NOW()"
+
+  --  tb_triagem:1::1:tb_diagnostico, apesar de usar uma chave estrangeira, é uma relação 1 para 1
+
+  --  ESSA PROCEDURE RETORNA O PARAMETRO "id" QUE É O ID DO DIAGNOSTICO INSERIDO, OU 0 CASO O INSERT NÃO SEJA EXECUTADO
+
+  CREATE PROCEDURE sp_insert_diagnostico(IN ubs INT, IN avaliacao TEXT, IN cid VARCHAR(30), IN prescricao TEXT, IN situacao VARCHAR(40), IN usuario_registro INT(11), IN triagem INT(11))
+  BEGIN
+  -- USANDO UMA VARIAVEL PARA SABER A QUANTIDADE DE DIAGNOSTICOS QUE A TRIAGEM EM QUESTÃO TEM
+  DECLARE id INT;
+  DECLARE qtd INT;
+  SET qtd = (SELECT COUNT(cd_diagnostico) FROM tb_diagnostico WHERE cd_triagem = triagem);
+  -- SE FOR 0, OK, PODE FAZER O INSERT, SENÃO, ALGO ESTÁ ERRADO, POIS UMA TRIAGEM NÃO PODE TER MAIS DE UM DIAGNOSTICO
+  IF qtd = 0 THEN
+  INSERT IGNORE INTO tb_diagnostico (cd_ubs, ds_avaliacao, cd_cid, ds_prescricao, dt_registro, hr_registro, ic_situacao, cd_usuario_registro, cd_triagem) VALUES
+  (ubs, avaliacao, cid, prescricao, now(), now(), situacao, usuario_registro, triagem);
+  SET id = LAST_INSERT_ID();
+  ELSE
+  SET id = 0;
+  END IF;
+  -- AGORA É NECESSÁRIO VERIFICAR SE HOUVE INSERT, CASO SIM, ENTÃO A TRIAGEM DEVE SER FINALIZADA.
+  IF id != 0 THEN
+  UPDATE tb_triagem SET ic_finalizada = 1 WHERE cd_triagem = triagem;
+  END IF;
+  -- FAZENDO O SELECT PARA SER O RETORNO DO PROCEDIMENTO
+  SELECT id;
+  END //
+  DELIMITER ;
+ */
+?>
