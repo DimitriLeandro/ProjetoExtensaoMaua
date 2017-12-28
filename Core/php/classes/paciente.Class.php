@@ -44,7 +44,7 @@ final class Paciente extends Ciclo {
             if ($stmt->affected_rows == 0) {
                 $ok = 0;
             } else {
-                $this->cdPaciente = $stmt->insert_id;
+                $this->setCdPaciente($stmt->insert_id);
             }
         } else {
             $ok = 0;
@@ -56,40 +56,41 @@ final class Paciente extends Ciclo {
 
     public function selecionar($id) {
         $stmt = $this->db_maua->prepare("SELECT * FROM tb_paciente WHERE cd_paciente = ?");
-        $attr = array();
         if ($stmt) {
             $stmt->bind_param('i', $id);
             $stmt->execute();
-            $stmt->bind_result($attr[1], $attr[2], $attr[3], $attr[4], $attr[5], $attr[6], $attr[7], $attr[8], $attr[9], $attr[10], $attr[11], $attr[12], $attr[13], $attr[14], $attr[15], $attr[16], $attr[17], $attr[18], $attr[19], $attr[20], $attr[21], $attr[22], $attr[23], $attr[24], $attr[25], $attr[26]);
+            $stmt->bind_result($this->attr[1], $this->attr[2], $this->attr[3], $this->attr[4], $this->attr[5], $this->attr[6], $this->attr[7], $this->attr[8], $this->attr[9], $this->attr[10], $this->attr[11], $this->attr[12], $this->attr[13], $this->attr[14], $this->attr[15], $this->attr[16], $this->attr[17], $this->attr[18], $this->attr[19], $this->attr[20], $this->attr[21], $this->attr[22], $this->attr[23], $this->attr[24], $this->attr[25], $this->attr[26]);
             //setando os atributos da classe
             while ($stmt->fetch()) {
-                $this->setCdPaciente($attr[1]);
-                $this->setCdCnsPaciente($attr[2]);
-                $this->setIcUbsEspera($attr[3]);
-                $this->setNmJustificativa($attr[4]);
-                $this->setNmPaciente($attr[5]);
-                $this->setNmMae($attr[6]);
-                $this->setIcSexo($attr[7]);
-                $this->setIcRaca($attr[8]);
-                $this->setDtNascimento($attr[9]);
-                $this->setNmPaisNascimento($attr[10]);
-                $this->setNmMunicipioNascimento($attr[11]);
-                $this->setNmPaisResidencia($attr[12]);
-                $this->setNmMunicipioResidencia($attr[13]);
-                $this->setCdCep($attr[14]);
-                $this->setNmLogradouro($attr[15]);
-                $this->setNmNumeroResidencia($attr[16]);
-                $this->setNmComplemento($attr[17]);
-                $this->setNmBairro($attr[18]);
-                $this->setNmResponsavel($attr[19]);
-                $this->setCdDocumentoResponsavel($attr[20]);
-                $this->setNmOrgaoEmissor($attr[21]);
-                $this->setDtRegistro($attr[22]);
-                $this->setHrRegistro($attr[23]);
-                $this->setCdUbsReferencia($attr[24]);
-                $this->setCdUbs($attr[25]);
-                $this->setCdUsuarioRegistro($attr[26]);
+                $this->setCdPaciente($this->attr[1]);
+                $this->setCdCnsPaciente($this->attr[2]);
+                $this->setIcUbsEspera($this->attr[3]);
+                $this->setNmJustificativa($this->attr[4]);
+                $this->setNmPaciente($this->attr[5]);
+                $this->setNmMae($this->attr[6]);
+                $this->setIcSexo($this->attr[7]);
+                $this->setIcRaca($this->attr[8]);
+                $this->setDtNascimento($this->attr[9]);
+                $this->setNmPaisNascimento($this->attr[10]);
+                $this->setNmMunicipioNascimento($this->attr[11]);
+                $this->setNmPaisResidencia($this->attr[12]);
+                $this->setNmMunicipioResidencia($this->attr[13]);
+                $this->setCdCep($this->attr[14]);
+                $this->setNmLogradouro($this->attr[15]);
+                $this->setNmNumeroResidencia($this->attr[16]);
+                $this->setNmComplemento($this->attr[17]);
+                $this->setNmBairro($this->attr[18]);
+                $this->setNmResponsavel($this->attr[19]);
+                $this->setCdDocumentoResponsavel($this->attr[20]);
+                $this->setNmOrgaoEmissor($this->attr[21]);
+                $this->setDtRegistro($this->attr[22]);
+                $this->setHrRegistro($this->attr[23]);
+                $this->setCdUbsReferencia($this->attr[24]);
+                $this->setCdUbs($this->attr[25]);
+                $this->setCdUsuarioRegistro($this->attr[26]);
             }
+            
+            $stmt->close();
         }
     }
 

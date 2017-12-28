@@ -19,6 +19,7 @@ abstract class Ciclo {
     protected $dtRegistro;
     protected $hrRegistro;
     protected $db_maua; //não tem get nem set
+    protected $attr; //isso é um array que serve para os métodos de selecionar() //não tem get nem set
 
     //CONSTRUTOR
 
@@ -29,6 +30,10 @@ abstract class Ciclo {
         //atribuindo um valor ao atributo usuarioRegistro
         $obj_usuario = new Usuario();
         $this->cdUsuarioRegistro = $obj_usuario->getId();
+        //atribuindo valor ao $cdUbs
+        $this->setCdUbs('4');
+        //dizendo que $attr é um array
+        $this->attr = array();
     }
 
     abstract function cadastrar();

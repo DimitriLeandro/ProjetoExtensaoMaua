@@ -33,7 +33,6 @@ $paciente->setNmOrgaoEmissor('ssp');
 $paciente->setDtRegistro(date("Y-m-d"));
 $paciente->setHrRegistro(date("H:i:s"));
 $paciente->setCdUbsReferencia('4');
-$paciente->setCdUbs('4');
 
 print_r($paciente);
 
@@ -43,9 +42,9 @@ $ok = $paciente->cadastrar();
 echo $ok . "<br/><br/>";
 */
 
- /*TESTE DE SELECT 
+// /*TESTE DE SELECT 
 
-$paciente->selecionar('61');
+$paciente->selecionar('64');
 
 echo "<br/>" . $paciente->getCdPaciente();
 echo "<br/>" . $paciente->getCdCnsPaciente();
@@ -73,9 +72,9 @@ echo "<br/>" . $paciente->getHrRegistro();
 echo "<br/>" . $paciente->getCdUbsReferencia();
 echo "<br/>" . $paciente->getCdUbs();
 echo "<br/>" . $paciente->getCdUsuarioRegistro();
- */
+// */
 
-// /*TESTE DE UPDATE
+ /*TESTE DE UPDATE
 //antes de fazer o update é necessário fazer o select
 $paciente->selecionar('64');
 
