@@ -21,8 +21,6 @@ abstract class Ciclo {
     protected $db_maua; //não tem get nem set
     protected $attr; //isso é um array que serve para os métodos de selecionar() //não tem get nem set
 
-    //CONSTRUTOR
-
     public function __construct() {
         //fazendo a conexão com o banco para que todas as classes filhas não precisem fazer isso novamente
         $obj_conn = new Conexao();

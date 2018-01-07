@@ -21,7 +21,6 @@ if (isset($_POST['btn_cadastrar'])) {
     $paciente = new Paciente();
 
     $paciente->setCdCnsPaciente('' . $_POST['cd_cns_paciente']);
-    $paciente->setIcUbsEspera('4');
     $paciente->setNmJustificativa('' . $_POST['nm_justificativa']);
     $paciente->setNmPaciente('' . $_POST['nm_paciente']);
     $paciente->setNmMae('' . $_POST['nm_mae']);

@@ -27,6 +27,12 @@ final class Triagem extends Ciclo {
 
     //métodos sobrepostos da classe Ciclo
     public function cadastrar() {
+        /*
+         * O insertna tabela de triagem dispara um gatilho no banco
+         * Serve apenas para tirar o paciente da lista de espera
+         * Código comentado no final deste arquivo
+         */
+        
         $this->setCdTriagem(null);
         $txt_insert = "INSERT INTO tb_triagem VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         $stmt = $this->db_maua->prepare($txt_insert);
@@ -245,4 +251,13 @@ final class Triagem extends Ciclo {
 
 }
 
+/*
+DELIMITER $$
+CREATE TRIGGER tr_finalizar_espera AFTER INSERT ON tb_triagem
+FOR EACH ROW
+BEGIN
+	UPDATE tb_espera SET ic_finalizada = 1 WHERE cd_paciente = new.cd_paciente;
+END; $$
+DELIMITER ;
+*/
 ?>

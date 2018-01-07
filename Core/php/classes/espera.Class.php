@@ -40,14 +40,40 @@ class Espera extends Ciclo{
     }
 
     public function selecionar($id) {
-        //
+        //essa função vai servir para pesquisar uma única linha da lista de espera, uma espécie de log do sistema
+        //para retornar uma lista de espera completa que será usada na página visualizar_espera.php, é usado o método selecionarListaCompleta
+        //infelizmente o php não tem sobrecarga na orientação a objetos, por isso são necessários dois métodos diferentes
     }
 
     public function atualizar($id) {
         //
     }
 
-    //---------------------get e set
+    public function selecionarListaCompleta(){
+	//matriz que será o parâmetro de retorno
+	$array_lista_espera = array();
+	
+	//preparando o select e executando o statement
+	$select = 'SELECT tb_paciente.cd_paciente, tb_paciente.nm_paciente, tb_espera.dt_registro, tb_espera.hr_registro FROM tb_paciente, tb_espera WHERE tb_espera.cd_paciente = tb_paciente.cd_paciente AND tb_espera.ic_finalizada = 0 AND tb_espera.cd_ubs = ?;';
+	$stmt = $this->db_maua->prepare($select);
+	$stmt->bind_param("i", $this->cdUbs);
+	if($stmt->execute()){
+	    $stmt->bind_result($this->attr[0],$this->attr[1],$this->attr[2],$this->attr[3]);
+	    while($stmt->fetch()){
+		$array_lista_espera[] = array(
+		    'cd_paciente' => $this->attr[0],
+		    'nm_paciente' => $this->attr[1],
+		    'dt_registro' => $this->attr[2],
+		    'hr_registro' => $this->attr[3]
+		);
+	    }
+	}
+	
+	$stmt->close();
+	return $array_lista_espera;
+    }
+
+    //---------------------GET E SET-------------------------------
     public function getCdEspera() {
         return $this->cdEspera;
     }

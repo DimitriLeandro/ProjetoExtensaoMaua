@@ -31,7 +31,7 @@ final class Paciente extends Ciclo {
         //como o insert vai ser implicito, a chave primária deve ser nula
         $this->setCdPaciente(null);
         //preparando o comando de insert
-        $txt_insert = "INSERT INTO tb_paciente VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        $txt_insert = "INSERT INTO tb_paciente VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         //preparando o statement para o insert
         $stmt = $this->db_maua->prepare($txt_insert);
         //passando os valores. Aqui, a melhor forma seria usar os métodos get, mas o comando bind_param só aceita variáveis
@@ -59,46 +59,45 @@ final class Paciente extends Ciclo {
         if ($stmt) {
             $stmt->bind_param('i', $id);
             $stmt->execute();
-            $stmt->bind_result($this->attr[1], $this->attr[2], $this->attr[3], $this->attr[4], $this->attr[5], $this->attr[6], $this->attr[7], $this->attr[8], $this->attr[9], $this->attr[10], $this->attr[11], $this->attr[12], $this->attr[13], $this->attr[14], $this->attr[15], $this->attr[16], $this->attr[17], $this->attr[18], $this->attr[19], $this->attr[20], $this->attr[21], $this->attr[22], $this->attr[23], $this->attr[24], $this->attr[25], $this->attr[26]);
+            $stmt->bind_result($this->attr[1], $this->attr[2], $this->attr[3], $this->attr[4], $this->attr[5], $this->attr[6], $this->attr[7], $this->attr[8], $this->attr[9], $this->attr[10], $this->attr[11], $this->attr[12], $this->attr[13], $this->attr[14], $this->attr[15], $this->attr[16], $this->attr[17], $this->attr[18], $this->attr[19], $this->attr[20], $this->attr[21], $this->attr[22], $this->attr[23], $this->attr[24], $this->attr[25]);
             //setando os atributos da classe
             while ($stmt->fetch()) {
                 $this->setCdPaciente($this->attr[1]);
                 $this->setCdCnsPaciente($this->attr[2]);
-                $this->setIcUbsEspera($this->attr[3]);
-                $this->setNmJustificativa($this->attr[4]);
-                $this->setNmPaciente($this->attr[5]);
-                $this->setNmMae($this->attr[6]);
-                $this->setIcSexo($this->attr[7]);
-                $this->setIcRaca($this->attr[8]);
-                $this->setDtNascimento($this->attr[9]);
-                $this->setNmPaisNascimento($this->attr[10]);
-                $this->setNmMunicipioNascimento($this->attr[11]);
-                $this->setNmPaisResidencia($this->attr[12]);
-                $this->setNmMunicipioResidencia($this->attr[13]);
-                $this->setCdCep($this->attr[14]);
-                $this->setNmLogradouro($this->attr[15]);
-                $this->setNmNumeroResidencia($this->attr[16]);
-                $this->setNmComplemento($this->attr[17]);
-                $this->setNmBairro($this->attr[18]);
-                $this->setNmResponsavel($this->attr[19]);
-                $this->setCdDocumentoResponsavel($this->attr[20]);
-                $this->setNmOrgaoEmissor($this->attr[21]);
-                $this->setDtRegistro($this->attr[22]);
-                $this->setHrRegistro($this->attr[23]);
-                $this->setCdUbsReferencia($this->attr[24]);
-                $this->setCdUbs($this->attr[25]);
-                $this->setCdUsuarioRegistro($this->attr[26]);
+                $this->setNmJustificativa($this->attr[3]);
+                $this->setNmPaciente($this->attr[4]);
+                $this->setNmMae($this->attr[5]);
+                $this->setIcSexo($this->attr[6]);
+                $this->setIcRaca($this->attr[7]);
+                $this->setDtNascimento($this->attr[8]);
+                $this->setNmPaisNascimento($this->attr[9]);
+                $this->setNmMunicipioNascimento($this->attr[10]);
+                $this->setNmPaisResidencia($this->attr[11]);
+                $this->setNmMunicipioResidencia($this->attr[12]);
+                $this->setCdCep($this->attr[13]);
+                $this->setNmLogradouro($this->attr[14]);
+                $this->setNmNumeroResidencia($this->attr[15]);
+                $this->setNmComplemento($this->attr[16]);
+                $this->setNmBairro($this->attr[17]);
+                $this->setNmResponsavel($this->attr[18]);
+                $this->setCdDocumentoResponsavel($this->attr[19]);
+                $this->setNmOrgaoEmissor($this->attr[20]);
+                $this->setDtRegistro($this->attr[21]);
+                $this->setHrRegistro($this->attr[22]);
+                $this->setCdUbsReferencia($this->attr[23]);
+                $this->setCdUbs($this->attr[24]);
+                $this->setCdUsuarioRegistro($this->attr[25]);
             }
-            
+
             $stmt->close();
         }
     }
 
     public function atualizar($id) {
         //para fazer o update, primeiro é necessário selecionar_paciente(), depois, mudar os campos que você quer atualizar com os métodos de set "set_nm_paciente('Exemplo');" e só depois atualizar_paciente(), pois essa função faz update em TODOS os campos.
-        $txt_update = "UPDATE tb_paciente SET cd_cns_paciente = ?, ic_ubs_espera = ?, nm_justificativa = ?, nm_paciente = ?, nm_mae = ?, ic_sexo = ?, ic_raca = ?, dt_nascimento = ?, nm_pais_nascimento = ?, nm_municipio_nascimento = ?, nm_pais_residencia = ?, nm_municipio_residencia = ?, cd_cep = ?, nm_logradouro = ?, nm_numero_residencia = ?, nm_complemento = ?, nm_bairro = ?, nm_responsavel = ?, cd_documento_responsavel = ?, nm_orgao_emissor = ?, dt_registro = ?, hr_registro = ?, cd_ubs_referencia = ?, cd_ubs = ?, cd_usuario_registro = ? WHERE cd_paciente = ?;";
+        $txt_update = "UPDATE tb_paciente SET cd_cns_paciente = ?, nm_justificativa = ?, nm_paciente = ?, nm_mae = ?, ic_sexo = ?, ic_raca = ?, dt_nascimento = ?, nm_pais_nascimento = ?, nm_municipio_nascimento = ?, nm_pais_residencia = ?, nm_municipio_residencia = ?, cd_cep = ?, nm_logradouro = ?, nm_numero_residencia = ?, nm_complemento = ?, nm_bairro = ?, nm_responsavel = ?, cd_documento_responsavel = ?, nm_orgao_emissor = ?, dt_registro = ?, hr_registro = ?, cd_ubs_referencia = ?, cd_ubs = ?, cd_usuario_registro = ? WHERE cd_paciente = ?;";
         $stmt = $this->db_maua->prepare($txt_update);
-        $stmt->bind_param("iissssssssssssssssssssiiii", $this->cdCnsPaciente, $this->icUbsEspera, $this->nmJustificativa, $this->nmPaciente, $this->nmMae, $this->icSexo, $this->icRaca, $this->dtNascimento, $this->nmPaisNascimento, $this->nmMunicipioNascimento, $this->nmPaisResidencia, $this->nmMunicipioResidencia, $this->cdCep, $this->nmLogradouro, $this->nmNumeroResidencia, $this->nmComplemento, $this->nmBairro, $this->nmResponsavel, $this->cdDocumentoResponsavel, $this->nmOrgaoEmissor, $this->dtRegistro, $this->hrRegistro, $this->cdUbsReferencia, $this->cdUbs, $this->cdUsuarioRegistro, $id);
+        $stmt->bind_param("issssssssssssssssssssiiii", $this->cdCnsPaciente, $this->nmJustificativa, $this->nmPaciente, $this->nmMae, $this->icSexo, $this->icRaca, $this->dtNascimento, $this->nmPaisNascimento, $this->nmMunicipioNascimento, $this->nmPaisResidencia, $this->nmMunicipioResidencia, $this->cdCep, $this->nmLogradouro, $this->nmNumeroResidencia, $this->nmComplemento, $this->nmBairro, $this->nmResponsavel, $this->cdDocumentoResponsavel, $this->nmOrgaoEmissor, $this->dtRegistro, $this->hrRegistro, $this->cdUbsReferencia, $this->cdUbs, $this->cdUsuarioRegistro, $id);
 
         //executando o statement
         if ($stmt->execute()) {
@@ -116,180 +115,189 @@ final class Paciente extends Ciclo {
         return $ok;
     }
 
+    //fução para pegar todos os nomes. Quem usa essa função é a página pesquisar_paciente.php para preencher o autocomplete
+    public function getAllNames() {
+        $nomes = array();
+        $select = "SELECT nm_paciente FROM tb_paciente WHERE cd_paciente > 0 ORDER BY nm_paciente;";
+        $stmt = $this->db_maua->prepare($select);
+        if ($stmt) {
+            $stmt->execute();
+            $stmt->bind_result($nome_paciente);
+            while ($stmt->fetch()) {
+                $nomes[] = $nome_paciente;
+            }
+            $stmt->close();
+        }
+        
+        return $nomes;
+    }
+
     //------------------GET E SET
-    function getCdPaciente() {
+    public function getCdPaciente() {
         return $this->cdPaciente;
     }
 
-    function getCdCnsPaciente() {
+    public function getCdCnsPaciente() {
         return $this->cdCnsPaciente;
     }
 
-    function getIcUbsEspera() {
-        return $this->icUbsEspera;
-    }
-
-    function getNmJustificativa() {
+    public function getNmJustificativa() {
         return $this->nmJustificativa;
     }
 
-    function getNmPaciente() {
+    public function getNmPaciente() {
         return $this->nmPaciente;
     }
 
-    function getNmMae() {
+    public function getNmMae() {
         return $this->nmMae;
     }
 
-    function getIcSexo() {
+    public function getIcSexo() {
         return $this->icSexo;
     }
 
-    function getIcRaca() {
+    public function getIcRaca() {
         return $this->icRaca;
     }
 
-    function getDtNascimento() {
+    public function getDtNascimento() {
         return $this->dtNascimento;
     }
 
-    function getNmPaisNascimento() {
+    public function getNmPaisNascimento() {
         return $this->nmPaisNascimento;
     }
 
-    function getNmMunicipioNascimento() {
+    public function getNmMunicipioNascimento() {
         return $this->nmMunicipioNascimento;
     }
 
-    function getNmPaisResidencia() {
+    public function getNmPaisResidencia() {
         return $this->nmPaisResidencia;
     }
 
-    function getNmMunicipioResidencia() {
+    public function getNmMunicipioResidencia() {
         return $this->nmMunicipioResidencia;
     }
 
-    function getCdCep() {
+    public function getCdCep() {
         return $this->cdCep;
     }
 
-    function getNmLogradouro() {
+    public function getNmLogradouro() {
         return $this->nmLogradouro;
     }
 
-    function getNmNumeroResidencia() {
+    public function getNmNumeroResidencia() {
         return $this->nmNumeroResidencia;
     }
 
-    function getNmComplemento() {
+    public function getNmComplemento() {
         return $this->nmComplemento;
     }
 
-    function getNmBairro() {
+    public function getNmBairro() {
         return $this->nmBairro;
     }
 
-    function getNmResponsavel() {
+    public function getNmResponsavel() {
         return $this->nmResponsavel;
     }
 
-    function getCdDocumentoResponsavel() {
+    public function getCdDocumentoResponsavel() {
         return $this->cdDocumentoResponsavel;
     }
 
-    function getNmOrgaoEmissor() {
+    public function getNmOrgaoEmissor() {
         return $this->nmOrgaoEmissor;
     }
 
-    function getCdUbsReferencia() {
+    public function getCdUbsReferencia() {
         return $this->cdUbsReferencia;
     }
 
-    function setCdPaciente($cdPaciente) {
+    public function setCdPaciente($cdPaciente) {
         $this->cdPaciente = $cdPaciente;
     }
 
-    function setCdCnsPaciente($cdCnsPaciente) {
+    public function setCdCnsPaciente($cdCnsPaciente) {
         $this->cdCnsPaciente = $cdCnsPaciente;
     }
 
-    function setIcUbsEspera($icUbsEspera) {
-        $this->icUbsEspera = $icUbsEspera;
-    }
-
-    function setNmJustificativa($nmJustificativa) {
+    public function setNmJustificativa($nmJustificativa) {
         $this->nmJustificativa = $nmJustificativa;
     }
 
-    function setNmPaciente($nmPaciente) {
+    public function setNmPaciente($nmPaciente) {
         $this->nmPaciente = $nmPaciente;
     }
 
-    function setNmMae($nmMae) {
+    public function setNmMae($nmMae) {
         $this->nmMae = $nmMae;
     }
 
-    function setIcSexo($icSexo) {
+    public function setIcSexo($icSexo) {
         $this->icSexo = $icSexo;
     }
 
-    function setIcRaca($icRaca) {
+    public function setIcRaca($icRaca) {
         $this->icRaca = $icRaca;
     }
 
-    function setDtNascimento($dtNascimento) {
+    public function setDtNascimento($dtNascimento) {
         $this->dtNascimento = $dtNascimento;
     }
 
-    function setNmPaisNascimento($nmPaisNascimento) {
+    public function setNmPaisNascimento($nmPaisNascimento) {
         $this->nmPaisNascimento = $nmPaisNascimento;
     }
 
-    function setNmMunicipioNascimento($nmMunicipioNascimento) {
+    public function setNmMunicipioNascimento($nmMunicipioNascimento) {
         $this->nmMunicipioNascimento = $nmMunicipioNascimento;
     }
 
-    function setNmPaisResidencia($nmPaisResidencia) {
+    public function setNmPaisResidencia($nmPaisResidencia) {
         $this->nmPaisResidencia = $nmPaisResidencia;
     }
 
-    function setNmMunicipioResidencia($nmMunicipioResidencia) {
+    public function setNmMunicipioResidencia($nmMunicipioResidencia) {
         $this->nmMunicipioResidencia = $nmMunicipioResidencia;
     }
 
-    function setCdCep($cdCep) {
+    public function setCdCep($cdCep) {
         $this->cdCep = $cdCep;
     }
 
-    function setNmLogradouro($nmLogradouro) {
+    public function setNmLogradouro($nmLogradouro) {
         $this->nmLogradouro = $nmLogradouro;
     }
 
-    function setNmNumeroResidencia($nmNumeroResidencia) {
+    public function setNmNumeroResidencia($nmNumeroResidencia) {
         $this->nmNumeroResidencia = $nmNumeroResidencia;
     }
 
-    function setNmComplemento($nmComplemento) {
+    public function setNmComplemento($nmComplemento) {
         $this->nmComplemento = $nmComplemento;
     }
 
-    function setNmBairro($nmBairro) {
+    public function setNmBairro($nmBairro) {
         $this->nmBairro = $nmBairro;
     }
 
-    function setNmResponsavel($nmResponsavel) {
+    public function setNmResponsavel($nmResponsavel) {
         $this->nmResponsavel = $nmResponsavel;
     }
 
-    function setCdDocumentoResponsavel($cdDocumentoResponsavel) {
+    public function setCdDocumentoResponsavel($cdDocumentoResponsavel) {
         $this->cdDocumentoResponsavel = $cdDocumentoResponsavel;
     }
 
-    function setNmOrgaoEmissor($nmOrgaoEmissor) {
+    public function setNmOrgaoEmissor($nmOrgaoEmissor) {
         $this->nmOrgaoEmissor = $nmOrgaoEmissor;
     }
 
-    function setCdUbsReferencia($cdUbsReferencia) {
+    public function setCdUbsReferencia($cdUbsReferencia) {
         $this->cdUbsReferencia = $cdUbsReferencia;
     }
 

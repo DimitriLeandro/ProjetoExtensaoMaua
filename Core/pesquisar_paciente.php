@@ -65,25 +65,16 @@ if (!securePage($_SERVER['PHP_SELF'])) {
             //exemplo usado desse link: https://www.devmedia.com.br/jquery-autocomplete-dica/28697
             //primeiro ´e necess´ario buscar todos os nomes no banco
 <?php
-require_once('php/classes/conexao.Class.php');
-$conexao = new Conexao();
-$db_maua = $conexao->get_db_maua();
-
-$select = "SELECT nm_paciente FROM tb_paciente WHERE cd_paciente > ? ORDER BY nm_paciente;";
-if ($stmt = $db_maua->prepare($select)) {
-    $zero = 0;
-    $stmt->bind_param('i', $zero);
-    $stmt->execute();
-    $stmt->bind_result($nome_paciente);
-}
+require_once('php/classes/paciente.Class.php');
+$obj_paciente = new Paciente();
+$array_nomes = $obj_paciente->getAllNames();
 ?>
-
             //agora sim a funç~ao propriamente dita
             $("#nm_paciente").autocomplete({
                 source: [
 <?php
-while ($stmt->fetch()) {
-    echo '"' . $nome_paciente . '",';
+foreach ($array_nomes as $key => $value) {
+    echo '"' . $value . '",';
 }
 ?>
                 ],

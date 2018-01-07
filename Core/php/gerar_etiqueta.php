@@ -1,19 +1,20 @@
 <?php
+require_once 'classes/etiqueta.Class.php';
+require_once 'classes/paciente.Class.php';
+
 //VERIFICANDO SE O PARAMETRO GET FOI SETADO
 if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
-    require_once('classes/paciente.Class.php');
-    $paciente = new Paciente();
     //verificando se o valor existe no banco
+    $paciente = new Paciente();
     $paciente->selecionar($_GET['cd_paciente']);
-
     if ($paciente->getCdPaciente() == '' || $paciente->getCdPaciente() == 0) {
         unset($paciente);
         header("location: ../");
     } else {
-        //Se uma etiqueta está sendo impressa, então algum paciente está esperando pela triagem,
-        //Então é necessário fazer update no campo ic_ubs_espera colocando o id da UBS em que o paciente está
-        $paciente->setIcUbsEspera("4");
-        $paciente->atualizar($_GET['cd_paciente']);
+        //SE CHEGOU AQUI ENTÃO TÁ TUDO CERTO
+        //JÁ TEMOS UM OBJETO DA CLASSE PACIENTE QUE LÁ EM BAIXO VAI SERVIR PARA PEGAR O NOME, DATA DE NASCIMENTO ETC...
+        //AGORA SERÁ INSTANCIADO UM OBJETO DO TIPO ETIQUETA
+        $etiqueta = new Etiqueta($_GET['cd_paciente']);
     }
 } else {
     unset($paciente);
@@ -39,3 +40,8 @@ if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
         </div>
     </body>
 </html>
+<?php
+    //destruindo os objetos
+    unset($paciente);
+    unset($etiqueta);
+?>

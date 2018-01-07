@@ -6,7 +6,7 @@ echo "<pre>";
 ?>
 
 <?php
-	/* CADASTRO
+	///* CADASTRO
 	$triagem->setIcFinalizada('0');
 	$triagem->setDsQueixa('Dor');
 	$triagem->setDtRegistro(date("Y-m-d"));
@@ -30,7 +30,7 @@ echo "<pre>";
 
 	$ok = $triagem->cadastrar();
 	echo $ok;
-	*/
+	//*/
 
 
 	//SELECIONAR

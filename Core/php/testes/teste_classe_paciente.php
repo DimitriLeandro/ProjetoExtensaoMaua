@@ -11,7 +11,6 @@ echo "<pre>";
 /*
 //CADASTRANDO
 $paciente->setCdCnsPaciente('');
-$paciente->setIcUbsEspera('0');
 $paciente->setNmJustificativa('incapacitados');
 $paciente->setNmPaciente('Steve Vai');
 $paciente->setNmMae('Jucelina Volta');
@@ -39,7 +38,7 @@ echo "<br/><br/>";
 //cadastrando
 $ok = $paciente->cadastrar();
 echo $ok . "<br/><br/>";
-*/
+//*/
 
 // /*TESTE DE SELECT 
 
@@ -47,7 +46,6 @@ $paciente->selecionar('64');
 
 echo "<br/>" . $paciente->getCdPaciente();
 echo "<br/>" . $paciente->getCdCnsPaciente();
-echo "<br/>" . $paciente->getIcUbsEspera();
 echo "<br/>" . $paciente->getNmJustificativa();
 echo "<br/>" . $paciente->getNmPaciente();
 echo "<br/>" . $paciente->getNmMae();
