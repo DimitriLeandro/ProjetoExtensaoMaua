@@ -41,7 +41,7 @@ $GLOBALS['config'] = array(
 //If you changed your UserSpice or UserCake database prefix
 //put it here.
 $db_table_prefix = "uc_";  //Old database prefix
-$timezone_string = 'Africa/Abidjan';
+$timezone_string = 'America/Sao_Paulo';
 $copyright_message = 'Copyright ';
 $your_private_key = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
 $your_public_key = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';

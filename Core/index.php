@@ -17,7 +17,6 @@ require_once $abs_us_root.$us_url_root.'users/includes/header.php';
 </head>
 <body>
 	<div class="agile-login">
-		
 		<div class="wrapper">
 			<h2>Bem-Vindo ao Gerenciador SUS</h2>
 			<div class="w3ls-form">
