@@ -6,7 +6,6 @@ final class Paciente extends Ciclo {
 
     private $cdPaciente;
     private $cdCnsPaciente;
-    private $icUbsEspera;
     private $nmJustificativa;
     private $nmPaciente;
     private $nmMae;
@@ -36,7 +35,7 @@ final class Paciente extends Ciclo {
         //preparando o statement para o insert
         $stmt = $this->db_maua->prepare($txt_insert);
         //passando os valores. Aqui, a melhor forma seria usar os métodos get, mas o comando bind_param só aceita variáveis
-        $stmt->bind_param("iiissssssssssssssssssssiii", $this->cdPaciente, $this->cdCnsPaciente, $this->icUbsEspera, $this->nmJustificativa, $this->nmPaciente, $this->nmMae, $this->icSexo, $this->icRaca, $this->dtNascimento, $this->nmPaisNascimento, $this->nmMunicipioNascimento, $this->nmPaisResidencia, $this->nmMunicipioResidencia, $this->cdCep, $this->nmLogradouro, $this->nmNumeroResidencia, $this->nmComplemento, $this->nmBairro, $this->nmResponsavel, $this->cdDocumentoResponsavel, $this->nmOrgaoEmissor, $this->dtRegistro, $this->hrRegistro, $this->cdUbsReferencia, $this->cdUbs, $this->cdUsuarioRegistro);
+        $stmt->bind_param("iissssssssssssssssssssiii", $this->cdPaciente, $this->cdCnsPaciente, $this->nmJustificativa, $this->nmPaciente, $this->nmMae, $this->icSexo, $this->icRaca, $this->dtNascimento, $this->nmPaisNascimento, $this->nmMunicipioNascimento, $this->nmPaisResidencia, $this->nmMunicipioResidencia, $this->cdCep, $this->nmLogradouro, $this->nmNumeroResidencia, $this->nmComplemento, $this->nmBairro, $this->nmResponsavel, $this->cdDocumentoResponsavel, $this->nmOrgaoEmissor, $this->dtRegistro, $this->hrRegistro, $this->cdUbsReferencia, $this->cdUbs, $this->cdUsuarioRegistro);
 
         //executando o statement
         if ($stmt->execute()) {
