@@ -45,10 +45,7 @@ if (isset($_POST['btn_cadastrar'])) {
 
     $ok = $paciente->cadastrar();
     if ($ok == 0) {
-        ?> <script> alert('Erro ao cadastrar paciente');</script> <?php
-    } else {
-        $codigo_paciente = $paciente->getCdPaciente();
-        //A PARTE DE IMPRIMIR ETIQUETA ESTÁ LA PRA BAIXO
+	?> <script> alert('Erro ao cadastrar paciente');</script> <?php
     }
 }
 ?>
@@ -73,7 +70,7 @@ if (isset($_POST['btn_cadastrar'])) {
         </script>
     </head>
     <body>
-        <div>
+        <div id="div_corpo">
             <form method="post" class="form-style" id="cadastro_paciente">
                 <h1>SISTEMA DE CADASTRAMENTO SUS</h1>
                 <fieldset id="fieldset_1" class="field_set">
@@ -174,32 +171,17 @@ if (isset($_POST['btn_cadastrar'])) {
                     <button  type="button" onclick="submeter_formulario();" >Cadastrar e Imprimir Etiqueta</button>
 
                     <input  type="submit" name='btn_cadastrar' id="btn_cadastrar" disabled hidden />
-                </fieldset><br />
-
-                <!-- <fieldset>
-                        
-                        <label for="idestab" class="margem3" >Identificação do SUS</label>
-                        <input type="text" name="cd_cnes" id="idstab"  /><br />
-                        
-                        <label for="profregist" class="margem3">Identificação do cadastrante </label>
-                        <input type="number" name="cd_profissional_registro" id="profregist"  /><br />
-                </fieldset><br />  -->      
+                </fieldset><br />   
             </form>
         </div>
-        <?php
+	<?php
 //-------PARTE PARA IMPRIMIR A ETIQUETA 
-        if (isset($codigo_paciente) && $codigo_paciente > 0) {
-            ?>
-            <div id="div_etiqueta">
-                <iframe id="pdf_etiqueta" name="pdf_etiqueta" src="php/gerar_etiqueta.php?cd_paciente=<?php echo $codigo_paciente; ?>"></iframe>
-                <script>
-                    imprimir();
-                    window.location = "index.php";
-                </script>
-            </div>
-            <?php
-        }
-        ?>
+	if (isset($ok) && $ok === 1) {
+	    $txt_msg = 'O cadastro foi realizado com sucesso. O paciente foi incluído na lista de espera.';
+	    $cd_paciente = $paciente->getCdPaciente();
+	    require_once 'php/div_alert.php';
+	}
+	?>
         <script>
             $('input:visible:enabled:first').focus();
 

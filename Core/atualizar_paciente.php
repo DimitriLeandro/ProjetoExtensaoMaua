@@ -73,17 +73,6 @@ if (isset($_POST['btn_atualizar'])) {
         <link href="css/formulario.css" rel="stylesheet">
         <script src="users/js/jquery.js"></script>
         <script src="users/js/buscaCEP.js"></script>
-	<script>
-            //essa funç~ao precisa ficar aqui em cima pro php funcionar la em baixo
-            function imprimir()
-            {
-		$("#div_etiqueta").show();
-                window.frames["pdf_etiqueta"].focus();
-                window.frames["pdf_etiqueta"].print();
-                $("#div_etiqueta").hide();
-		window.location.href = 'pesquisar_paciente.php';
-            }
-        </script>
     </head>
     <body>
 	<div id="div_corpo">
@@ -151,51 +140,16 @@ if (isset($_POST['btn_atualizar'])) {
 	</div>
         <script src="users/js/validacao_cadastrar_paciente.js"></script>
 
-
 	<?php
 	//aqui, se o cadastro foi atualizado corretamente, a variavel $ok será === 1
 	//É mostrado o alert para imprimir a etiqueta
+	//o aqruivo php/div_alert.php precisa de duas variáveis pra funcionar, txt_msg e cd_paciente
 	if (isset($ok) && $ok === 1) {
-	    ?>
-	<iframe id="pdf_etiqueta" name="pdf_etiqueta" src="php/gerar_etiqueta.php?cd_paciente=<?php echo $paciente->getCdPaciente(); ?>" hidden></iframe>
-    	<div class="alert" id="div_alert">
-    	    <section style="padding: 5px;">
-    		<h4>
-    		    <p>
-    			O cadastro foi atualizado com sucesso e o paciente foi incluído na lista de espera.
-    		    </p>
-    		    <p>
-    			Deseja imprimir a etiqueta?
-    		    </p>
-    		</h4>
-    		<br/>
-    		<p align="right">
-    		    <button type="button" class="btn btn-info" onclick="imprimir();">Sim</button>
-    		    <button type="button" class="btn btn-info" onclick="normal();">Não</button>
-    		</p>
-    	    </section>
-    	</div>
-    	<style>
-    	    .alert{
-    		position: absolute;
-    		width: 50%;
-    		top: 50%;
-    		margin-left: 25%;
-    		background: #ffffff;
-    		border-radius: 25px;
-    		border: 2px solid #cccccc;
-    	    }
-    	</style>
-    	<script>
-                $("#div_corpo").fadeTo(0, 0.1);
-
-                function normal() {
-                    $("#div_corpo").fadeTo(300, 1);
-                    $('#div_alert').fadeOut(300);
-                }
-    	</script>
-	<?php } ?>
-
+	    $txt_msg = 'O cadastro foi atualizado com sucesso e o paciente foi incluído na lista de espera.';
+	    $cd_paciente = $paciente->getCdPaciente();
+	    require_once 'php/div_alert.php';
+	}
+	?>
 
     </body>
 </html>
