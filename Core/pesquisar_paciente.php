@@ -53,6 +53,7 @@ if (!securePage($_SERVER['PHP_SELF'])) {
             <p>
                 <button type="button" class="botao" id="btn_pesquisar">Pesquisar</button>
                 <button type="button" class="botao" id="btn_cadastrar">Cadastrar Novo Paciente</button>
+		<button type="button" class="botao" id="btn_lista_espera">Lista de Espera</button>
             </p>
             <br />
             <div id="div_resultados">
@@ -101,6 +102,10 @@ foreach ($array_nomes as $key => $value) {
 
             $("#btn_cadastrar").on("click", function () {
                 window.location = "cadastrar_paciente.php";
+            });
+	    
+	    $("#btn_lista_espera").on("click", function () {
+                window.location = "visualizar_espera.php";
             });
 
             $("#nm_paciente").keypress(function (e) {

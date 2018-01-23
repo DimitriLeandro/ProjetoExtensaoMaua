@@ -15,19 +15,19 @@ if (!securePage($_SERVER['PHP_SELF'])) {
 ?>
 
 <?php
-    //REMOVER PACIENTE DA LISTA DE ESPERA
-    if(isset($_GET['remover']) && $_GET['remover'] > 0){
-	require_once 'php/classes/espera.Class.php';
-	$obj_espera = new Espera();
-	
-	//será feita uma atualização do campo ic_finalizada, que será 1.
-	//para isso, o método atualizar($id) da classe será usado. Esse método atualiza TODOS os campos da linha da tabela, portanto, é necessário primeiro fazer o select, depois mudar o que deve ser alterado, para só então mandar atualizar.
-	$obj_espera->selecionar($_GET['remover']);
-	$obj_espera->setIcFinalizada('1');
-	$ok = $obj_espera->atualizar($_GET['remover']);
-	
-	unset($obj_espera);
-    }
+//REMOVER PACIENTE DA LISTA DE ESPERA
+if (isset($_GET['remover']) && $_GET['remover'] > 0) {
+    require_once 'php/classes/espera.Class.php';
+    $obj_espera = new Espera();
+
+    //será feita uma atualização do campo ic_finalizada, que será 1.
+    //para isso, o método atualizar($id) da classe será usado. Esse método atualiza TODOS os campos da linha da tabela, portanto, é necessário primeiro fazer o select, depois mudar o que deve ser alterado, para só então mandar atualizar.
+    $obj_espera->selecionar($_GET['remover']);
+    $obj_espera->setIcFinalizada('1');
+    $ok = $obj_espera->atualizar($_GET['remover']);
+
+    unset($obj_espera);
+}
 ?>
 
 <html>
@@ -43,9 +43,10 @@ if (!securePage($_SERVER['PHP_SELF'])) {
     <body>
         <form class="form-style">
             <h1>LISTA DE ESPERA</h1><br/>
-            <div id="div_lista_espera">
-            </div>
+            <div id="div_lista_espera"></div>
+	    <button type="button" class="botao" onclick="window.location.href = 'pesquisar_triagem.php';">Visualizar Triagens Anteriores</button>
         </form>
+
         <script>
             //FUNÇÃO QUE FICA RESPONSÁVEL POR RECARREGAR A LISTA A CADA 5 SEGUNDOS
             $(document).ready(function () {

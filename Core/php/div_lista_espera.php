@@ -7,6 +7,7 @@ $lista = $obj_espera->selecionarListaCompleta();
 
 foreach ($lista as $row) {
     $redirect_nova_triagem = "cadastrar_triagem.php?cd_paciente=" . $row['cd_paciente'];
+    $redirect_historico = "pesquisar_triagem.php?cd_paciente=" . $row['cd_paciente'];
     ?>
     <fieldset style = "border: solid 1px; padding: 10px;">
         <table>
@@ -33,10 +34,20 @@ foreach ($lista as $row) {
     	    </th>
     	</tr>
         </table>
-	<p>
-        <button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_nova_triagem; ?>';">Nova Triagem</button>
-	<button type="button" class="botao" onclick="window.location.href = 'visualizar_espera.php?remover=<?php echo $row['cd_espera']; ?>';">Retirar Paciente da Lista</button>
-	</p>
+        <p>
+	    <?php
+	    //Os botões "Nova triagem" e "Histŕico de Triagens" só deve aparecer se o usuário logado for um enfermeiro
+	    require_once 'classes/usuario.Class.php';
+	    $obj_usuario = new Usuario();
+	    if ($obj_usuario->getPermission() == "Enfermeiro" || $obj_usuario->getPermission() == "Administrator") {
+		?>
+		<button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_nova_triagem; ?>';">Nova Triagem</button>
+		<button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_historico; ?>';">Histórico de Triagens</button>
+		<?php
+	    }
+	    ?>
+    	<button type="button" class="botao" onclick="window.location.href = 'visualizar_espera.php?remover=<?php echo $row['cd_espera']; ?>';">Retirar Paciente da Lista</button>
+        </p>
     </fieldset><br/>
     <?php
 }
