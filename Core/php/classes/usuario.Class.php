@@ -10,10 +10,12 @@
 
   O método construtor dessa classe coloca o id do usuário logado no atributo $id
  */
+require_once 'conexao.Class.php';
 
 final class Usuario {
 
     private $id;
+    private $permission;
 
     public function __construct() {
         //verificando se a sessão já foi iniciada
@@ -23,16 +25,44 @@ final class Usuario {
 
         //verificando se existe a sessão "user"
         if (isset($_SESSION['user'])) {
-            $this->id = "" . $_SESSION['user'];
+            $this->setId($_SESSION['user']);
+	    //agora buscando a permissão do usuário
+	    $this->buscarPermissao();
         }
         else
         {
-            $this->id = null;
+            $this->setId(null);
         }
     }
+    
+    private function buscarPermissao(){
+	$obj_conexao = new Conexao();
+	$db_maua = $obj_conexao->get_db_maua();
+	$txt_select = "select permissions.name from users, permissions, user_permission_matches where users.id = user_permission_matches.user_id and user_permission_matches.permission_id = permissions.id and permissions.name != 'User' and users.id = ?;";
+	$stmt = $db_maua->prepare($txt_select);
+	$stmt->bind_param("i", $this->id);
+	$stmt->execute();
+	$stmt->bind_result($nm_permissao);
+	while($stmt->fetch()){
+	    $this->setPermission($nm_permissao);
+	}
+	$stmt->close();
+    }
 
-    function getId() {
-        return $this->id;
+    public function getId() {
+	return $this->id;
+    }
+
+    public function getPermission() {
+	return $this->permission;
+    }
+
+    private function setId($id) {
+	$this->id = $id;
+    }
+
+    private function setPermission($permission) {
+	$this->permission = $permission;
     }
 
 }
