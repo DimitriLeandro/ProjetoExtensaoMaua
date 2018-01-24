@@ -23,22 +23,6 @@ if (!securePage($_SERVER['PHP_SELF'])) {
         <title>Pesquisar Paciente</title>
         <meta charset="utf-8" />
         <link href="css/formulario.css" rel="stylesheet">
-        <script>
-            function imprimir(id_paciente)
-            {
-                $("#div_frames").show();
-
-                var id_frame = "frame_etiqueta_" + id_paciente;
-                var source = "php/gerar_etiqueta.php?cd_paciente=" + id_paciente;
-
-                $("#div_frames").append("<iframe id=" + id_frame + " name=" + id_frame + " src=" + source + "></iframe>");
-
-                window.frames[id_frame].focus();
-                window.frames[id_frame].print();
-
-                $("#div_frames").hide();
-            }
-        </script>
     </head>
     <body>
         <form method="post" class="form-style">
