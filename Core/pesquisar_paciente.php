@@ -81,7 +81,14 @@ foreach ($array_nomes as $key => $value) {
                 var txt_nome = $("#nm_paciente").val().replace(/\ /g, '_');
                 var txt_cns = $("#cd_cns_paciente").val();
                 var redirect = "php/div_pesquisar_paciente.php?nm_paciente=" + txt_nome + "&cd_cns_paciente=" + txt_cns;
-                $("#div_resultados").load(redirect + "");
+                $("#div_resultados").load(redirect + "", function(){
+		    //depois de carregar a lista de pacientes, é feita uma verificação para saber quantos nomes corresponderam à pesquisa
+		    //os fieldsets com as informações de cada paciente tem o id "field_paciente". Com o length do jquery é possível saber quantos pacientes apareceram.
+		    //Se não apareceu nenhum paciente, então, o site redireciona para o cadastro do paciente com o nome já preenchido no método get do php
+		    if($("#field_paciente").length == 0){
+			window.location.href = "cadastrar_paciente.php?nome="+$("#nm_paciente").val().replace(/ /g,"_");
+		    }
+		});
 
                 //aquele replace ali em cima serve pra tirar os espaços que estiverem no nome, substituindo-os por underline
                 //o mysql n~ao vai diferenciar espaço de underline na hora de fazer o SELECT com LIKE

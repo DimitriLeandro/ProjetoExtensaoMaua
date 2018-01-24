@@ -92,7 +92,7 @@ if (isset($_POST['btn_cadastrar'])) {
                     <p id="p_troca_cns_justificativa" style="cursor: pointer; color: lightblue;" onclick="trocar_cns_justificativa();">O paciente não possui CNS</p>
 
                     <label for="nomep" class="margem">Nome completo</label>
-                    <input type="text" name="nm_paciente" id="nm_paciente" onblur="validar_nm_paciente()" /><br />
+		    <input type="text" name="nm_paciente" id="nm_paciente" onblur="validar_nm_paciente()" <?php if(isset($_GET['nome'])){echo 'value="'.ucwords(str_replace("_", " ", $_GET['nome'])).'"'; } ?>/><br />
 
                     <label for="nomem"class="margem">Nome completo da mãe</label>
                     <input type="text" name="nm_mae" id="nm_mae" onblur="validar_nm_mae()"/><br />

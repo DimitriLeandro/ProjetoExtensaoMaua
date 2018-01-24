@@ -35,7 +35,7 @@ if ((isset($_GET['nm_paciente']) && $_GET['nm_paciente'] != "") || (isset($_GET[
 	    //enquanto houverem pacientes, o objeto da classe Paciente chama a funç~ao de pesquisar paciente, dessa forma, ´e possivel obter os dados de cada paciente conforme o while vai rodando
 	    $paciente->selecionar($codigo_paciente);
 	    ?>
-	    <fieldset style="border: solid 1px; padding: 15px;">
+	    <fieldset id="field_paciente" style="border: solid 1px; padding: 15px;">
 	        <p>
 		    <label class="margem">Nome: <?php echo $paciente->getNmPaciente(); ?></label>
 		    <label class="margem">CNS: <?php echo $paciente->getCdCnsPaciente(); ?></label>
