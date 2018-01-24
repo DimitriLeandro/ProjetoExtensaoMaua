@@ -90,7 +90,9 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
 <html>
     <head>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+        <script src="users/js/jquery.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <title>Registro da Triagem - <?php echo $paciente->getNmPaciente(); ?></title>
         <meta charset="utf-8" />
         <link href="css/formulario2.css" rel="stylesheet">
@@ -124,34 +126,28 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                     <!-- <label for="cdsus">Identificação do estabelecimento</label>
                     <input type="number" min=1 name="cd_cnes" id="cdsus" required /><br /> -->
                     <label for="dsqueixa">Queixa principal</label>
-                    <select name="ds_queixa" id="dsqueixa" required>
-			<?php
-			//aqui serão colocadas os <options> desse <input type="select">
-			//A classe Triagem tem o método sintomasCiap que retorna um array com todas as patologias do CIAP 2
-			$array_patologias = array();
-			$array_patologias = $triagem->sintomasCiap();
-			foreach ($array_patologias as $value) {
-			    ?>
-    			<option value="<?php echo $value; ?>"><?php echo $value; ?></option>
-			    <?php
-			}
-			?>
-		    </select><br />
+                    <input type="text" name="ds_queixa" id="ds_queixa"/>
+
                     <label for="pressaomax">Pressão Arterial máxima</label>
                     <input type="number" min=1 step="0.01" name="vl_pressao_max" id="pressaomax" placeholder="mmHg" /><br />
 		    <label for="pressaomin">Pressão Arterial mínima</label>
                     <input type="number" min=1 step="0.01" name="vl_pressao_min" id="pressaomin" placeholder="mmHg" /><br />
                     <label for="pulso">Pulso</label>
                     <input type="number" min=1 step="0.01" name="vl_pulso" id="pulso" placeholder="bpm" /><br />
-                    <label for="temp" >Temperatura</label>
+
+		    <label for="temp" >Temperatura</label>
                     <input type="number" min=1 step="0.01" name="vl_temperatura" id="temp" placeholder="ºC" /><br />
-                    <label for="resp">Respiração</label>
+
+		    <label for="resp">Respiração</label>
                     <input type="number" min=1 step="0.01" name="vl_respiracao" id="resp" placeholder="rpm" /><br />
-                    <label for="satu">Saturação</label>
+
+		    <label for="satu">Saturação</label>
                     <input type="number" min=1 max=100 step="0.01" name="vl_saturacao" id="satu" placeholder="%" /><br />
-                    <label for="glic">Glicemia</label>
+
+		    <label for="glic">Glicemia</label>
                     <input type="number" min=1 step="0.01" name="vl_glicemia" id="glic" placeholder="mg/dl" /><br />
-                    <label for="glasc">Nível de consciência</label>
+
+		    <label for="glasc">Nível de consciência</label>
                     <input type="number" min=1 max=15 name="vl_nivel_consciencia" id="glasc" placeholder="Escala de Glasgow" /><br />
                     <label for="escdor">Escala da dor </label>
                     <select name="vl_escala_dor" id="escdor">
@@ -203,5 +199,33 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                 <input type="submit" name="btn_cadastrar_triagem" value="Registrar Triagem" />
             </form>
         </div>
+	<script>
+	//script para pegar todos os códigos da CIAP2
+	//mas primeiro é preciso chamar o php pra pegar esses códigos na classe Triagem
+<?php
+require_once('php/classes/triagem.Class.php');
+$obj_triagem = new Triagem();
+$array_ciap = $obj_triagem->sintomasCiap();
+?>
+            var source = [
+<?php
+foreach ($array_ciap as $value) {
+    echo '"' . $value . '",';
+}
+?>
+            ];
+            $("#ds_queixa").autocomplete({
+                source: function (request, response) {
+                    var results = $.ui.autocomplete.filter(source, request.term);
+                    response(results.slice(0, 7));
+                },
+                select: function (event, ui) {
+                    if (ui.item)
+                    {
+                        $('#ds_queixa').val(ui.item.value);
+                    }
+                }
+            });
+	</script>
     </body>
 </html>

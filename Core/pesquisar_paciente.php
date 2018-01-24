@@ -54,15 +54,18 @@ require_once('php/classes/paciente.Class.php');
 $obj_paciente = new Paciente();
 $array_nomes = $obj_paciente->getAllNames();
 ?>
-            //agora sim a funç~ao propriamente dita
-            $("#nm_paciente").autocomplete({
-                source: [
+            var source = [
 <?php
 foreach ($array_nomes as $key => $value) {
     echo '"' . $value . '",';
 }
 ?>
-                ],
+            ];
+            $("#nm_paciente").autocomplete({
+                source: function (request, response) {
+                    var results = $.ui.autocomplete.filter(source, request.term);
+                    response(results.slice(0, 7));
+                },
                 select: function (event, ui) {
                     if (ui.item)
                     {
@@ -87,8 +90,8 @@ foreach ($array_nomes as $key => $value) {
             $("#btn_cadastrar").on("click", function () {
                 window.location = "cadastrar_paciente.php";
             });
-	    
-	    $("#btn_lista_espera").on("click", function () {
+
+            $("#btn_lista_espera").on("click", function () {
                 window.location = "visualizar_espera.php";
             });
 
