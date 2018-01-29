@@ -87,7 +87,9 @@ foreach ($array_nomes as $key => $value) {
 		    //os fieldsets com as informações de cada paciente tem o id "field_paciente". Com o length do jquery é possível saber quantos pacientes apareceram.
 		    //Se não apareceu nenhum paciente, então, o site redireciona para o cadastro do paciente com o nome já preenchido no método get do php
 		    if($("#field_paciente").length == 0){
-			window.location.href = "cadastrar_paciente.php?nome="+$("#nm_paciente").val().replace(/ /g,"_");
+			if($("#nm_paciente").val().length > 0){
+			    window.location.href = "cadastrar_paciente.php?nome="+$("#nm_paciente").val().replace(/ /g,"_");
+			}
 		    }
 		});
 
