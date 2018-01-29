@@ -135,7 +135,8 @@ if (isset($_POST['btn_atualizar'])) {
 		<label for="orgaoresp" class="margem2">Órgão emissor</label>
 		<input value="<?php echo $paciente->getNmOrgaoEmissor(); ?>" type="text" name="nm_orgao_emissor" id="nm_orgao_emissor"  onblur="validar_nm_orgao_emissor()" />
 
-		<input value="Atualizar Cadastro" type="submit" name='btn_atualizar' id="btn_cadastrar" />    
+		<input value="Atualizar Cadastro" type="submit" name='btn_atualizar' id="btn_cadastrar" />
+		<button type="button" onclick="javascript:history.back()">Voltar</button>    
 	    </form>
 	</div>
         <script src="users/js/validacao_cadastrar_paciente.js"></script>

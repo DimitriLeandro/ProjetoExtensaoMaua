@@ -6,7 +6,7 @@ if (file_exists("install/index.php")) {
 }
 require_once 'users/init.php';
 require_once $abs_us_root . $us_url_root . 'users/includes/header.php';
-require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
+//require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
 $db = DB::getInstance();
 if (!securePage($_SERVER['PHP_SELF'])) {
     die();
@@ -117,6 +117,28 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                 window.frames["frame_triagem"].print();
             }
         </script>
+         <style>
+        /* ESSE CSS é referênte as cores da classificação de risco*/
+        .red {
+            background-color: #F00;
+        }
+
+        .blue {
+            background-color: #00F;
+        }
+
+        .orange{
+            background-color: #F58025;
+        }
+        
+        .green{
+            background-color: #008000;
+        }
+
+        .yellow{
+            background-color: #ffff00;
+        }
+        </style>    
     </head>
     <body>
         <div>
@@ -177,7 +199,13 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                     <label for="observ">Observações</label>
                     <textarea name="ds_observacao" id="observ" placeholder="Para registro do histórico de doenças, doenças prévias, entre outros"></textarea><br />
                     <label for="classrisco">Classificação de risco</label>
-                    <input type="number" min=1 max=5 name="vl_classificacao_risco" id="classrisco"  /><br />
+                    <select> 
+                        <option value="nurgencia" class="blue">Não Urgência</option>
+                        <option value="pcaurgencia" class="green">Pouca Urgência</option>
+                        <option value="urgencia" class="yellow">Urgência</option>
+                        <option value="mtaurgencia" class="orange">Muita Urgência</option>
+                        <option value="emergencia" class="red">Emergência</option> 
+                    </select>
                     <label for="linhacuidado">Linha de cuidado</label>
                     <select name="ds_linha_cuidado" id="linhacuidado">
                         <option value="Nenhuma">Nenhuma</option>
@@ -197,6 +225,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                     <input type="number" min=1 name="cd_cns_profissional_triagem" id="cnsproftriagem" required /><br /> -->
                 </fieldset>
                 <input type="submit" name="btn_cadastrar_triagem" value="Registrar Triagem" />
+                <button type="button" onclick="javascript:history.back()">Voltar</button>
             </form>
         </div>
 	<script>

@@ -7,7 +7,7 @@ if (file_exists("install/index.php")) {
 
 require_once 'users/init.php';
 require_once $abs_us_root . $us_url_root . 'users/includes/header.php';
-require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
+
 $db = DB::getInstance();
 if (!securePage($_SERVER['PHP_SELF'])) {
     die();
@@ -37,7 +37,8 @@ if (!securePage($_SERVER['PHP_SELF'])) {
             <p>
                 <button type="button" class="botao" id="btn_pesquisar">Pesquisar</button>
                 <button type="button" class="botao" id="btn_cadastrar">Cadastrar Novo Paciente</button>
-		<button type="button" class="botao" id="btn_lista_espera">Lista de Espera</button>
+                <button type="button" class="botao" id="btn_lista_espera">Lista de Espera</button>
+                <button type="button" class="botao" id="btn_voltar">Voltar</button>
             </p>
             <br />
             <div id="div_resultados">
@@ -108,6 +109,10 @@ foreach ($array_nomes as $key => $value) {
                     $("#btn_pesquisar").click();
                 }
                 $("#cd_cns_paciente").val("");
+            });
+
+             $("#btn_voltar").on("click", function () {
+                window.location = "index.php";
             });
 
             $("#cd_cns_paciente").keypress(function (e) {

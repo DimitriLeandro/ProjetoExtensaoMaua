@@ -6,7 +6,7 @@ if (file_exists("install/index.php")) {
 }
 require_once 'users/init.php';
 require_once $abs_us_root . $us_url_root . 'users/includes/header.php';
-require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
+//require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
 $db = DB::getInstance();
 if (!securePage($_SERVER['PHP_SELF'])) {
     die();
@@ -124,11 +124,14 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                         <p>Hora: <?php echo $obj_diagnostico->getHrRegistro(); ?></p>
                         <p>Situaçao: <?php echo $obj_diagnostico->getIcSituacao(); ?></p>
                         <p>Profissional que Realizou o diagnóstico: <?php echo $obj_diagnostico->getCdUsuarioRegistro(); ?></p>
+
                     </fieldset>
                     <?php
                 }
                 ?>
+                <button type="button" onclick="javascript:history.back()">Voltar</button>
             </form>
         </div>
+      
     </body>
 </html>

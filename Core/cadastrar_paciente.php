@@ -7,7 +7,7 @@ if (file_exists("install/index.php")) {
 }
 require_once 'users/init.php';
 require_once $abs_us_root . $us_url_root . 'users/includes/header.php';
-require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
+//require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
 require_once 'users/init.php';
 $db = DB::getInstance();
 if (!securePage($_SERVER['PHP_SELF'])) {
@@ -118,6 +118,7 @@ if (isset($_POST['btn_cadastrar'])) {
                     <input type="text" maxlength="10" name="dt_nascimento" id="dt_nascimento" onkeypress="mascarar_data()" onblur="validar_dt_nascimento()"/><br />
 
                     <button type="button" onclick="avancar('fieldset_2');">Avançar</button>
+                    <button type="button" onclick="javascript:history.back()">Voltar</button>
                 </fieldset><br />
 
                 <fieldset id="fieldset_2" class="field_set" style="display: none;">
@@ -212,6 +213,8 @@ if (isset($_POST['btn_cadastrar'])) {
                 window.scrollTo(0, 0);
                 $('input:visible:enabled:first').focus();
             }
+
+         
         </script>
         <script src="users/js/validacao_cadastrar_paciente.js"></script>
     </body>

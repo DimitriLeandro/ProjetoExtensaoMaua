@@ -6,7 +6,7 @@ if (file_exists("install/index.php")) {
 }
 require_once 'users/init.php';
 require_once $abs_us_root . $us_url_root . 'users/includes/header.php';
-require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
+
 $db = DB::getInstance();
 if (!securePage($_SERVER['PHP_SELF'])) {
     die();
@@ -37,6 +37,9 @@ if (!securePage($_SERVER['PHP_SELF'])) {
 						<a href="cadastrar_paciente.php"><button type="button">Cadastrar Paciente</button><a/>
 						<a href="pesquisar_triagem.php"><button type="button">Visualizar Triagens</button><a/>
 						<a href="visualizar_espera.php"><button type="button">Lista de Espera</button><a/>
+						<a href="/ProjetoExtensaoMaua/Core/users/admin.php"><i class="fa fa-fw fa-cogs"></i> Admin Dashboard</a>
+						<a href="/ProjetoExtensaoMaua/Core/users/logout.php"><i class="fa fa-fw fa-sign-out"></i> Logout</a>
+
 
 						<?php }else{?>
 					<a href="users/login.php"><button type="button">Log In</button><a/>
@@ -61,7 +64,4 @@ if (!securePage($_SERVER['PHP_SELF'])) {
 </html>
 <?php require_once $abs_us_root.$us_url_root.'users/includes/html_footer.php'; // currently just the closing /body and /html ?>
 
-<?php
 
-require_once $abs_us_root.$us_url_root.'users/includes/navigation.php';
-?>

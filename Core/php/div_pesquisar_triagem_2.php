@@ -35,6 +35,7 @@ if (isset($_GET['dt_triagem'])) {
             <label>Mostrar apenas triagens sem diagnóstico</label>
             <input type="checkbox" id="chk_nao_finalizada" checked />
         </p>
+        <button type="button" onclick="javascript:history.back()">Voltar</button>
     </fieldset>
     <br/>
 
@@ -136,4 +137,9 @@ if (isset($_GET['dt_triagem'])) {
         //alert(dd+"\n"+mm+"\n"+aaaa);
         window.location = "pesquisar_triagem.php?dt_triagem=" + aaaa + "-" + mm + "-" + dd + "";
     });
+
+    function voltar(){
+        window.location="index.php"
+    }
+
 </script>

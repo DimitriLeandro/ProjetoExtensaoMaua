@@ -6,7 +6,7 @@ if (file_exists("install/index.php")) {
 }
 require_once 'users/init.php';
 require_once $abs_us_root . $us_url_root . 'users/includes/header.php';
-require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
+//require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
 
 $db = DB::getInstance();
 if (!securePage($_SERVER['PHP_SELF'])) {
@@ -51,6 +51,7 @@ if (isset($_GET['remover']) && $_GET['remover'] > 0) {
 	    if ($obj_usuario->getPermission() == "Enfermeiro" || $obj_usuario->getPermission() == "Administrator") {
 		?>
     	    <button type="button" class="botao" onclick="window.location.href = 'pesquisar_triagem.php';">Visualizar Triagens Anteriores</button>
+            <button type="button" onclick="javascript:history.back()">Voltar</button>
 		<?php
 	    }
 	    ?>
@@ -68,6 +69,10 @@ if (isset($_GET['remover']) && $_GET['remover'] > 0) {
             function recarregar_lista()
             {
                 $("#div_lista_espera").load("php/div_lista_espera.php");
+            }
+
+            function voltar(){
+                window.location = "index.php"
             }
         </script>
     </body>

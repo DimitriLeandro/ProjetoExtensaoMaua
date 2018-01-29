@@ -34,6 +34,8 @@ if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
                         <p><label>Data: <?php echo $triagem->getDtRegistro() ?> </label><p/>
                         <p><label>Hora: <?php echo $triagem->getHrRegistro() ?></label><p/>
                         <p><button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_ver_mais; ?>';">Ver Mais</button></p>
+                    
+           
                     </fieldset>
                     <br/>
                     <?php
