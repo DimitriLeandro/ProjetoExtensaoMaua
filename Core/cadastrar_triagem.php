@@ -109,7 +109,33 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                         window.location = "index.php";
                     });
                 }
+
+                //mandando completar o formulário sozinho
+                completar_formulario();
             });
+
+            //ESSA FUNÇÃO E A "ALEATORIO" SÓ SERVEM PRA PREENCHER O FORMULÁRIO SOZINHO PRA QUEM TIVER TESTANDO NÃO TER QUE FICAR ESCREVENDO TODA HORA------------------------------------------------------------
+            function completar_formulario() {
+                $("#ds_queixa").val("A03 Febre");
+                $("#vl_pressao_max").val("" + aleatorio(10, 13));
+                $("#vl_pressao_min").val("" + aleatorio(6, 9));
+                $("#vl_pulso").val("" + aleatorio(70, 115));
+                $("#vl_temperatura").val("" + aleatorio(36, 40));
+                $("#vl_respiracao").val("" + aleatorio(25, 45));
+                $("#vl_saturacao").val("" + aleatorio(90, 110));
+                $("#vl_glicemia").val("" + aleatorio(90, 110));
+                $("#vl_nivel_consciencia").val("" + aleatorio(14, 15));
+                $("#vl_escala_dor").val("" + aleatorio(1, 7));
+                //$("#vl_classificacao_risco").val(aleatorio(1, 5));
+                $("#ds_linha_cuidado").val("Nenhuma");
+                $("#ds_outras_condicoes").val("Nenhuma");
+            }
+
+            function aleatorio(inicio, fim) {
+                var intervalo = fim - inicio;
+                return (inicio + Math.floor((Math.random() * intervalo) + 1));
+            }
+//----------------------------------------------------------------------------------------
 
             function imprimir_triagem()
             {
@@ -117,62 +143,61 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                 window.frames["frame_triagem"].print();
             }
         </script>
-         <style>
-        /* ESSE CSS é referênte as cores da classificação de risco*/
-        .red {
-            background-color: #F00;
-        }
+	<style>
+	    /* ESSE CSS é referênte as cores da classificação de risco*/
+	    .red {
+		background-color: #F00;
+	    }
 
-        .blue {
-            background-color: #00F;
-        }
+	    .blue {
+		background-color: #00F;
+	    }
 
-        .orange{
-            background-color: #F58025;
-        }
-        
-        .green{
-            background-color: #008000;
-        }
+	    .orange{
+		background-color: #F58025;
+	    }
 
-        .yellow{
-            background-color: #ffff00;
-        }
+	    .green{
+		background-color: #008000;
+	    }
+
+	    .yellow{
+		background-color: #ffff00;
+	    }
         </style>    
     </head>
     <body>
+	<?php require_once 'php/div_header.php'; ?>
         <div>
             <form method="post" action="" class="form-style">
                 <h1>NOVA TRIAGEM - <?php echo $paciente->getNmPaciente(); ?></h1>
                 <fieldset>
-                    <!-- <label for="cdsus">Identificação do estabelecimento</label>
-                    <input type="number" min=1 name="cd_cnes" id="cdsus" required /><br /> -->
                     <label for="dsqueixa">Queixa principal</label>
                     <input type="text" name="ds_queixa" id="ds_queixa"/>
 
                     <label for="pressaomax">Pressão Arterial máxima</label>
-                    <input type="number" min=1 step="0.01" name="vl_pressao_max" id="pressaomax" placeholder="mmHg" /><br />
+                    <input type="number" min=1 step="0.01" name="vl_pressao_max" id="vl_pressao_max" placeholder="mmHg" /><br />
 		    <label for="pressaomin">Pressão Arterial mínima</label>
-                    <input type="number" min=1 step="0.01" name="vl_pressao_min" id="pressaomin" placeholder="mmHg" /><br />
+                    <input type="number" min=1 step="0.01" name="vl_pressao_min" id="vl_pressao_min" placeholder="mmHg" /><br />
                     <label for="pulso">Pulso</label>
-                    <input type="number" min=1 step="0.01" name="vl_pulso" id="pulso" placeholder="bpm" /><br />
+                    <input type="number" min=1 step="0.01" name="vl_pulso" id="vl_pulso" placeholder="bpm" /><br />
 
 		    <label for="temp" >Temperatura</label>
-                    <input type="number" min=1 step="0.01" name="vl_temperatura" id="temp" placeholder="ºC" /><br />
+                    <input type="number" min=1 step="0.01" name="vl_temperatura" id="vl_temperatura" placeholder="ºC" /><br />
 
 		    <label for="resp">Respiração</label>
-                    <input type="number" min=1 step="0.01" name="vl_respiracao" id="resp" placeholder="rpm" /><br />
+                    <input type="number" min=1 step="0.01" name="vl_respiracao" id="vl_respiracao" placeholder="rpm" /><br />
 
 		    <label for="satu">Saturação</label>
-                    <input type="number" min=1 max=100 step="0.01" name="vl_saturacao" id="satu" placeholder="%" /><br />
+                    <input type="number" min=1 step="0.01" name="vl_saturacao" id="vl_saturacao" placeholder="%" /><br />
 
 		    <label for="glic">Glicemia</label>
-                    <input type="number" min=1 step="0.01" name="vl_glicemia" id="glic" placeholder="mg/dl" /><br />
+                    <input type="number" min=1 step="0.01" name="vl_glicemia" id="vl_glicemia" placeholder="mg/dl" /><br />
 
 		    <label for="glasc">Nível de consciência</label>
-                    <input type="number" min=1 max=15 name="vl_nivel_consciencia" id="glasc" placeholder="Escala de Glasgow" /><br />
+                    <input type="number" min=1 max=15 name="vl_nivel_consciencia" id="vl_nivel_consciencia" placeholder="Escala de Glasgow" /><br />
                     <label for="escdor">Escala da dor </label>
-                    <select name="vl_escala_dor" id="escdor">
+                    <select name="vl_escala_dor" id="vl_escala_dor">
                         <optgroup label="Leve">
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -191,23 +216,23 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                         </optgroup>
                     </select><br />
                     <label for="alergia">Alergia a medicamentos</label>
-                    <input type="radio" name="ic_alergia" id="alergia" value="sim" />Sim
-                    <input type="radio" name="ic_alergia" id="alergia" value="nao" />Não
-                    <input type="radio" name="ic_alergia" id="alergia" value="desconhece" checked="checked" />Desconhece <br />
+                    <input type="radio" name="ic_alergia" id="ic_alergia" value="sim" />Sim
+                    <input type="radio" name="ic_alergia" id="ic_alergia" value="nao" />Não
+                    <input type="radio" name="ic_alergia" id="ic_alergia" value="desconhece" checked="checked" />Desconhece <br />
                     <label for="descalergia">Descrição alergia</label>
-                    <input type="text" name="ds_alergia" id="descalergia" /><br />
+                    <input type="text" name="ds_alergia" id="ds_alergia" /><br />
                     <label for="observ">Observações</label>
-                    <textarea name="ds_observacao" id="observ" placeholder="Para registro do histórico de doenças, doenças prévias, entre outros"></textarea><br />
+                    <textarea name="ds_observacao" id="ds_observacao" placeholder="Para registro do histórico de doenças, doenças prévias, entre outros"></textarea><br />
                     <label for="classrisco">Classificação de risco</label>
-                    <select> 
-                        <option value="nurgencia" class="blue">Não Urgência</option>
-                        <option value="pcaurgencia" class="green">Pouca Urgência</option>
-                        <option value="urgencia" class="yellow">Urgência</option>
-                        <option value="mtaurgencia" class="orange">Muita Urgência</option>
-                        <option value="emergencia" class="red">Emergência</option> 
+                    <select name="vl_classificacao_risco" id="vl_classificacao_risco" style="background-color: blue"> 
+                        <option value="1" class="blue">Não Urgência</option>
+                        <option value="2" class="green">Pouca Urgência</option>
+                        <option value="3" class="yellow">Urgência</option>
+                        <option value="4" class="orange">Muita Urgência</option>
+                        <option value="5" class="red">Emergência</option> 
                     </select>
                     <label for="linhacuidado">Linha de cuidado</label>
-                    <select name="ds_linha_cuidado" id="linhacuidado">
+                    <select name="ds_linha_cuidado" id="ds_linha_cuidado">
                         <option value="Nenhuma">Nenhuma</option>
                         <option value="gestacao">Gestação</option>
                         <option value="has">HAS</option>
@@ -215,7 +240,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                         <option value="vio">Violência</option>
                     </select><br />
                     <label for="outrascond">Outras condições</label>
-                    <select name="ds_outras_condicoes" id="outrascond">
+                    <select name="ds_outras_condicoes" id="ds_outras_condicoes">
                         <option value="Nenhuma">Nenhuma</option>
                         <option value="asma">Asma</option>
                         <option value="dpoc">DPOC</option>
@@ -229,8 +254,8 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
             </form>
         </div>
 	<script>
-	//script para pegar todos os códigos da CIAP2
-	//mas primeiro é preciso chamar o php pra pegar esses códigos na classe Triagem
+            //script para pegar todos os códigos da CIAP2
+            //mas primeiro é preciso chamar o php pra pegar esses códigos na classe Triagem
 <?php
 require_once('php/classes/triagem.Class.php');
 $obj_triagem = new Triagem();
@@ -253,6 +278,36 @@ foreach ($array_ciap as $value) {
                     {
                         $('#ds_queixa').val(ui.item.value);
                     }
+                }
+            });
+	</script>
+	<script>
+            $("#vl_classificacao_risco").change(function () {
+                /*<option value="1" class="blue">Não Urgência</option>
+                 <option value="2" class="green">Pouca Urgência</option>
+                 <option value="3" class="yellow">Urgência</option>
+                 <option value="4" class="orange">Muita Urgência</option>
+                 <option value="5" class="red">Emergência</option> 
+                 */
+                switch ($(this).val()) {
+                    case '1':
+                        $(this).css("background-color", "blue");
+                        break;
+                    case '2':
+                        $(this).css("background-color", "green");
+                        break;
+                    case '3':
+                        $(this).css("background-color", "yellow");
+                        break;
+                    case '4':
+                        $(this).css("background-color", "orange");
+                        break;
+                    case '5':
+                        $(this).css("background-color", "red");
+                        break;
+                    default:
+                        $(this).css("background-color", "red");
+                        break;
                 }
             });
 	</script>

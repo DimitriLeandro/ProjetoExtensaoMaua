@@ -71,6 +71,7 @@ if (isset($_POST['btn_cadastrar_diagnostico'])) {
         <link href="css/formulario2.css" rel="stylesheet">
     </head>
     <body>
+	<?php require_once 'php/div_header.php'; ?>
         <form method="post" action="" class="form-style">
             <h1>NOVO DIAGNÓSITICO</h1>
             <fieldset>
@@ -129,5 +130,13 @@ foreach ($array_cid as $key => $value) {
                 ul.outerWidth(this.element.outerWidth());
             }
         </script>
+	<script>
+            $("document").ready(function () {
+                $("#ds_avaliacao").val("Febre devido a sinusite.");
+                $("#cd_cid").val("J01.1 - Sinusite Frontal Aguda");
+                $("#ds_prescricao").val("1 comprimido de Amoxicilina a cada 12h por 7 dias.");
+            }
+            );
+	</script>
     </body>
 </html>

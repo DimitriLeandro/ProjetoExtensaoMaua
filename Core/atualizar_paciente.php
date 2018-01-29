@@ -7,7 +7,7 @@ if (file_exists("install/index.php")) {
 }
 require_once 'users/init.php';
 require_once $abs_us_root . $us_url_root . 'users/includes/header.php';
-require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
+//require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
 require_once 'users/init.php';
 $db = DB::getInstance();
 if (!securePage($_SERVER['PHP_SELF'])) {
@@ -75,6 +75,7 @@ if (isset($_POST['btn_atualizar'])) {
         <script src="users/js/buscaCEP.js"></script>
     </head>
     <body>
+	<?php require_once 'php/div_header.php'; ?>
 	<div id="div_corpo">
 	    <form method="post" class="form-style" id="cadastro_paciente">
 		<h1>Verificar Cadastro - <?php echo $paciente->getNmPaciente(); ?></h1>

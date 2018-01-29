@@ -25,6 +25,7 @@ if (!securePage($_SERVER['PHP_SELF'])) {
         <link href="css/formulario.css" rel="stylesheet">
     </head>
     <body>
+	<?php require_once 'php/div_header.php'; ?>
         <form method="post" class="form-style">
             <h1>PESQUISAR PACIENTE</h1>
             <fieldset>
@@ -38,15 +39,20 @@ if (!securePage($_SERVER['PHP_SELF'])) {
                 <button type="button" class="botao" id="btn_pesquisar">Pesquisar</button>
                 <button type="button" class="botao" id="btn_cadastrar">Cadastrar Novo Paciente</button>
                 <button type="button" class="botao" id="btn_lista_espera">Lista de Espera</button>
-                <button type="button" class="botao" id="btn_voltar">Voltar</button>
-            </p>
-            <br />
-            <div id="div_resultados">
-            </div>
-        </form>
-        <div id="div_frames">
-        </div>
-        <script>
+		<?php
+		require_once 'php/classes/usuario.Class.php';
+		$obj_usuario = new Usuario();
+		if ($obj_usuario->getPermission() != "Recepcionista") { ?>
+		    <button type = "button" onclick = "javascript:history.back()">Voltar</button>
+		<?php } ?>		
+	    </p>
+	    <br />
+	    <div id = "div_resultados">
+	    </div>
+	</form>
+	<div id = "div_frames">
+	</div>
+	<script>
             //funçao para completar o nome do paciente automaticamente
             //exemplo usado desse link: https://www.devmedia.com.br/jquery-autocomplete-dica/28697
             //primeiro ´e necess´ario buscar todos os nomes no banco
@@ -75,23 +81,23 @@ foreach ($array_nomes as $key => $value) {
                     $("#btn_pesquisar").click();
                 }
             });
-        </script>
-        <script>
+	</script>
+	<script>
             //funçao de pesquisar
             $("#btn_pesquisar").on("click", function () {
                 var txt_nome = $("#nm_paciente").val().replace(/\ /g, '_');
                 var txt_cns = $("#cd_cns_paciente").val();
                 var redirect = "php/div_pesquisar_paciente.php?nm_paciente=" + txt_nome + "&cd_cns_paciente=" + txt_cns;
-                $("#div_resultados").load(redirect + "", function(){
-		    //depois de carregar a lista de pacientes, é feita uma verificação para saber quantos nomes corresponderam à pesquisa
-		    //os fieldsets com as informações de cada paciente tem o id "field_paciente". Com o length do jquery é possível saber quantos pacientes apareceram.
-		    //Se não apareceu nenhum paciente, então, o site redireciona para o cadastro do paciente com o nome já preenchido no método get do php
-		    if($("#field_paciente").length == 0){
-			if($("#nm_paciente").val().length > 0){
-			    window.location.href = "cadastrar_paciente.php?nome="+$("#nm_paciente").val().replace(/ /g,"_");
-			}
-		    }
-		});
+                $("#div_resultados").load(redirect + "", function () {
+                    //depois de carregar a lista de pacientes, é feita uma verificação para saber quantos nomes corresponderam à pesquisa
+                    //os fieldsets com as informações de cada paciente tem o id "field_paciente". Com o length do jquery é possível saber quantos pacientes apareceram.
+                    //Se não apareceu nenhum paciente, então, o site redireciona para o cadastro do paciente com o nome já preenchido no método get do php
+                    if ($("#field_paciente").length == 0) {
+                        if ($("#nm_paciente").val().length > 0) {
+                            window.location.href = "cadastrar_paciente.php?nome=" + $("#nm_paciente").val().replace(/ /g, "_");
+                        }
+                    }
+                });
 
                 //aquele replace ali em cima serve pra tirar os espaços que estiverem no nome, substituindo-os por underline
                 //o mysql n~ao vai diferenciar espaço de underline na hora de fazer o SELECT com LIKE
@@ -113,10 +119,6 @@ foreach ($array_nomes as $key => $value) {
                 $("#cd_cns_paciente").val("");
             });
 
-             $("#btn_voltar").on("click", function () {
-                window.location = "index.php";
-            });
-
             $("#cd_cns_paciente").keypress(function (e) {
                 if (e.which == 13)
                 {
@@ -125,6 +127,6 @@ foreach ($array_nomes as $key => $value) {
                 $("#nm_paciente").val("");
             });
 
-        </script>
+	</script>
     </body>
 </html>

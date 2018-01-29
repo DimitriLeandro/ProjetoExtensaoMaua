@@ -41,6 +41,7 @@ if (isset($_GET['remover']) && $_GET['remover'] > 0) {
         <link href="css/formulario.css" rel="stylesheet">
     </head>
     <body>
+	<?php require_once 'php/div_header.php'; ?>
         <form class="form-style">
             <h1>LISTA DE ESPERA</h1><br/>
             <div id="div_lista_espera"></div>
@@ -48,13 +49,13 @@ if (isset($_GET['remover']) && $_GET['remover'] > 0) {
 	    //Os botões "Nova triagem" e "Histŕico de Triagens" só deve aparecer se o usuário logado for um enfermeiro
 	    require_once 'php/classes/usuario.Class.php';
 	    $obj_usuario = new Usuario();
-	    if ($obj_usuario->getPermission() == "Enfermeiro" || $obj_usuario->getPermission() == "Administrator") {
-		?>
-    	    <button type="button" class="botao" onclick="window.location.href = 'pesquisar_triagem.php';">Visualizar Triagens Anteriores</button>
-            <button type="button" onclick="javascript:history.back()">Voltar</button>
-		<?php
-	    }
-	    ?>
+	    if ($obj_usuario->getPermission() == "Enfermeiro" || $obj_usuario->getPermission() == "Administrator") { ?>
+		<button type="button" class="botao" onclick="window.location.href = 'pesquisar_triagem.php';">Visualizar Triagens Anteriores</button>
+	    <?php } ?>
+	    <?php
+	    if ($obj_usuario->getPermission() != "Enfermeiro") { ?>
+		    <button type = "button" onclick = "javascript:history.back()">Voltar</button>
+	    <?php } ?>
         </form>
 
         <script>

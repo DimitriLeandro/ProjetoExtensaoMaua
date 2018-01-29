@@ -25,44 +25,43 @@ if (!securePage($_SERVER['PHP_SELF'])) {
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     </head>
     <body>
-        <?php
-        require_once('php/classes/paciente.Class.php');
-        $paciente = new Paciente();
+	<?php require_once 'php/div_header.php'; ?>
+	<?php
+	require_once('php/classes/paciente.Class.php');
+	$paciente = new Paciente();
 
-        //Se algum cd_paciente for setado no m´etodo GET, essa p´agina exibe as triagens desse paciente
-        //Caso contr´ario, se n~ao tiver nada no GET, ent~ao essa p´agina mostra as triagens do dia
-        //A vari´avel $tipo_pagina ´e que vai definir o que vai ser exibido
-        //tipo 1 -> triagens de um paciente especifico setado no GET
-        //tipo 2 -> nada no get, portanto, mostrar as triagens do dia
+	//Se algum cd_paciente for setado no m´etodo GET, essa p´agina exibe as triagens desse paciente
+	//Caso contr´ario, se n~ao tiver nada no GET, ent~ao essa p´agina mostra as triagens do dia
+	//A vari´avel $tipo_pagina ´e que vai definir o que vai ser exibido
+	//tipo 1 -> triagens de um paciente especifico setado no GET
+	//tipo 2 -> nada no get, portanto, mostrar as triagens do dia
 
-        if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
-            //essa pagina precisa do codigo do paciente no metodo GET para pesquisar as triagens desse paciente. Aqui esta sendo feita uma verificaçao pra saber se esse get foi setado e se o valor setado realmente existe como um usuario. Caso contrario, a p´agina exibe as triagens do dia
-            //verificando se o valor existe no banco
+	if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
+	    //essa pagina precisa do codigo do paciente no metodo GET para pesquisar as triagens desse paciente. Aqui esta sendo feita uma verificaçao pra saber se esse get foi setado e se o valor setado realmente existe como um usuario. Caso contrario, a p´agina exibe as triagens do dia
+	    //verificando se o valor existe no banco
 
-            $paciente->selecionar($_GET['cd_paciente']);
+	    $paciente->selecionar($_GET['cd_paciente']);
 
-            if ($paciente->getCdPaciente() == '' || $paciente->getCdPaciente() == 0) {
-                $tipo_pagina = 2;
-            } else {
-                $tipo_pagina = 1;
-            }
-        } else {
-            $tipo_pagina = 2;
-        }
-        ?>
-        <?php
-        //aqui vai ser carregado a p´agina
-        if (isset($tipo_pagina)) {
-            if ($tipo_pagina == 1) { //1 -> Paciente especifico		2 -> Triagens do dia
-                require_once("php/div_pesquisar_triagem_1.php");
-            } else {
-                require_once("php/div_pesquisar_triagem_2.php");
-            }
-        } else {
-            header("location: index.php");
-        }
-
-        ?>
-         
+	    if ($paciente->getCdPaciente() == '' || $paciente->getCdPaciente() == 0) {
+		$tipo_pagina = 2;
+	    } else {
+		$tipo_pagina = 1;
+	    }
+	} else {
+	    $tipo_pagina = 2;
+	}
+	?>
+	<?php
+	//aqui vai ser carregado a p´agina
+	if (isset($tipo_pagina)) {
+	    if ($tipo_pagina == 1) { //1 -> Paciente especifico		2 -> Triagens do dia
+		require_once("php/div_pesquisar_triagem_1.php");
+	    } else {
+		require_once("php/div_pesquisar_triagem_2.php");
+	    }
+	} else {
+	    header("location: index.php");
+	}
+	?>
     </body>
 </html>

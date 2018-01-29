@@ -70,6 +70,7 @@ if (isset($_POST['btn_cadastrar'])) {
         </script>
     </head>
     <body>
+	<?php require_once 'php/div_header.php'; ?>
         <div id="div_corpo">
             <form method="post" class="form-style" id="cadastro_paciente">
                 <h1>SISTEMA DE CADASTRAMENTO SUS</h1>
@@ -117,8 +118,8 @@ if (isset($_POST['btn_cadastrar'])) {
                     <label for="nascp" class="margem">Data de Nascimento</label>
                     <input type="text" maxlength="10" name="dt_nascimento" id="dt_nascimento" onkeypress="mascarar_data()" onblur="validar_dt_nascimento()"/><br />
 
-                    <button type="button" onclick="avancar('fieldset_2');">Avançar</button>
                     <button type="button" onclick="javascript:history.back()">Voltar</button>
+		    <button type="button" onclick="avancar('fieldset_2');">Avançar</button>                    
                 </fieldset><br />
 
                 <fieldset id="fieldset_2" class="field_set" style="display: none;">
@@ -160,7 +161,7 @@ if (isset($_POST['btn_cadastrar'])) {
                     <!-- <input type="number" name="cd_ubs_referencia" id="ubsref" /><br /> -->
 
                     <label for="nomeresp" class="margem2">Nome completo do responsável</label>
-                    <input type="text" name="nm_responsavel" id="nm_responsavel" onblur="validar_nm_responsavel()" /><br />
+                    <input type="text" name="nm_responsavel" id="nm_responsavel" onblur="validar_nm_responsavel()" <?php if(isset($_GET['nome'])){echo 'value="'.ucwords(str_replace("_", " ", $_GET['nome'])).'"'; } ?>/><br />
 
                     <label for="docresp" class="margem2">Documento do responsavel</label>
                     <input type="text" maxlength="12" name="cd_documento_responsavel" id="cd_documento_responsavel" onkeypress="mascarar_rg()" onblur="validar_cd_documento_responsavel()" /><br />
