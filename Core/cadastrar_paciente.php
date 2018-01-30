@@ -59,15 +59,6 @@ if (isset($_POST['btn_cadastrar'])) {
         <link href="css/formulario.css" rel="stylesheet">
         <script src="users/js/jquery.js"></script>
         <script src="users/js/buscaCEP.js"></script>
-        <script>
-            //essa funç~ao precisa ficar aqui em cima pro php funcionar la em baixo
-            function imprimir()
-            {
-                window.frames["pdf_etiqueta"].focus();
-                window.frames["pdf_etiqueta"].print();
-                $("#div_etiqueta").hide();
-            }
-        </script>
     </head>
     <body>
 	<?php require_once 'php/div_header.php'; ?>
@@ -179,8 +170,8 @@ if (isset($_POST['btn_cadastrar'])) {
 	<?php
 //-------PARTE PARA IMPRIMIR A ETIQUETA 
 	if (isset($ok) && $ok === 1) {
-	    $txt_msg = 'O cadastro foi realizado com sucesso. O paciente foi incluído na lista de espera.';
-	    $cd_paciente = $paciente->getCdPaciente();
+	    $txt_msg = '<p>O cadastro foi realizado com sucesso e o paciente foi incluído na lista de espera.</p><p>Deseja imprimir a etiqueta?</p>';
+	    $source_frame = "php/gerar_etiqueta.php?cd_paciente=".$paciente->getCdPaciente();
 	    require_once 'php/div_alert.php';
 	}
 	?>

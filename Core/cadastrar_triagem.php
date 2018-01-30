@@ -62,29 +62,14 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
 	$triagem->setCdPaciente($_GET['cd_paciente']);
 	//cadastrando 
 	$ok = $triagem->cadastrar();
-
-	$id_inserido = $triagem->getCdTriagem();
-
-	unset($triagem);
-	//$mensagem = 'Triagem cadastrada com sucesso';
 	if ($ok == 0) {
 	    ?> <script> alert('Erro ao registrar triagem. Verifique os dados inseridos.');</script> <?php
-	} else {
-	    //AGORA DEVE SER IMPRESSA A TRIAGEM
-	    //É IMPORTANTE LEMBRAR QUE NÃO VALE A PENA TENTAR IMPRIMIR ESSE TRAMBOLHO ANTES DO SUBMIT DO FORMULÁRIO. É   I M P O S S Í V E L.
-	    //PORTANTO É NECESSÁRIO PEGAR O ULTIMO ID INSERIDO PARA CRIAR UM FRAME DA PÁGINA visualizar_triagem.php?cd_triagem=$id_inserido E MANDAR IMPRIMIR ESSE FRAME
-	    //SÉRIO, É MELHOR DEIXAR ASSIM DO QUE TENTAR IMPRIMIR A TRIAGEM DIRETAMENTE DESTA PÁGINA cadastrar_triagem.php
-	    ?>
-	    <iframe id='frame_triagem' name='frame_triagem' src='visualizar_triagem.php?cd_triagem=<?php echo $id_inserido; ?>' style="width: 1px; height: 1px;"></iframe>
-	    <?php
-	    //header('location: index.php');
-	    //echo "<br/><br/>".$id_inserido."<br/><br/>";
-	}
+	} //A PARTE QUE IMPRIME A TRIAGEM É MAIS PRA BAIXO NO CÓDIGO
     } else {
 	?> <script> alert("Código do paciente não encontrado");</script> <?php
-	}
     }
-    ?>
+}
+?>
 
 <!DOCTYPE html>
 <html>
@@ -97,24 +82,12 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
         <meta charset="utf-8" />
         <link href="css/formulario2.css" rel="stylesheet">
         <script>
-            //FUNÇÃO QUE IMPRIME A TRIAGEM
-            //DEPOIS QUE TODA A PÁGINA FOI CARREGADA, ELA VERIFICA SE TEM UM IFRAME NA PÁGINA, SE TIVER IMPRIME
+        //ESSAS FUNÇÕES SÓ SERVEM PRA PREENCHER O FORMULÁRIO SOZINHO PRA QUEM TIVER TESTANDO NÃO TER QUE FICAR ESCREVENDO TODA HORA------------------------------------------------------------
             $(document).ready(function () {
-                //verificando se existe iframe
-                if ($('#frame_triagem').length)
-                {
-                    imprimir_triagem();
-                    //é preciso fazer alguma coisa pra esperar imprimir, por isso o fadeOut
-                    $("#frame_triagem").fadeOut(function () {
-                        window.location = "index.php";
-                    });
-                }
-
                 //mandando completar o formulário sozinho
                 completar_formulario();
             });
-
-            //ESSA FUNÇÃO E A "ALEATORIO" SÓ SERVEM PRA PREENCHER O FORMULÁRIO SOZINHO PRA QUEM TIVER TESTANDO NÃO TER QUE FICAR ESCREVENDO TODA HORA------------------------------------------------------------
+            
             function completar_formulario() {
                 $("#ds_queixa").val("A03 Febre");
                 $("#vl_pressao_max").val("" + aleatorio(10, 13));
@@ -124,8 +97,8 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                 $("#vl_respiracao").val("" + aleatorio(25, 45));
                 $("#vl_saturacao").val("" + aleatorio(90, 110));
                 $("#vl_glicemia").val("" + aleatorio(90, 110));
-                $("#vl_nivel_consciencia").val("" + aleatorio(14, 15));
-                $("#vl_escala_dor").val("" + aleatorio(1, 7));
+                $("#vl_nivel_consciencia").val("" + aleatorio(12, 15));
+                $("#vl_escala_dor").val("" + aleatorio(0, 6));
                 //$("#vl_classificacao_risco").val(aleatorio(1, 5));
                 $("#ds_linha_cuidado").val("Nenhuma");
                 $("#ds_outras_condicoes").val("Nenhuma");
@@ -136,12 +109,6 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                 return (inicio + Math.floor((Math.random() * intervalo) + 1));
             }
 //----------------------------------------------------------------------------------------
-
-            function imprimir_triagem()
-            {
-                window.frames["frame_triagem"].focus();
-                window.frames["frame_triagem"].print();
-            }
         </script>
 	<style>
 	    /* ESSE CSS é referênte as cores da classificação de risco*/
@@ -168,7 +135,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
     </head>
     <body>
 	<?php require_once 'php/div_header.php'; ?>
-        <div>
+        <div id="div_corpo">
             <form method="post" action="" class="form-style">
                 <h1>NOVA TRIAGEM - <?php echo $paciente->getNmPaciente(); ?></h1>
                 <fieldset>
@@ -253,6 +220,14 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                 <button type="button" onclick="javascript:history.back()">Voltar</button>
             </form>
         </div>
+	<?php
+//-------PARTE PARA IMPRIMIR A TRIAGEM---------------------------
+	if (isset($ok) && $ok === 1) {
+	    $txt_msg = '<p>A triagem foi registrada com sucesso.</p><p>Deseja imprimir?</p>';
+	    $source_frame = "visualizar_triagem.php?cd_triagem=" . $triagem->getCdTriagem();
+	    require_once 'php/div_alert.php';
+	}
+	?>
 	<script>
             //script para pegar todos os códigos da CIAP2
             //mas primeiro é preciso chamar o php pra pegar esses códigos na classe Triagem
@@ -306,7 +281,7 @@ foreach ($array_ciap as $value) {
                         $(this).css("background-color", "red");
                         break;
                     default:
-                        $(this).css("background-color", "red");
+                        $(this).css("background-color", "blue");
                         break;
                 }
             });

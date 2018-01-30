@@ -6,7 +6,7 @@ if (file_exists("install/index.php")) {
 }
 require_once 'users/init.php';
 require_once $abs_us_root . $us_url_root . 'users/includes/header.php';
-require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
+//require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
 $db = DB::getInstance();
 if (!securePage($_SERVER['PHP_SELF'])) {
     die();
@@ -92,6 +92,7 @@ if (isset($_POST['btn_cadastrar_diagnostico'])) {
                     <option value="Óbito">Óbito</option>
                 </select>
             </fieldset>
+	    <button type="button" onclick="javascript:history.back()">Voltar</button> 
             <input type="submit" name="btn_cadastrar_diagnostico" value="Enviar" />
         </form>
 	<script>
