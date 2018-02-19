@@ -21,8 +21,8 @@ if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
     $paciente = new Paciente();
     $paciente->selecionar($_GET['cd_paciente']);
     if ($paciente->getCdPaciente() == '' || $paciente->getCdPaciente() == 0) {
-	unset($paciente);
-	header("location: index.php");
+        unset($paciente);
+        header("location: index.php");
     }
 } else {
     unset($paciente);
@@ -38,35 +38,35 @@ $triagem = new Triagem();
 if (isset($_POST['btn_cadastrar_triagem'])) {
     //o codigo do paciente será adquirido pelo método get. É necessário verificar se algum valor foi setado
     if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
-	//é necessário verificar se o código do paciente realmente existe
-	//setando as informações 
-	$triagem->setIcFinalizada('0');
-	$triagem->setDsQueixa($_POST['ds_queixa']);
-	$triagem->setDtRegistro(date("Y-m-d"));
-	$triagem->setHrRegistro(date("H:i:s"));
-	$triagem->setVlPressaoMin($_POST['vl_pressao_min']);
-	$triagem->setVlPressaoMax($_POST['vl_pressao_max']);
-	$triagem->setVlPulso($_POST['vl_pulso']);
-	$triagem->setVlTemperatura($_POST['vl_temperatura']);
-	$triagem->setVlRespiracao($_POST['vl_respiracao']);
-	$triagem->setVlSaturacao($_POST['vl_saturacao']);
-	$triagem->setVlGlicemia($_POST['vl_glicemia']);
-	$triagem->setVlNivelConsciencia($_POST['vl_nivel_consciencia']);
-	$triagem->setVlEscalaDor($_POST['vl_escala_dor']);
-	$triagem->setIcAlergia($_POST['ic_alergia']);
-	$triagem->setDsAlergia($_POST['ds_alergia']);
-	$triagem->setDsObservacao($_POST['ds_observacao']);
-	$triagem->setVlClassificacaoRisco($_POST['vl_classificacao_risco']);
-	$triagem->setDsLinhaCuidado($_POST['ds_linha_cuidado']);
-	$triagem->setDsOutrasCondicoes($_POST['ds_outras_condicoes']);
-	$triagem->setCdPaciente($_GET['cd_paciente']);
-	//cadastrando 
-	$ok = $triagem->cadastrar();
-	if ($ok == 0) {
-	    ?> <script> alert('Erro ao registrar triagem. Verifique os dados inseridos.');</script> <?php
-	} //A PARTE QUE IMPRIME A TRIAGEM É MAIS PRA BAIXO NO CÓDIGO
+        //é necessário verificar se o código do paciente realmente existe
+        //setando as informações 
+        $triagem->setIcFinalizada('0');
+        $triagem->setDsQueixa($_POST['ds_queixa']);
+        $triagem->setDtRegistro(date("Y-m-d"));
+        $triagem->setHrRegistro(date("H:i:s"));
+        $triagem->setVlPressaoMin($_POST['vl_pressao_min']);
+        $triagem->setVlPressaoMax($_POST['vl_pressao_max']);
+        $triagem->setVlPulso($_POST['vl_pulso']);
+        $triagem->setVlTemperatura($_POST['vl_temperatura']);
+        $triagem->setVlRespiracao($_POST['vl_respiracao']);
+        $triagem->setVlSaturacao($_POST['vl_saturacao']);
+        $triagem->setVlGlicemia($_POST['vl_glicemia']);
+        $triagem->setVlNivelConsciencia($_POST['vl_nivel_consciencia']);
+        $triagem->setVlEscalaDor($_POST['vl_escala_dor']);
+        $triagem->setIcAlergia($_POST['ic_alergia']);
+        $triagem->setDsAlergia($_POST['ds_alergia']);
+        $triagem->setDsObservacao($_POST['ds_observacao']);
+        $triagem->setVlClassificacaoRisco($_POST['vl_classificacao_risco']);
+        $triagem->setDsLinhaCuidado($_POST['ds_linha_cuidado']);
+        $triagem->setDsOutrasCondicoes($_POST['ds_outras_condicoes']);
+        $triagem->setCdPaciente($_GET['cd_paciente']);
+        //cadastrando 
+        $ok = $triagem->cadastrar();
+        if ($ok == 0) {
+            ?> <script> alert('Erro ao registrar triagem. Verifique os dados inseridos.');</script> <?php
+        } //A PARTE QUE IMPRIME A TRIAGEM É MAIS PRA BAIXO NO CÓDIGO
     } else {
-	?> <script> alert("Código do paciente não encontrado");</script> <?php
+        ?> <script> alert("Código do paciente não encontrado");</script> <?php
     }
 }
 ?>
@@ -75,19 +75,19 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
 <html>
     <head>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
         <script src="users/js/jquery.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <title>Registro da Triagem - <?php echo $paciente->getNmPaciente(); ?></title>
         <meta charset="utf-8" />
         <link href="css/formulario2.css" rel="stylesheet">
         <script>
-        //ESSAS FUNÇÕES SÓ SERVEM PRA PREENCHER O FORMULÁRIO SOZINHO PRA QUEM TIVER TESTANDO NÃO TER QUE FICAR ESCREVENDO TODA HORA------------------------------------------------------------
+            //ESSAS FUNÇÕES SÓ SERVEM PRA PREENCHER O FORMULÁRIO SOZINHO PRA QUEM TIVER TESTANDO NÃO TER QUE FICAR ESCREVENDO TODA HORA------------------------------------------------------------
             $(document).ready(function () {
                 //mandando completar o formulário sozinho
                 completar_formulario();
             });
-            
+
             function completar_formulario() {
                 $("#ds_queixa").val("A03 Febre");
                 $("#vl_pressao_max").val("" + aleatorio(10, 13));
@@ -110,31 +110,31 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
             }
 //----------------------------------------------------------------------------------------
         </script>
-	<style>
-	    /* ESSE CSS é referênte as cores da classificação de risco*/
-	    .red {
-		background-color: #F00;
-	    }
+        <style>
+            /* ESSE CSS é referênte as cores da classificação de risco*/
+            .red {
+                background-color: #F00;
+            }
 
-	    .blue {
-		background-color: #00F;
-	    }
+            .blue {
+                background-color: #00F;
+            }
 
-	    .orange{
-		background-color: #F58025;
-	    }
+            .orange{
+                background-color: #F58025;
+            }
 
-	    .green{
-		background-color: #008000;
-	    }
+            .green{
+                background-color: #008000;
+            }
 
-	    .yellow{
-		background-color: #ffff00;
-	    }
+            .yellow{
+                background-color: #ffff00;
+            }
         </style>    
     </head>
     <body>
-	<?php require_once 'php/div_header.php'; ?>
+        <?php require_once 'php/div_header.php'; ?>
         <div id="div_corpo">
             <form method="post" action="" class="form-style">
                 <h1>NOVA TRIAGEM - <?php echo $paciente->getNmPaciente(); ?></h1>
@@ -144,24 +144,24 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
 
                     <label for="pressaomax">Pressão Arterial máxima</label>
                     <input type="number" min=1 step="0.01" name="vl_pressao_max" id="vl_pressao_max" placeholder="mmHg" /><br />
-		    <label for="pressaomin">Pressão Arterial mínima</label>
+                    <label for="pressaomin">Pressão Arterial mínima</label>
                     <input type="number" min=1 step="0.01" name="vl_pressao_min" id="vl_pressao_min" placeholder="mmHg" /><br />
                     <label for="pulso">Pulso</label>
                     <input type="number" min=1 step="0.01" name="vl_pulso" id="vl_pulso" placeholder="bpm" /><br />
 
-		    <label for="temp" >Temperatura</label>
+                    <label for="temp" >Temperatura</label>
                     <input type="number" min=1 step="0.01" name="vl_temperatura" id="vl_temperatura" placeholder="ºC" /><br />
 
-		    <label for="resp">Respiração</label>
+                    <label for="resp">Respiração</label>
                     <input type="number" min=1 step="0.01" name="vl_respiracao" id="vl_respiracao" placeholder="rpm" /><br />
 
-		    <label for="satu">Saturação</label>
+                    <label for="satu">Saturação</label>
                     <input type="number" min=1 step="0.01" name="vl_saturacao" id="vl_saturacao" placeholder="%" /><br />
 
-		    <label for="glic">Glicemia</label>
+                    <label for="glic">Glicemia</label>
                     <input type="number" min=1 step="0.01" name="vl_glicemia" id="vl_glicemia" placeholder="mg/dl" /><br />
 
-		    <label for="glasc">Nível de consciência</label>
+                    <label for="glasc">Nível de consciência</label>
                     <input type="number" min=1 max=15 name="vl_nivel_consciencia" id="vl_nivel_consciencia" placeholder="Escala de Glasgow" /><br />
                     <label for="escdor">Escala da dor </label>
                     <select name="vl_escala_dor" id="vl_escala_dor">
@@ -220,15 +220,15 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                 <button type="button" onclick="javascript:history.back()">Voltar</button>
             </form>
         </div>
-	<?php
+        <?php
 //-------PARTE PARA IMPRIMIR A TRIAGEM---------------------------
-	if (isset($ok) && $ok === 1) {
-	    $txt_msg = '<p>A triagem foi registrada com sucesso.</p><p>Deseja imprimir?</p>';
-	    $source_frame = "visualizar_triagem.php?cd_triagem=" . $triagem->getCdTriagem();
-	    require_once 'php/div_alert.php';
-	}
-	?>
-	<script>
+        if (isset($ok) && $ok === 1) {
+            $txt_msg = '<p>A triagem foi registrada com sucesso.</p><p>Deseja imprimir?</p>';
+            $source_frame = "visualizar_triagem.php?cd_triagem=" . $triagem->getCdTriagem() . "&printLayout";
+            require_once 'php/div_alert.php';
+        }
+        ?>
+        <script>
             //script para pegar todos os códigos da CIAP2
             //mas primeiro é preciso chamar o php pra pegar esses códigos na classe Triagem
 <?php
@@ -255,8 +255,8 @@ foreach ($array_ciap as $value) {
                     }
                 }
             });
-	</script>
-	<script>
+        </script>
+        <script>
             $("#vl_classificacao_risco").change(function () {
                 /*<option value="1" class="blue">Não Urgência</option>
                  <option value="2" class="green">Pouca Urgência</option>
@@ -285,6 +285,6 @@ foreach ($array_ciap as $value) {
                         break;
                 }
             });
-	</script>
+        </script>
     </body>
 </html>
