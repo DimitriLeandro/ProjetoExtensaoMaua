@@ -22,29 +22,34 @@ echo "<pre>";
   --  tb_triagem:1::1:tb_diagnostico, apesar de usar uma chave estrangeira, é uma relação 1 para 1
 
   --  ESSA PROCEDURE RETORNA O PARAMETRO "id" QUE É O ID DO DIAGNOSTICO INSERIDO, OU 0 CASO O INSERT NÃO SEJA EXECUTADO
-*/
-$diagnostico->setDsAvaliacao('Virose');
-$diagnostico->setCdCid('CID 10-14');
-$diagnostico->setDsPrescricao('Amoxicilina');
-$diagnostico->setIcSituacao('Alta');
-$diagnostico->setCdTriagem('50');
+ */
+/* $diagnostico->setDsAvaliacao('Virose');
+  $diagnostico->setCdCid('CID 10-14');
+  $diagnostico->setDsPrescricao('Amoxicilina');
+  $diagnostico->setIcSituacao('Alta');
+  $diagnostico->setCdTriagem('50');
 
-$ok = $diagnostico->cadastrar();
-echo $ok . "<br/><br/>";
-// */
-//SELECIONAR
-$diagnostico->selecionar('33');
+  $ok = $diagnostico->cadastrar();
+  echo $ok . "<br/><br/>";
+  // */
+/* //SELECIONAR
+  $diagnostico->selecionar('33');
 
-echo "<br/>" . $diagnostico->getCdDiagnostico();
-echo "<br/>" . $diagnostico->getDsAvaliacao();
-echo "<br/>" . $diagnostico->getCdCid();
-echo "<br/>" . $diagnostico->getDsPrescricao();
-echo "<br/>" . $diagnostico->getDtRegistro();
-echo "<br/>" . $diagnostico->getHrRegistro();
-echo "<br/>" . $diagnostico->getIcSituacao();
-echo "<br/>" . $diagnostico->getCdUbs();
-echo "<br/>" . $diagnostico->getCdUsuarioRegistro();
-echo "<br/>" . $diagnostico->getCdTriagem();
+  echo "<br/>" . $diagnostico->getCdDiagnostico();
+  echo "<br/>" . $diagnostico->getDsAvaliacao();
+  echo "<br/>" . $diagnostico->getCdCid();
+  echo "<br/>" . $diagnostico->getDsPrescricao();
+  echo "<br/>" . $diagnostico->getDtRegistro();
+  echo "<br/>" . $diagnostico->getHrRegistro();
+  echo "<br/>" . $diagnostico->getIcSituacao();
+  echo "<br/>" . $diagnostico->getCdUbs();
+  echo "<br/>" . $diagnostico->getCdUsuarioRegistro();
+  echo "<br/>" . $diagnostico->getCdTriagem(); */
+
+$array_cid = $diagnostico->tabelaCid();
+foreach ($array_cid as $value) {
+    echo $value . "<br/>";
+}
 ?>
 
 <?php

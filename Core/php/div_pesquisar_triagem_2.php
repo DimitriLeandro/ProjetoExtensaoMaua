@@ -12,10 +12,10 @@ if (isset($_GET['dt_triagem'])) {
       $ano_triagem = $data_setada[0]; */
 
     if (count($data_setada) == 3 && $data_setada[0] != "" && $data_setada[1] != "" && $data_setada[2] != "") {
-        //checkdate( int $month , int $day , int $year )
-        if (checkdate($data_setada[1], $data_setada[2], $data_setada[0]) === true) {
-            $data_triagem = $_GET['dt_triagem'];
-        }
+	//checkdate( int $month , int $day , int $year )
+	if (checkdate($data_setada[1], $data_setada[2], $data_setada[0]) === true) {
+	    $data_triagem = $_GET['dt_triagem'];
+	}
     }
 }
 ?>
@@ -49,34 +49,41 @@ if (isset($_GET['dt_triagem'])) {
     $db_maua = $conexao->get_db_maua();
 
     if ($stmt = $db_maua->prepare('SELECT cd_triagem FROM tb_triagem WHERE dt_registro = ?;')) {
-        $stmt->bind_param('s', $data_triagem);
-        $stmt->execute();
-        $stmt->bind_result($codigo_triagem);
+	$stmt->bind_param('s', $data_triagem);
+	$stmt->execute();
+	$stmt->bind_result($codigo_triagem);
 
-        while ($stmt->fetch()) {
-            $triagem->selecionar($codigo_triagem);
-            $redirect_ver_mais = 'visualizar_triagem.php?cd_triagem=' . $triagem->getCdTriagem();
-            //Pegando os dados do usuario da triagem para mostrar o nome etc
-            $paciente->selecionar($triagem->getCdPaciente());
-            ?>
-            <fieldset class="<?php
-            if ($triagem->getIcFinalizada() == 1) {
-                echo "finalizada";
-            } else {
-                echo "nao_finalizada";
-            }
-            ?>" style="border: solid 1px; padding: 15px;">
-                <p><label>Paciente: <?php echo $paciente->getNmPaciente() ?> </label><p/>
-                <p><label>Queixa: <?php echo $triagem->getDsQueixa() ?> </label><p/>
-                <p><label>Data: <?php echo $triagem->getDtRegistro() ?> </label><p/>
-                <p><label>Hora: <?php echo $triagem->getHrRegistro() ?></label><p/>
-                <p><button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_ver_mais; ?>';">Ver Mais</button></p>
-            </fieldset>
-            <br/>
-            <?php
-        }
+	while ($stmt->fetch()) {
+	    $triagem->selecionar($codigo_triagem);
+	    $redirect_ver_mais = 'visualizar_triagem.php?cd_triagem=' . $triagem->getCdTriagem();
+	    //Pegando os dados do usuario da triagem para mostrar o nome etc
+	    $paciente->selecionar($triagem->getCdPaciente());
+	    ?>
+	    <fieldset class="<?php
+	    if ($triagem->getIcFinalizada() == 1) {
+		echo "finalizada";
+	    } else {
+		echo "nao_finalizada";
+	    }
+	    ?>" style="border: solid 1px; padding: 15px;">
+		<p><label>Paciente: <?php echo $paciente->getNmPaciente() ?> </label><p/>
+		<p><label>Queixa: <?php echo $triagem->getDsQueixa() ?> </label><p/>
+		<p><label>Data: <?php echo $triagem->getDtRegistro() ?> </label><p/>
+		<p><label>Hora: <?php echo $triagem->getHrRegistro() ?></label><p/>
+		<p><button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_ver_mais; ?>';">Ver Mais</button></p>
+	    </fieldset>
+	    <br/>
+	    <?php
+	}
     }
     ?> 
+    <?php
+    require_once 'php/classes/usuario.Class.php';
+    $obj_usuario = new Usuario();
+    if ($obj_usuario->getPermission() != "Outorgante") {
+	?>
+        <button type = "button" onclick = "javascript:history.back()">Voltar</button>
+<?php } ?>	
 </div>
 <script>
     $("document").ready(function () {
@@ -136,4 +143,9 @@ if (isset($_GET['dt_triagem'])) {
         //alert(dd+"\n"+mm+"\n"+aaaa);
         window.location = "pesquisar_triagem.php?dt_triagem=" + aaaa + "-" + mm + "-" + dd + "";
     });
+
+    function voltar() {
+        window.location = "index.php"
+    }
+
 </script>

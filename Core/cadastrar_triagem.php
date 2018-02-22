@@ -6,7 +6,7 @@ if (file_exists("install/index.php")) {
 }
 require_once 'users/init.php';
 require_once $abs_us_root . $us_url_root . 'users/includes/header.php';
-require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
+//require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
 $db = DB::getInstance();
 if (!securePage($_SERVER['PHP_SELF'])) {
     die();
@@ -31,13 +31,14 @@ if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
 ?>
 
 <?php
+//instanciando o objeto da classe Triagem
+require_once('php/classes/triagem.Class.php');
+$triagem = new Triagem();
+
 if (isset($_POST['btn_cadastrar_triagem'])) {
     //o codigo do paciente será adquirido pelo método get. É necessário verificar se algum valor foi setado
     if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
         //é necessário verificar se o código do paciente realmente existe
-        //instanciando o objeto da classe Triagem
-        require_once('php/classes/triagem.Class.php');
-        $triagem = new Triagem();
         //setando as informações 
         $triagem->setIcFinalizada('0');
         $triagem->setDsQueixa($_POST['ds_queixa']);
@@ -61,202 +62,109 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
         $triagem->setCdPaciente($_GET['cd_paciente']);
         //cadastrando 
         $ok = $triagem->cadastrar();
-
-        $id_inserido = $triagem->getCdTriagem();
-
-        unset($triagem);
-        //$mensagem = 'Triagem cadastrada com sucesso';
         if ($ok == 0) {
             ?> <script> alert('Erro ao registrar triagem. Verifique os dados inseridos.');</script> <?php
-        } else {
-            //AGORA DEVE SER IMPRESSA A TRIAGEM
-            //É IMPORTANTE LEMBRAR QUE NÃO VALE A PENA TENTAR IMPRIMIR ESSE TRAMBOLHO ANTES DO SUBMIT DO FORMULÁRIO. É   I M P O S S Í V E L.
-            //PORTANTO É NECESSÁRIO PEGAR O ULTIMO ID INSERIDO PARA CRIAR UM FRAME DA PÁGINA visualizar_triagem.php?cd_triagem=$id_inserido E MANDAR IMPRIMIR ESSE FRAME
-            //SÉRIO, É MELHOR DEIXAR ASSIM DO QUE TENTAR IMPRIMIR A TRIAGEM DIRETAMENTE DESTA PÁGINA cadastrar_triagem.php
-            ?>
-            <iframe id='frame_triagem' name='frame_triagem' src='visualizar_triagem.php?cd_triagem=<?php echo $id_inserido; ?>' style="width: 1px; height: 1px;"></iframe>
-            <?php
-            //header('location: index.php');
-            //echo "<br/><br/>".$id_inserido."<br/><br/>";
-        }
+        } //A PARTE QUE IMPRIME A TRIAGEM É MAIS PRA BAIXO NO CÓDIGO
     } else {
         ?> <script> alert("Código do paciente não encontrado");</script> <?php
-        }
     }
-    ?>
+}
+?>
 
 <!DOCTYPE html>
 <html>
     <head>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+        <script src="users/js/jquery.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <title>Registro da Triagem - <?php echo $paciente->getNmPaciente(); ?></title>
         <meta charset="utf-8" />
         <link href="css/formulario2.css" rel="stylesheet">
         <script>
-            //FUNÇÃO QUE IMPRIME A TRIAGEM
-            //DEPOIS QUE TODA A PÁGINA FOI CARREGADA, ELA VERIFICA SE TEM UM IFRAME NA PÁGINA, SE TIVER IMPRIME
+            //ESSAS FUNÇÕES SÓ SERVEM PRA PREENCHER O FORMULÁRIO SOZINHO PRA QUEM TIVER TESTANDO NÃO TER QUE FICAR ESCREVENDO TODA HORA------------------------------------------------------------
             $(document).ready(function () {
-                //verificando se existe iframe
-                if ($('#frame_triagem').length)
-                {
-                    imprimir_triagem();
-                    //é preciso fazer alguma coisa pra esperar imprimir, por isso o fadeOut
-                    $("#frame_triagem").fadeOut(function () {
-                        window.location = "index.php";
-                    });
-                }
+                //mandando completar o formulário sozinho
+                completar_formulario();
             });
 
-            function imprimir_triagem()
-            {
-                window.frames["frame_triagem"].focus();
-                window.frames["frame_triagem"].print();
+            function completar_formulario() {
+                $("#ds_queixa").val("A03 Febre");
+                $("#vl_pressao_max").val("" + aleatorio(10, 13));
+                $("#vl_pressao_min").val("" + aleatorio(6, 9));
+                $("#vl_pulso").val("" + aleatorio(70, 115));
+                $("#vl_temperatura").val("" + aleatorio(36, 40));
+                $("#vl_respiracao").val("" + aleatorio(25, 45));
+                $("#vl_saturacao").val("" + aleatorio(90, 110));
+                $("#vl_glicemia").val("" + aleatorio(90, 110));
+                $("#vl_nivel_consciencia").val("" + aleatorio(12, 15));
+                $("#vl_escala_dor").val("" + aleatorio(0, 6));
+                //$("#vl_classificacao_risco").val(aleatorio(1, 5));
+                $("#ds_linha_cuidado").val("Nenhuma");
+                $("#ds_outras_condicoes").val("Nenhuma");
             }
+
+            function aleatorio(inicio, fim) {
+                var intervalo = fim - inicio;
+                return (inicio + Math.floor((Math.random() * intervalo) + 1));
+            }
+//----------------------------------------------------------------------------------------
         </script>
         <style>
-        /* ESSE CSS é referênte as cores da classificação de risco*/
-        .red {
-            background-color: #F00;
-        }
+            /* ESSE CSS é referênte as cores da classificação de risco*/
+            .red {
+                background-color: #F00;
+            }
 
-        .blue {
-            background-color: #00F;
-        }
+            .blue {
+                background-color: #00F;
+            }
 
-        .orange{
-            background-color: #F58025;
-        }
-        
-        .green{
-            background-color: #008000;
-        }
+            .orange{
+                background-color: #F58025;
+            }
 
-        .yellow{
-            background-color: #ffff00;
-        }
-        </style>
+            .green{
+                background-color: #008000;
+            }
+
+            .yellow{
+                background-color: #ffff00;
+            }
+        </style>    
     </head>
     <body>
-        <div>
+        <?php require_once 'php/div_header.php'; ?>
+        <div id="div_corpo">
             <form method="post" action="" class="form-style">
                 <h1>NOVA TRIAGEM - <?php echo $paciente->getNmPaciente(); ?></h1>
                 <fieldset>
-                    <!-- <label for="cdsus">Identificação do estabelecimento</label>
-                    <input type="number" min=1 name="cd_cnes" id="cdsus" required /><br /> -->
                     <label for="dsqueixa">Queixa principal</label>
-                    <select name="ds_queixa" id="dsqueixa" required>
-                        <optgroup label="GERAL E INESPECÍFICO">
-                            <option value="A01">A01 Dor generalizada /múltipla</option>
-                            <option value="A02">A02 Arrepios/ calafrios</option>
-                            <option value="A03">A03 Febre</option>
-                            <option value="A04">A04 Debilidade/cansaço geral/fadiga</option>
-                            <option value="A05">A05 Sentir-se doente</option>
-                            <option value="A06">A06 Desmaio/síncope</option>
-                            <option value="A07">A07 Coma</option>
-                            <option value="A08">A08 Inchaço</option>
-                            <option value="A09">A09 Problemas de sudorese</option>
-                            <option value="A10">A10 Sangramento/Hemorragia NE</option>
-                            <option value="A11">A11 Dores torácicas NE</option>
-                            <option value="A13">A13 Receio/Medo do tratamento</option>
-                            <option value="A16">A16 Criança irritável</option>
-                            <option value="A18">A18 Preocupação com aparência</option>
-                            <option value="A20">A20 Pedido/discussão eutanásia</option>
-                            <option value="A21">A21 Fator de risco de malignidade</option>
-                            <option value="A23">A23 Fator de risco NE</option>
-                            <option value="A25">A25 Medo de morrer/medo da morte</option>
-                            <option value="A26">A26 Medo de câncer NE</option>
-                            <option value="A27">A27 Medo de outra doença NE</option>
-                            <option value="A28">A28 Limitação funcional/incapacidade NE</option>
-                            <option value="A29">A29 Outros sinais/sintomas gerais</option>
-                            <option value="A70">A70 Tuberculose</option>
-                            <option value="A71">A71 Sarampo</option>
-                            <option value="A72">A72 Varicela</option>
-                            <option value="A73">A73 Malária</option>
-                            <option value="A74">A74 Rubéola</option>
-                            <option value="A75">A75 Mononucleose infecciosa</option>
-                            <option value="A76">A76 Outro exantema viral</option>
-                            <option value="A77">A77 Dengue e outras doenças virais NE</option>
-                            <option value="A78">A78 Hanseníase e outras doenças infecciosas NE</option>
-                            <option value="A79">A79 Carcinomatose (localização primária desconhecida)</option>
-                            <option value="A80">A80 Lesão traumática/acidente NE</option>
-                            <option value="A81">A81 Politraumatismos/ferimentos múltiplos</option>
-                            <option value="A82">A82 Efeito secundário de lesão traumática</option>
-                            <option value="A84">A84 Intoxicação por medicamento</option>
-                            <option value="A85">A85 Efeito adverso de fármaco dose correta</option>
-                            <option value="A86">A86 Efeito tóxico de substância não medicinal</option>
-                            <option value="A87">A87 Complicações de tratamento médico</option>
-                            <option value="A88">A88 Efeito adverso de fator físico</option>
-                            <option value="A89">A89 Efeito da prótese</option>
-                            <option value="A90">A90 Malformação congênita NE/múltiplas</option>
-                            <option value="A91">A91 Investigação com resultado anormal NE</option>
-                            <option value="A92">A92 Alergia/reação alérgica NE</option>
-                            <option value="A93">A93 Recém-nascido prematuro</option>
-                            <option value="A94">A94 Morbidade perinatal, outra</option>
-                            <option value="A95">A95 Mortalidade perinatal</option>
-                            <option value="A96">A96 Morte</option>
-                            <option value="A97">A97 Sem doença</option>
-                            <option value="A98">A98 Medicina preventiva/manutenção da saúde</option>
-                            <option value="A99">A99 Outras doenças gerais NE</option>
-                        </optgroup>
-                        <optgroup label="OLHO">
-                            <option value="F01">F01 Dor no olho</option>
-                            <option value="F02">F02 Olho vermelho</option>
-                            <option value="F03">F03 Secreção ocular</option>
-                            <option value="F04">F04 Moscas volantes/pontos luminosos/escotomas/
-                                manchas</option>
-                            <option value="F05">F05 Outras perturbações visuais</option>
-                            <option value="F13">F13 Sensações oculares anormais</option>
-                            <option value="F14">F14 Movimentos oculares anormais</option>
-                            <option value="F15">F15 Aparência anormal nos olhos</option>
-                            <option value="F16">F16 Sinais/sintomas das pálpebras</option>
-                            <option value="F17">F17 Sinais/sintomas relacionados a óculos</option>
-                            <option value="F18">F18 Sinais/sintomasrelacionados a lentesde contato</option>
-                            <option value="F27">F27 Medo de doença ocular</option>
-                            <option value="F28">F28 Limitação funcional/incapacidade</option>
-                            <option value="F29">F29 Outros sinais/sintomas oculares</option>
-                            <option value="F70">F70 Conjuntivite infecciosa</option>
-                            <option value="F71">F71 Conjuntivite alérgica</option>
-                            <option value="F72">F72 Blefarite/hordéolo/calázio</option>
-                            <option value="F73">F73 Outras infecções/inflamações oculares</option>
-                            <option value="F74">F74 Neoplasia do olho/anexos</option>
-                            <option value="F75">F75 Contusão/hemorragia ocular</option>
-                            <option value="F76">F76 Corpo estranho ocular</option>
-                            <option value="F79">F79 Outras lesões traumáticas oculares</option>
-                            <option value="F80">F80 Obstrução canal lacrimal da criança</option>
-                            <option value="F81">F81 Outras malformações congênitas do olho</option>
-                            <option value="F82">F82 Descolamento da retina</option>
-                            <option value="F83">F83 Retinopatia</option>
-                            <option value="F84">F84 Degeneração macular</option>
-                            <option value="F85">F85 Ulcera da córnea</option>
-                            <option value="F86">F86 Tracoma</option>
-                            <option value="F91">F91 Erro de refração</option>
-                            <option value="F92">F92 Catarata</option>
-                            <option value="F93">F93 Glaucoma</option>
-                            <option value="F94">F94 Cegueira</option>
-                            <option value="F95">F95 Estrabismo</option>
-                            <option value="F01">F01 Dor no olho</option>
-                            <option value="F01">F99 Outra doenças oculares/anexos</option>
-                        </optgroup>
-                    </select><br />
-                    <label for="pressaomin">Pressão Arterial mínima</label>
-                    <input type="number" min=1 step="0.01" name="vl_pressao_min" id="pressaomin" placeholder="mmHg" /><br />
+                    <input type="text" name="ds_queixa" id="ds_queixa"/>
+
                     <label for="pressaomax">Pressão Arterial máxima</label>
-                    <input type="number" min=1 step="0.01" name="vl_pressao_max" id="pressaomax" placeholder="mmHg" /><br />
+                    <input type="number" min=1 step="0.01" name="vl_pressao_max" id="vl_pressao_max" placeholder="mmHg" /><br />
+                    <label for="pressaomin">Pressão Arterial mínima</label>
+                    <input type="number" min=1 step="0.01" name="vl_pressao_min" id="vl_pressao_min" placeholder="mmHg" /><br />
                     <label for="pulso">Pulso</label>
-                    <input type="number" min=1 step="0.01" name="vl_pulso" id="pulso" placeholder="bpm" /><br />
+                    <input type="number" min=1 step="0.01" name="vl_pulso" id="vl_pulso" placeholder="bpm" /><br />
+
                     <label for="temp" >Temperatura</label>
-                    <input type="number" min=1 step="0.01" name="vl_temperatura" id="temp" placeholder="ºC" /><br />
+                    <input type="number" min=1 step="0.01" name="vl_temperatura" id="vl_temperatura" placeholder="ºC" /><br />
+
                     <label for="resp">Respiração</label>
-                    <input type="number" min=1 step="0.01" name="vl_respiracao" id="resp" placeholder="rpm" /><br />
+                    <input type="number" min=1 step="0.01" name="vl_respiracao" id="vl_respiracao" placeholder="rpm" /><br />
+
                     <label for="satu">Saturação</label>
-                    <input type="number" min=1 max=100 step="0.01" name="vl_saturacao" id="satu" placeholder="%" /><br />
+                    <input type="number" min=1 step="0.01" name="vl_saturacao" id="vl_saturacao" placeholder="%" /><br />
+
                     <label for="glic">Glicemia</label>
-                    <input type="number" min=1 step="0.01" name="vl_glicemia" id="glic" placeholder="mg/dl" /><br />
+                    <input type="number" min=1 step="0.01" name="vl_glicemia" id="vl_glicemia" placeholder="mg/dl" /><br />
+
                     <label for="glasc">Nível de consciência</label>
-                    <input type="number" min=1 max=15 name="vl_nivel_consciencia" id="glasc" placeholder="Escala de Glasgow" /><br />
+                    <input type="number" min=1 max=15 name="vl_nivel_consciencia" id="vl_nivel_consciencia" placeholder="Escala de Glasgow" /><br />
                     <label for="escdor">Escala da dor </label>
-                    <select name="vl_escala_dor" id="escdor">
+                    <select name="vl_escala_dor" id="vl_escala_dor">
                         <optgroup label="Leve">
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -275,23 +183,23 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                         </optgroup>
                     </select><br />
                     <label for="alergia">Alergia a medicamentos</label>
-                    <input type="radio" name="ic_alergia" id="alergia" value="sim" />Sim
-                    <input type="radio" name="ic_alergia" id="alergia" value="nao" />Não
-                    <input type="radio" name="ic_alergia" id="alergia" value="desconhece" checked="checked" />Desconhece <br />
+                    <input type="radio" name="ic_alergia" id="ic_alergia" value="sim" />Sim
+                    <input type="radio" name="ic_alergia" id="ic_alergia" value="nao" />Não
+                    <input type="radio" name="ic_alergia" id="ic_alergia" value="desconhece" checked="checked" />Desconhece <br />
                     <label for="descalergia">Descrição alergia</label>
-                    <input type="text" name="ds_alergia" id="descalergia" /><br />
+                    <input type="text" name="ds_alergia" id="ds_alergia" /><br />
                     <label for="observ">Observações</label>
-                    <textarea name="ds_observacao" id="observ" placeholder="Para registro do histórico de doenças, doenças prévias, entre outros"></textarea><br />
+                    <textarea name="ds_observacao" id="ds_observacao" placeholder="Para registro do histórico de doenças, doenças prévias, entre outros"></textarea><br />
                     <label for="classrisco">Classificação de risco</label>
-                    <select> 
-                        <option value="nurgencia" class="blue">Não Urgência</option>
-                        <option value="pcaurgencia" class="green">Pouca Urgência</option>
-                        <option value="urgencia" class="yellow">Urgência</option>
-                        <option value="mtaurgencia" class="orange">Muita Urgência</option>
-                        <option value="emergencia" class="red">Emergência</option> 
+                    <select name="vl_classificacao_risco" id="vl_classificacao_risco" style="background-color: blue"> 
+                        <option value="1" class="blue">Não Urgência</option>
+                        <option value="2" class="green">Pouca Urgência</option>
+                        <option value="3" class="yellow">Urgência</option>
+                        <option value="4" class="orange">Muita Urgência</option>
+                        <option value="5" class="red">Emergência</option> 
                     </select>
                     <label for="linhacuidado">Linha de cuidado</label>
-                    <select name="ds_linha_cuidado" id="linhacuidado">
+                    <select name="ds_linha_cuidado" id="ds_linha_cuidado">
                         <option value="Nenhuma">Nenhuma</option>
                         <option value="gestacao">Gestação</option>
                         <option value="has">HAS</option>
@@ -299,7 +207,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                         <option value="vio">Violência</option>
                     </select><br />
                     <label for="outrascond">Outras condições</label>
-                    <select name="ds_outras_condicoes" id="outrascond">
+                    <select name="ds_outras_condicoes" id="ds_outras_condicoes">
                         <option value="Nenhuma">Nenhuma</option>
                         <option value="asma">Asma</option>
                         <option value="dpoc">DPOC</option>
@@ -309,7 +217,74 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                     <input type="number" min=1 name="cd_cns_profissional_triagem" id="cnsproftriagem" required /><br /> -->
                 </fieldset>
                 <input type="submit" name="btn_cadastrar_triagem" value="Registrar Triagem" />
+                <button type="button" onclick="javascript:history.back()">Voltar</button>
             </form>
         </div>
+        <?php
+//-------PARTE PARA IMPRIMIR A TRIAGEM---------------------------
+        if (isset($ok) && $ok === 1) {
+            $txt_msg = '<p>A triagem foi registrada com sucesso.</p><p>Deseja imprimir?</p>';
+            $source_frame = "visualizar_triagem.php?cd_triagem=" . $triagem->getCdTriagem() . "&printLayout";
+            require_once 'php/div_alert.php';
+        }
+        ?>
+        <script>
+            //script para pegar todos os códigos da CIAP2
+            //mas primeiro é preciso chamar o php pra pegar esses códigos na classe Triagem
+<?php
+require_once('php/classes/triagem.Class.php');
+$obj_triagem = new Triagem();
+$array_ciap = $obj_triagem->sintomasCiap();
+?>
+            var source = [
+<?php
+foreach ($array_ciap as $value) {
+    echo '"' . $value . '",';
+}
+?>
+            ];
+            $("#ds_queixa").autocomplete({
+                source: function (request, response) {
+                    var results = $.ui.autocomplete.filter(source, request.term);
+                    response(results.slice(0, 7));
+                },
+                select: function (event, ui) {
+                    if (ui.item)
+                    {
+                        $('#ds_queixa').val(ui.item.value);
+                    }
+                }
+            });
+        </script>
+        <script>
+            $("#vl_classificacao_risco").change(function () {
+                /*<option value="1" class="blue">Não Urgência</option>
+                 <option value="2" class="green">Pouca Urgência</option>
+                 <option value="3" class="yellow">Urgência</option>
+                 <option value="4" class="orange">Muita Urgência</option>
+                 <option value="5" class="red">Emergência</option> 
+                 */
+                switch ($(this).val()) {
+                    case '1':
+                        $(this).css("background-color", "blue");
+                        break;
+                    case '2':
+                        $(this).css("background-color", "green");
+                        break;
+                    case '3':
+                        $(this).css("background-color", "yellow");
+                        break;
+                    case '4':
+                        $(this).css("background-color", "orange");
+                        break;
+                    case '5':
+                        $(this).css("background-color", "red");
+                        break;
+                    default:
+                        $(this).css("background-color", "blue");
+                        break;
+                }
+            });
+        </script>
     </body>
 </html>

@@ -95,6 +95,23 @@ final class Triagem extends Ciclo {
     public function atualizar($id) {
         //por enquanto não tem
     }
+    
+    public function sintomasCiap(){
+	$patologias = array(); //array que vai ser o retorno da função. Ele vai conter todos os nomes da tabela tb_ciap
+        $select = "SELECT nm_sintoma FROM tb_ciap;";
+        $stmt = $this->db_maua->prepare($select);
+        if ($stmt) {
+            $stmt->execute();
+            $stmt->bind_result($nm_sintoma);
+            while ($stmt->fetch()) {
+		//enquanto houverem resultados, vai adicionando no array...
+                $patologias[] = $nm_sintoma;
+            }
+            $stmt->close();
+        }
+        
+        return $patologias; //retorna o array e depois é só dar um foreach 
+    }
 
     //----------------------------------------  get e set
     function getCdTriagem() {

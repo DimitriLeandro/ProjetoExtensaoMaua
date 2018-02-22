@@ -7,7 +7,7 @@ if (file_exists("install/index.php")) {
 }
 require_once 'users/init.php';
 require_once $abs_us_root . $us_url_root . 'users/includes/header.php';
-require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
+//require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
 require_once 'users/init.php';
 $db = DB::getInstance();
 if (!securePage($_SERVER['PHP_SELF'])) {
@@ -45,10 +45,7 @@ if (isset($_POST['btn_cadastrar'])) {
 
     $ok = $paciente->cadastrar();
     if ($ok == 0) {
-        ?> <script> alert('Erro ao cadastrar paciente');</script> <?php
-    } else {
-        $codigo_paciente = $paciente->getCdPaciente();
-        //A PARTE DE IMPRIMIR ETIQUETA ESTÁ LA PRA BAIXO
+	?> <script> alert('Erro ao cadastrar paciente');</script> <?php
     }
 }
 ?>
@@ -62,18 +59,10 @@ if (isset($_POST['btn_cadastrar'])) {
         <link href="css/formulario.css" rel="stylesheet">
         <script src="users/js/jquery.js"></script>
         <script src="users/js/buscaCEP.js"></script>
-        <script>
-            //essa funç~ao precisa ficar aqui em cima pro php funcionar la em baixo
-            function imprimir()
-            {
-                window.frames["pdf_etiqueta"].focus();
-                window.frames["pdf_etiqueta"].print();
-                $("#div_etiqueta").hide();
-            }
-        </script>
     </head>
     <body>
-        <div>
+	<?php require_once 'php/div_header.php'; ?>
+        <div id="div_corpo">
             <form method="post" class="form-style" id="cadastro_paciente">
                 <h1>SISTEMA DE CADASTRAMENTO SUS</h1>
                 <fieldset id="fieldset_1" class="field_set">
@@ -95,7 +84,7 @@ if (isset($_POST['btn_cadastrar'])) {
                     <p id="p_troca_cns_justificativa" style="cursor: pointer; color: lightblue;" onclick="trocar_cns_justificativa();">O paciente não possui CNS</p>
 
                     <label for="nomep" class="margem">Nome completo</label>
-                    <input type="text" name="nm_paciente" id="nm_paciente" onblur="validar_nm_paciente()" /><br />
+		    <input type="text" name="nm_paciente" id="nm_paciente" onblur="validar_nm_paciente()" <?php if(isset($_GET['nome'])){echo 'value="'.ucwords(str_replace("_", " ", $_GET['nome'])).'"'; } ?>/><br />
 
                     <label for="nomem"class="margem">Nome completo da mãe</label>
                     <input type="text" name="nm_mae" id="nm_mae" onblur="validar_nm_mae()"/><br />
@@ -120,7 +109,8 @@ if (isset($_POST['btn_cadastrar'])) {
                     <label for="nascp" class="margem">Data de Nascimento</label>
                     <input type="text" maxlength="10" name="dt_nascimento" id="dt_nascimento" onkeypress="mascarar_data()" onblur="validar_dt_nascimento()"/><br />
 
-                    <button type="button" onclick="avancar('fieldset_2');">Avançar</button>
+                    <button type="button" onclick="javascript:history.back()">Voltar</button>
+		    <button type="button" onclick="avancar('fieldset_2');">Avançar</button>                    
                 </fieldset><br />
 
                 <fieldset id="fieldset_2" class="field_set" style="display: none;">
@@ -162,7 +152,7 @@ if (isset($_POST['btn_cadastrar'])) {
                     <!-- <input type="number" name="cd_ubs_referencia" id="ubsref" /><br /> -->
 
                     <label for="nomeresp" class="margem2">Nome completo do responsável</label>
-                    <input type="text" name="nm_responsavel" id="nm_responsavel" onblur="validar_nm_responsavel()" /><br />
+                    <input type="text" name="nm_responsavel" id="nm_responsavel" onblur="validar_nm_responsavel()" <?php if(isset($_GET['nome'])){echo 'value="'.ucwords(str_replace("_", " ", $_GET['nome'])).'"'; } ?>/><br />
 
                     <label for="docresp" class="margem2">Documento do responsavel</label>
                     <input type="text" maxlength="12" name="cd_documento_responsavel" id="cd_documento_responsavel" onkeypress="mascarar_rg()" onblur="validar_cd_documento_responsavel()" /><br />
@@ -174,32 +164,17 @@ if (isset($_POST['btn_cadastrar'])) {
                     <button  type="button" onclick="submeter_formulario();" >Cadastrar e Imprimir Etiqueta</button>
 
                     <input  type="submit" name='btn_cadastrar' id="btn_cadastrar" disabled hidden />
-                </fieldset><br />
-
-                <!-- <fieldset>
-                        
-                        <label for="idestab" class="margem3" >Identificação do SUS</label>
-                        <input type="text" name="cd_cnes" id="idstab"  /><br />
-                        
-                        <label for="profregist" class="margem3">Identificação do cadastrante </label>
-                        <input type="number" name="cd_profissional_registro" id="profregist"  /><br />
-                </fieldset><br />  -->      
+                </fieldset><br />   
             </form>
         </div>
-        <?php
+	<?php
 //-------PARTE PARA IMPRIMIR A ETIQUETA 
-        if (isset($codigo_paciente) && $codigo_paciente > 0) {
-            ?>
-            <div id="div_etiqueta">
-                <iframe id="pdf_etiqueta" name="pdf_etiqueta" src="php/gerar_etiqueta.php?cd_paciente=<?php echo $codigo_paciente; ?>"></iframe>
-                <script>
-                    imprimir();
-                    window.location = "index.php";
-                </script>
-            </div>
-            <?php
-        }
-        ?>
+	if (isset($ok) && $ok === 1) {
+	    $txt_msg = '<p>O cadastro foi realizado com sucesso e o paciente foi incluído na lista de espera.</p><p>Deseja imprimir a etiqueta?</p>';
+	    $source_frame = "php/gerar_etiqueta.php?cd_paciente=".$paciente->getCdPaciente();
+	    require_once 'php/div_alert.php';
+	}
+	?>
         <script>
             $('input:visible:enabled:first').focus();
 
@@ -230,6 +205,8 @@ if (isset($_POST['btn_cadastrar'])) {
                 window.scrollTo(0, 0);
                 $('input:visible:enabled:first').focus();
             }
+
+         
         </script>
         <script src="users/js/validacao_cadastrar_paciente.js"></script>
     </body>

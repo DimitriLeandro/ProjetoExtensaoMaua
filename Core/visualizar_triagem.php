@@ -6,7 +6,7 @@ if (file_exists("install/index.php")) {
 }
 require_once 'users/init.php';
 require_once $abs_us_root . $us_url_root . 'users/includes/header.php';
-require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
+//require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
 $db = DB::getInstance();
 if (!securePage($_SERVER['PHP_SELF'])) {
     die();
@@ -49,11 +49,12 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
         <script src="users/js/jquery.js"></script>
     </head>
     <body>
-        <div>
-            <form method="post" class="form-style">
-                <h1><?php echo $paciente->getNmPaciente(); ?></h1>
-                <h4>Dados da Triagem</h4>
-                <fieldset style="border: solid 1px; padding: 15px;">
+        <?php require_once 'php/div_header.php'; ?>
+        <form method="post" class="form-style">
+            <h1><?php echo $paciente->getNmPaciente(); ?></h1>
+            <h4>Dados da Triagem</h4>
+            <fieldset style="border: solid 1px; padding: 15px;">
+                <div>
                     <p>
                         <?php
                         if ($triagem->getIcFinalizada() == 1) {
@@ -63,35 +64,37 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                         }
                         ?> 
                     </p>
-                    <p>UBS: <?php echo $triagem->getCdUbs(); ?> </p>
-                    <p>Queixa: <?php echo $triagem->getDsQueixa(); ?> </p>
-                    <p>Data: <?php echo $triagem->getDtRegistro(); ?> </p>
-                    <p>Hora: <?php echo $triagem->getHrRegistro(); ?> </p>
-                    <p>Pressão Mínima: <?php echo $triagem->getVlPressaoMin(); ?> </p>
-                    <p>Pressão Máxima: <?php echo $triagem->getVlPressaoMax(); ?> </p>
-                    <p>Pulso: <?php echo $triagem->getVlPulso(); ?> </p>
-                    <p>Temperatura: <?php echo $triagem->getVlTemperatura(); ?> </p>
-                    <p>Respiração: <?php echo $triagem->getVlRespiracao(); ?> </p>
-                    <p>Saturação: <?php echo $triagem->getVlSaturacao(); ?> </p>
-                    <p>Glicemia: <?php echo $triagem->getVlGlicemia(); ?> </p>
-                    <p>Nível de Consciência: <?php echo $triagem->getVlNivelConsciencia(); ?> </p>
-                    <p>Escala de Dor: <?php echo $triagem->getVlEscalaDor(); ?> </p>
-                    <p>Alergia a Medicamentos: <?php echo $triagem->getIcAlergia(); ?> </p>
-                    <p>Descrição das Alergias: <?php echo $triagem->getDsAlergia(); ?> </p>
-                    <p>Observações: <?php echo $triagem->getDsObservacao(); ?> </p>
-                    <p>Classificação de Risco: <?php echo $triagem->getVlClassificacaoRisco(); ?> </p>
-                    <p>Linha de Cuidado: <?php echo $triagem->getDsLinhaCuidado(); ?> </p>
-                    <p>Outras condições: <?php echo $triagem->getDsOutrasCondicoes(); ?> </p>
-                    <p>Profissional que Realizou a Triagem: <?php echo $triagem->getCdUsuarioRegistro(); ?> </p>
-                </fieldset>
-                <br/>
+                </div>
+                <p>UBS: <?php echo $triagem->getCdUbs(); ?> </p>
+                <p>Queixa: <?php echo $triagem->getDsQueixa(); ?> </p>
+                <p>Data: <?php echo $triagem->getDtRegistro(); ?> </p>
+                <p>Hora: <?php echo $triagem->getHrRegistro(); ?> </p>
+                <p>Pressão Mínima: <?php echo $triagem->getVlPressaoMin(); ?> </p>
+                <p>Pressão Máxima: <?php echo $triagem->getVlPressaoMax(); ?> </p>
+                <p>Pulso: <?php echo $triagem->getVlPulso(); ?> </p>
+                <p>Temperatura: <?php echo $triagem->getVlTemperatura(); ?> </p>
+                <p>Respiração: <?php echo $triagem->getVlRespiracao(); ?> </p>
+                <p>Saturação: <?php echo $triagem->getVlSaturacao(); ?> </p>
+                <p>Glicemia: <?php echo $triagem->getVlGlicemia(); ?> </p>
+                <p>Nível de Consciência: <?php echo $triagem->getVlNivelConsciencia(); ?> </p>
+                <p>Escala de Dor: <?php echo $triagem->getVlEscalaDor(); ?> </p>
+                <p>Alergia a Medicamentos: <?php echo $triagem->getIcAlergia(); ?> </p>
+                <p>Descrição das Alergias: <?php echo $triagem->getDsAlergia(); ?> </p>
+                <p>Observações: <?php echo $triagem->getDsObservacao(); ?> </p>
+                <p>Classificação de Risco: <?php echo $triagem->getVlClassificacaoRisco(); ?> </p>
+                <p>Linha de Cuidado: <?php echo $triagem->getDsLinhaCuidado(); ?> </p>
+                <p>Outras condições: <?php echo $triagem->getDsOutrasCondicoes(); ?> </p>
+                <p>Profissional que Realizou a Triagem: <?php echo $triagem->getCdUsuarioRegistro(); ?> </p>
+            </fieldset>
+            <br/>
+            <div>
                 <?php
 //VERIFICANDO SE H´A ALGUM DIAGNOSTICO PRA ESSA TRIAGEM
 //SE N~AO TIVER, MOSTRA O BOT~AO PRA FAZER O DIAGNOSTICO
 //SE TIVER, MOSTRA OS DADOS DO DIAGNOSTICO
                 if ($triagem->getIcFinalizada() == 0) {
                     ?>
-                    <button type="button" onclick="window.location = 'cadastrar_diagnostico.php?cd_triagem=<?php echo $triagem->getCdTriagem(); ?>';">Diagnóstico</button>
+                    <button type="button" onclick="window.location = 'cadastrar_diagnostico.php?cd_triagem=<?php echo $triagem->getCdTriagem(); ?>';">Diagnóstico</button><br/>
                     <?php
                 } else {
                     //instanciando um objeto da classe Dignostico para pegar as informaç~oes sobre o diagnostico dessa triagem
@@ -128,7 +131,22 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                     <?php
                 }
                 ?>
-            </form>
-        </div>
+                <br/>
+                <button type="button" onclick="javascript:history.back()">Voltar</button>
+            </div>
+        </form>
+        <?php
+        if (isset($_GET['printLayout'])) {
+            //o GET printLayout serve para mostrar apenas os dados da triagem quando a página de cadastrar triagem for imprimir uma nova triagem.
+            //nesse caso, o javascript abaixo esconderá os botões, cabeçalho etc etc
+            ?>
+            <script>
+                $("div").each(function () {
+                    $(this).hide();
+                });
+            </script>
+            <?php
+        }
+        ?>
     </body>
 </html>

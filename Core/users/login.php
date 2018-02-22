@@ -7,7 +7,7 @@ if(isset($_SESSION)){session_destroy();}
 ?>
 <?php require_once 'init.php'; ?>
 <?php require_once $abs_us_root.$us_url_root.'users/includes/header.php'; ?>
-<?php require_once $abs_us_root.$us_url_root.'users/includes/navigation.php'; ?>
+<?php // require_once $abs_us_root.$us_url_root.'users/includes/navigation.php'; ?>
 <?php
 $settingsQ = $db->query("SELECT * FROM settings");
 $settings = $settingsQ->first();
@@ -141,7 +141,7 @@ require_once $abs_us_root.$us_url_root.'users/includes/facebook_oauth.php';
                     <input type="checkbox" name="remember" id="remember" > Lembrar-me</label>
                  </div>
                     <input type="hidden" name="csrf" value="<?=Token::generate(); ?>">
-                    <button class="submit  btn  btn-primary" type="submit"><?=lang("SIGNIN_BUTTONTEXT","");?></button>
+                    <button class="submit  btn  btn-primary" type="submit">LOGIN</button>
                     
                 </form>
             </div>

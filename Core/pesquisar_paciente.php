@@ -7,7 +7,7 @@ if (file_exists("install/index.php")) {
 
 require_once 'users/init.php';
 require_once $abs_us_root . $us_url_root . 'users/includes/header.php';
-require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
+
 $db = DB::getInstance();
 if (!securePage($_SERVER['PHP_SELF'])) {
     die();
@@ -23,24 +23,9 @@ if (!securePage($_SERVER['PHP_SELF'])) {
         <title>Pesquisar Paciente</title>
         <meta charset="utf-8" />
         <link href="css/formulario.css" rel="stylesheet">
-        <script>
-            function imprimir(id_paciente)
-            {
-                $("#div_frames").show();
-
-                var id_frame = "frame_etiqueta_" + id_paciente;
-                var source = "php/gerar_etiqueta.php?cd_paciente=" + id_paciente;
-
-                $("#div_frames").append("<iframe id=" + id_frame + " name=" + id_frame + " src=" + source + "></iframe>");
-
-                window.frames[id_frame].focus();
-                window.frames[id_frame].print();
-
-                $("#div_frames").hide();
-            }
-        </script>
     </head>
     <body>
+	<?php require_once 'php/div_header.php'; ?>
         <form method="post" class="form-style">
             <h1>PESQUISAR PACIENTE</h1>
             <fieldset>
@@ -53,14 +38,21 @@ if (!securePage($_SERVER['PHP_SELF'])) {
             <p>
                 <button type="button" class="botao" id="btn_pesquisar">Pesquisar</button>
                 <button type="button" class="botao" id="btn_cadastrar">Cadastrar Novo Paciente</button>
-            </p>
-            <br />
-            <div id="div_resultados">
-            </div>
-        </form>
-        <div id="div_frames">
-        </div>
-        <script>
+                <button type="button" class="botao" id="btn_lista_espera">Lista de Espera</button>
+		<?php
+		require_once 'php/classes/usuario.Class.php';
+		$obj_usuario = new Usuario();
+		if ($obj_usuario->getPermission() != "Recepcionista") { ?>
+		    <button type = "button" onclick = "javascript:history.back()">Voltar</button>
+		<?php } ?>		
+	    </p>
+	    <br />
+	    <div id = "div_resultados">
+	    </div>
+	</form>
+	<div id = "div_frames">
+	</div>
+	<script>
             //funçao para completar o nome do paciente automaticamente
             //exemplo usado desse link: https://www.devmedia.com.br/jquery-autocomplete-dica/28697
             //primeiro ´e necess´ario buscar todos os nomes no banco
@@ -69,15 +61,18 @@ require_once('php/classes/paciente.Class.php');
 $obj_paciente = new Paciente();
 $array_nomes = $obj_paciente->getAllNames();
 ?>
-            //agora sim a funç~ao propriamente dita
-            $("#nm_paciente").autocomplete({
-                source: [
+            var source = [
 <?php
 foreach ($array_nomes as $key => $value) {
     echo '"' . $value . '",';
 }
 ?>
-                ],
+            ];
+            $("#nm_paciente").autocomplete({
+                source: function (request, response) {
+                    var results = $.ui.autocomplete.filter(source, request.term);
+                    response(results.slice(0, 7));
+                },
                 select: function (event, ui) {
                     if (ui.item)
                     {
@@ -86,14 +81,23 @@ foreach ($array_nomes as $key => $value) {
                     $("#btn_pesquisar").click();
                 }
             });
-        </script>
-        <script>
+	</script>
+	<script>
             //funçao de pesquisar
             $("#btn_pesquisar").on("click", function () {
                 var txt_nome = $("#nm_paciente").val().replace(/\ /g, '_');
                 var txt_cns = $("#cd_cns_paciente").val();
                 var redirect = "php/div_pesquisar_paciente.php?nm_paciente=" + txt_nome + "&cd_cns_paciente=" + txt_cns;
-                $("#div_resultados").load(redirect + "");
+                $("#div_resultados").load(redirect + "", function () {
+                    //depois de carregar a lista de pacientes, é feita uma verificação para saber quantos nomes corresponderam à pesquisa
+                    //os fieldsets com as informações de cada paciente tem o id "field_paciente". Com o length do jquery é possível saber quantos pacientes apareceram.
+                    //Se não apareceu nenhum paciente, então, o site redireciona para o cadastro do paciente com o nome já preenchido no método get do php
+                    if ($("#field_paciente").length == 0) {
+                        if ($("#nm_paciente").val().length > 0) {
+                            window.location.href = "cadastrar_paciente.php?nome=" + $("#nm_paciente").val().replace(/ /g, "_");
+                        }
+                    }
+                });
 
                 //aquele replace ali em cima serve pra tirar os espaços que estiverem no nome, substituindo-os por underline
                 //o mysql n~ao vai diferenciar espaço de underline na hora de fazer o SELECT com LIKE
@@ -101,6 +105,10 @@ foreach ($array_nomes as $key => $value) {
 
             $("#btn_cadastrar").on("click", function () {
                 window.location = "cadastrar_paciente.php";
+            });
+
+            $("#btn_lista_espera").on("click", function () {
+                window.location = "visualizar_espera.php";
             });
 
             $("#nm_paciente").keypress(function (e) {
@@ -119,6 +127,6 @@ foreach ($array_nomes as $key => $value) {
                 $("#nm_paciente").val("");
             });
 
-        </script>
+	</script>
     </body>
 </html>

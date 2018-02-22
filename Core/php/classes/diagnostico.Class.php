@@ -63,6 +63,23 @@ final class Diagnostico extends Ciclo {
     public function atualizar($id) {
         //n tem
     }
+    
+    public function tabelaCid(){
+	$array_cid = array(); //array que vai ser o retorno da função. Ele vai conter todos os codigos do CID10
+        $select = "SELECT nm_cid FROM tb_cid;";
+        $stmt = $this->db_maua->prepare($select);
+        if ($stmt) {
+            $stmt->execute();
+            $stmt->bind_result($nm_cid);
+            while ($stmt->fetch()) {
+		//enquanto houverem resultados, vai adicionando no array...
+                $array_cid[] = $nm_cid;
+            }
+            $stmt->close();
+        }
+        
+        return $array_cid; //retorna o array e depois é só dar um foreach 
+    }
 
     //-----------------------------------get e set
     function getCdDiagnostico() {
