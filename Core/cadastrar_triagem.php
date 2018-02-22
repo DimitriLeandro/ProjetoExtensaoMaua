@@ -200,18 +200,23 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                     </select>
                     <label for="linhacuidado">Linha de cuidado</label>
                     <select name="ds_linha_cuidado" id="ds_linha_cuidado">
-                        <option value="Nenhuma">Nenhuma</option>
-                        <option value="gestacao">Gestação</option>
+                        <option value="nenhuma">Nenhuma</option>
+                        <option value="gest">Gest</option>
                         <option value="has">HAS</option>
-                        <option value="dm">DM</option>
-                        <option value="vio">Violência</option>
+                        <option value="om">OM</option>
+                        <option value="ano">Ano</option>
+                        <option value="sm">SM</option>
+                        <option value="ad">ad</option>
+                        <option value="vio">Vio</option>
                     </select><br />
                     <label for="outrascond">Outras condições</label>
                     <select name="ds_outras_condicoes" id="ds_outras_condicoes">
-                        <option value="Nenhuma">Nenhuma</option>
+                        <option value="nenhuma">Nenhuma</option>
                         <option value="asma">Asma</option>
                         <option value="dpoc">DPOC</option>
-                        <option value="onco">Onco</option>
+                        <option value="ice">ICE</option>
+                        <option value="onco">ONCO</option>
+                        <option value="outros">Outros</option>
                     </select><br />
                     <!-- <label for="cnsproftriagem">Responsável pela triagem</label>
                     <input type="number" min=1 name="cd_cns_profissional_triagem" id="cnsproftriagem" required /><br /> -->
