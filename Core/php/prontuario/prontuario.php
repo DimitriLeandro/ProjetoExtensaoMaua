@@ -9,14 +9,14 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
     $triagem->selecionar($_GET['cd_triagem']);
 
     if ($triagem->getCdTriagem() == '' || $triagem->getCdTriagem() == 0) {
-        unset($triagem);
-        header("location: ../../index.php");
+	unset($triagem);
+	header("location: ../../index.php");
     } else {
-        //pegando os dados do paciente só pra exibir o nome pelo menos
-        require_once('../classes/paciente.Class.php');
-        $paciente = new Paciente();
+	//pegando os dados do paciente só pra exibir o nome pelo menos
+	require_once('../classes/paciente.Class.php');
+	$paciente = new Paciente();
 
-        $paciente->selecionar($triagem->getCdPaciente());
+	$paciente->selecionar($triagem->getCdPaciente());
     }
 } else {
     unset($triagem);
@@ -525,7 +525,7 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                 </fieldset>
                 <fieldset id="b-f">
                     <label>Idade:</label>
-                    <input type="text" name="data" size="30">
+                    <input type="text" name="data" size="30" value="<?php echo $paciente->getIdade(); ?>">
                 </fieldset>
                 <fieldset id="b-g">
                     <label>Hora</label>
@@ -652,8 +652,27 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
 
                 </fieldset>
                 <fieldset id="d-n">
-                    <label>Alergia a medicamentos</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" name="sim" value="<?php echo $triagem->getIcAlergia(); ?>">									
+                    <label>Alergia a medicamentos</label>
+		    <input type="radio" name="sim" <?php
+		    if ($triagem->getIcAlergia() == "sim") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
+                    <label>Sim</label>
+
+		    <input type="radio" name="nao" <?php
+		    if ($triagem->getIcAlergia() == "nao") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
+                    <label>Não</label>
+
+		    <input type="radio" name="desconhece" <?php
+		    if ($triagem->getIcAlergia() == "desconhece") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
+                    <label>Desconhece</label>
                 </fieldset>
                 <fieldset id="d-o">
                     <label>Quais?</label>
@@ -673,42 +692,42 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                 <fieldset id="f-c">
                     <label>Vermelho</label>
                     <input type="radio" name="verm" <?php
-                    if ($triagem->getVlClassificacaoRisco() == 5) {
-                        echo 'checked="checked"';
-                    }
-                    ?>>
+		    if ($triagem->getVlClassificacaoRisco() == 5) {
+			echo 'checked="checked"';
+		    }
+		    ?>>
                 </fieldset>
                 <fieldset id="f-d">
                     <label>Laranja</label>
                     <input type="radio" name="laran" <?php
-                    if ($triagem->getVlClassificacaoRisco() == 4) {
-                        echo 'checked="checked"';
-                    }
-                    ?>>
+		    if ($triagem->getVlClassificacaoRisco() == 4) {
+			echo 'checked="checked"';
+		    }
+		    ?>>
                 </fieldset>
                 <fieldset id="f-e">
                     <label>Amarelo</label>
                     <input type="radio" name="amare" <?php
-                    if ($triagem->getVlClassificacaoRisco() == 3) {
-                        echo 'checked="checked"';
-                    }
-                    ?>>
+		    if ($triagem->getVlClassificacaoRisco() == 3) {
+			echo 'checked="checked"';
+		    }
+		    ?>>
                 </fieldset>
                 <fieldset id="f-f">
                     <label>Verde</label>
                     <input type="radio" name="verd" <?php
-                    if ($triagem->getVlClassificacaoRisco() == 2) {
-                        echo 'checked="checked"';
-                    }
-                    ?>>
+		    if ($triagem->getVlClassificacaoRisco() == 2) {
+			echo 'checked="checked"';
+		    }
+		    ?>>
                 </fieldset>
                 <fieldset id="f-g">
                     <label>Azul</label>
                     <input type="radio" name="azul" <?php
-                    if ($triagem->getVlClassificacaoRisco() == 1) {
-                        echo 'checked="checked"';
-                    }
-                    ?>>
+		    if ($triagem->getVlClassificacaoRisco() == 1) {
+			echo 'checked="checked"';
+		    }
+		    ?>>
                 </fieldset>
                 <fieldset id="f-h">
                     <label>Linha de Cuidado</label>
@@ -717,55 +736,89 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                     Outras Condições
                 </fieldset>
                 <fieldset id="f-j">
-                    <input type="radio" name="gest">
-                    <label>GEST</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="has" <?php
-                    if ($triagem->getDsOutrasCondicoes() == "gestacao") {
-                        echo 'checked="checked"';
-                    }
-                    ?>>
-                    <label>HAS</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="om" <?php
-                    if ($triagem->getDsOutrasCondicoes() == "has") {
-                        echo 'checked="checked"';
-                    }
-                    ?>>
-                    <label>OM</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="ano" <?php
-                    if ($triagem->getVlClassificacaoRisco() == 1) {
-                        echo 'checked="checked"';
-                    }
-                    ?>>
-                    <label>Ano</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="sm" <?php
-                    if ($triagem->getVlClassificacaoRisco() == 1) {
-                        echo 'checked="checked"';
-                    }
-                    ?>>
-                    <label>SM</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="ad" <?php
-                    if ($triagem->getVlClassificacaoRisco() == 1) {
-                        echo 'checked="checked"';
-                    }
-                    ?>>
-                    <label>Ad</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="viol" <?php
-                    if ($triagem->getVlClassificacaoRisco() == 1) {
-                        echo 'checked="checked"';
-                    }
-                    ?>>
+                    <input type="radio" name="gest" <?php
+		    if ($triagem->getDsLinhaCuidado() == "gest") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
+                    <label>GEST</label>
+
+		    <input type="radio" name="has" <?php
+		    if ($triagem->getDsLinhaCuidado() == "has") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
+                    <label>HAS</label>
+
+		    <input type="radio" name="om" <?php
+		    if ($triagem->getDsLinhaCuidado() == "om") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
+                    <label>OM</label>
+
+		    <input type="radio" name="ano" <?php
+		    if ($triagem->getDsLinhaCuidado() == "ano") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
+                    <label>Ano</label>
+
+		    <input type="radio" name="sm" <?php
+		    if ($triagem->getDsLinhaCuidado() == "sm") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
+                    <label>SM</label>
+
+		    <input type="radio" name="ad" <?php
+		    if ($triagem->getDsLinhaCuidado() == "ad") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
+                    <label>Ad</label>
+
+		    <input type="radio" name="vio" <?php
+		    if ($triagem->getDsLinhaCuidado() == "vio") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
                     <label>Violencia</label>
                 </fieldset>
                 <fieldset id="f-k">
-                    <input type="radio" name="asma">
+                    <input type="radio" name="asma" <?php
+		    if ($triagem->getDsOutrasCondicoes() == "asma") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
                     <label>ASMA</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="dpoc">
+
+		    <input type="radio" name="dpoc" <?php
+		    if ($triagem->getDsOutrasCondicoes() == "dpoc") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
                     <label>DPOC</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="ice">
+
+		    <input type="radio" name="ice" <?php
+		    if ($triagem->getDsOutrasCondicoes() == "ice") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
                     <label>ICE</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="onco">
+
+		    <input type="radio" name="onco" <?php
+		    if ($triagem->getDsOutrasCondicoes() == "onco") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
                     <label>ONCO</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="radio" name="outros">
+
+		    <input type="radio" name="outros" <?php
+		    if ($triagem->getDsOutrasCondicoes() == "outros") {
+			echo 'checked="checked"';
+		    }
+		    ?>>
                     <label>Outros</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </fieldset>
             </fieldset>

@@ -100,8 +100,8 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                 $("#vl_nivel_consciencia").val("" + aleatorio(12, 15));
                 $("#vl_escala_dor").val("" + aleatorio(0, 6));
                 //$("#vl_classificacao_risco").val(aleatorio(1, 5));
-                $("#ds_linha_cuidado").val("Nenhuma");
-                $("#ds_outras_condicoes").val("Nenhuma");
+                //$("#ds_linha_cuidado").val("Nenhuma");
+                //$("#ds_outras_condicoes").val("Nenhuma");
             }
 
             function aleatorio(inicio, fim) {
@@ -192,7 +192,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                     <textarea name="ds_observacao" id="ds_observacao" placeholder="Para registro do histórico de doenças, doenças prévias, entre outros"></textarea><br />
                     <label for="classrisco">Classificação de risco</label>
                     <select name="vl_classificacao_risco" id="vl_classificacao_risco" style="background-color: blue"> 
-                        <option value="1" class="blue">Não Urgência</option>
+                        <option value="1" class="blue" selected>Não Urgência</option>
                         <option value="2" class="green">Pouca Urgência</option>
                         <option value="3" class="yellow">Urgência</option>
                         <option value="4" class="orange">Muita Urgência</option>
@@ -200,7 +200,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                     </select>
                     <label for="linhacuidado">Linha de cuidado</label>
                     <select name="ds_linha_cuidado" id="ds_linha_cuidado">
-                        <option value="nenhuma">Nenhuma</option>
+                        <option value="nenhuma" selected>Nenhuma</option>
                         <option value="gest">Gest</option>
                         <option value="has">HAS</option>
                         <option value="om">OM</option>
@@ -211,7 +211,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                     </select><br />
                     <label for="outrascond">Outras condições</label>
                     <select name="ds_outras_condicoes" id="ds_outras_condicoes">
-                        <option value="nenhuma">Nenhuma</option>
+                        <option value="nenhuma" selected>Nenhuma</option>
                         <option value="asma">Asma</option>
                         <option value="dpoc">DPOC</option>
                         <option value="ice">ICE</option>
@@ -229,7 +229,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
 //-------PARTE PARA IMPRIMIR A TRIAGEM---------------------------
         if (isset($ok) && $ok === 1) {
             $txt_msg = '<p>A triagem foi registrada com sucesso.</p><p>Deseja imprimir?</p>';
-            $source_frame = "visualizar_triagem.php?cd_triagem=" . $triagem->getCdTriagem() . "&printLayout";
+            $source_frame = "php/prontuario/prontuario.php?cd_triagem=" . $triagem->getCdTriagem();
             require_once 'php/div_alert.php';
         }
         ?>
