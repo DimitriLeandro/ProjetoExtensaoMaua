@@ -11,8 +11,8 @@ label{
 
 .td-title{
     text-align: center;
+    font-size: 80%;
     font-weight: bold;
-    font-size: large;
 }
 
 .td-75{
@@ -49,12 +49,11 @@ label{
 
 .label-data{
     padding-left: 10px;
-    font-size: large;
     font-weight: normal;
 }
 
 .tr-obs{
-    height: 125px;
+    height: 50px;
     vertical-align: text-top;
 }
 

@@ -32,9 +32,9 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
     <body>
         <table>
             <tr>
-                <td><img src="brasao.png" title="brasao" align="left" width="130px" height="115px" vspace="10px" hspace="15px"/></td>
+                <td><img src="brasao.png" title="brasao" align="left" width="80px"/></td>
                 <td class="td-title">SECRETARIA DE SAÚDE DE MAUÁ - FICHA DE ATENDIMENTO</td>
-                <td><img src="upa.png" title="upa" align="right" width="130px" height="82px" vspace="25px" hspace="15px"/></td>
+                <td><img src="upa.png" title="upa" align="right" width="80px"/></td>
             </tr>
         </table>
         <table>
@@ -44,25 +44,13 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
         </table>
         <table>
             <tr>
-                <td class="td-75">
+                <td class="td-50">
                     <label>Nome:</label>
                     <label class="label-data"><?php echo $paciente->getNmPaciente(); ?></label>
                 </td>
-                <td class="td-25">
-                    <label>FAA:</label>
-                    <label></label>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td class="td-75">
+                <td class="td-50">
                     <label>Queixa:</label>
                     <label class="label-data"><?php echo $triagem->getDsQueixa(); ?></label>
-                </td>
-                <td class="td-25">
-                    <label>Prioridade:</label>
-                    <label></label>
                 </td>
             </tr>
         </table>
@@ -125,7 +113,7 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
         </table>
         <table>
             <tr>
-                <td class="td-70">
+                <td class="td-40">
                     <label>Município:</label>
                     <label class="label-data"><?php echo $paciente->getNmMunicipioResidencia(); ?></label>
                 </td>
@@ -133,17 +121,9 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                     <label>UBS referência:</label>
                     <label class="label-data"><?php echo $paciente->getCdUbsReferencia(); ?></label>
                 </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td class="td-70">
+                <td class="td-30">
                     <label>Responsável:</label>
                     <label class="label-data"><?php echo $paciente->getNmResponsavel(); ?></label>
-                </td>
-                <td class="td-30">
-                    <label>Telefone:</label>
-                    <label class="label-data"></label>
                 </td>
             </tr>
         </table>
@@ -161,25 +141,17 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
         </table>
         <table>
             <tr>
-                <td>
+                <td class="td-40">
                     <label>Queixa Principal:</label>
                     <label class="label-data"><?php echo $triagem->getDsQueixa(); ?></label>
                 </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td class="td-40">
+                <td class="td-30">
                     <label>Hora da Avaliação:</label>
                     <label class="label-data"><?php echo $triagem->getHrRegistro(); ?></label>
                 </td>
                 <td class="td-30">
                     <label>Nível de Consciência:</label>
                     <label class="label-data"><?php echo $triagem->getVlNivelConsciencia(); ?></label>
-                </td>
-                <td class="td-30">
-                    <label>Peso:</label>
-                    <label class="label-data"></label>
                 </td>
             </tr>
         </table>
@@ -200,26 +172,22 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
             </tr>
         </table>
         <table>
-            <tr>
-                <td class="td-40">
+            <tr>                
+                <td class="td-25">
                     <label>Respiração:</label>
-                    <label class="label-data"><?php echo $triagem->getVlPressaoMax() . " x " . $triagem->getVlPressaoMin() . " mmHg"; ?></label>
+                    <label class="label-data"><?php echo $triagem->getVlRespiracao(); ?></label>
                 </td>
-                <td class="td-30">
+                <td class="td-25">
                     <label>Saturação:</label>
                     <label class="label-data"><?php echo $triagem->getVlPulso() . " bpm"; ?></label>
                 </td>
-                <td class="td-30">
+                <td class="td-25">
                     <label>Glicemia:</label>
                     <label class="label-data"><?php echo $triagem->getVlTemperatura() . " ºC"; ?></label>
                 </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td>
+                <td class="td-25">
                     <label>Escala de Dor:</label>
-                    <label class="label-data"><?php echo $triagem->getVlPressaoMax() . " x " . $triagem->getVlPressaoMin() . " mmHg"; ?></label>
+                    <label class="label-data"><?php echo $triagem->getVlEscalaDor() ?></label>
                 </td>
             </tr>
         </table>
