@@ -131,7 +131,18 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
             .yellow{
                 background-color: #ffff00;
             }
-        </style>    
+        </style> 
+        <style>
+            /* Esse style aqui serve pra fazer o scroll do auto-complete
+               Código aqui: https://stackoverflow.com/questions/9590313/how-to-use-the-scroll-and-max-options-in-autocomplete
+             */
+            .ui-autocomplete {
+                max-height: 200px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                padding-right: 20px;
+            } 
+        </style>   
     </head>
     <body>
         <?php require_once 'php/div_header.php'; ?>
@@ -251,7 +262,7 @@ foreach ($array_ciap as $value) {
             $("#ds_queixa").autocomplete({
                 source: function (request, response) {
                     var results = $.ui.autocomplete.filter(source, request.term);
-                    response(results.slice(0, 7));
+                    response(results.slice(0, 25));
                 },
                 select: function (event, ui) {
                     if (ui.item)
