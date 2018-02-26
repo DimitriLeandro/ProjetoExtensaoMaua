@@ -252,7 +252,7 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
 
             fieldset#d-c {
                 height: 37px;
-                width: 150px;
+                width: 168px;
                 position: relative;
                 top: -51px;
                 left: 383px;
@@ -355,99 +355,93 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
             }
 
             fieldset#e {
-                height: 250px;
+                height: 200px;
                 top: -360px;
             }
 
             fieldset#f {
-                height: 130px;
+                height: 150px;
 
             }
 
             fieldset#f-a {
-                height: 15px;
+                height: 32px;
                 width: 250px;
                 position: relative;
                 top: -8px;
                 left: -15px;
             }
 
-            fieldset#f-b {
-                height: 92px;
-                width: 250px;
-                position: relative;
-                top: -5px;
-                left: -15px;
-            }
+           
 
             fieldset#f-c {
-                height: 60px;
+                height: 50px;
                 width: 130px;
                 position: relative;
-                top: -155px;
+                top: -58px;
                 left: 262px;
             }
 
             fieldset#f-d {
-                height: 60px;
+                height: 50px;
                 width: 130px;
                 position: relative;
-                top: -234px;
+                top: -127px;
                 left: 418px;
             }
 
             fieldset#f-e {
-                height: 60px;
+                height: 50px;
                 width: 130px;
                 position: relative;
-                top: -314px;
+                top: -197px;
                 left: 575px;
             }
 
             fieldset#f-f {
-                height: 60px;
+                height: 50px;
                 width: 130px;
                 position: relative;
-                top: -393px;
+                top: -267px;
                 left: 732px;
             }
             fieldset#f-g {
-                height: 60px;
+                height: 50px;
                 width: 130px;
                 position: relative;
-                top: -472px;
+                top: -336px;
                 left: 888px;
             }
 
             fieldset#f-h {
-                height: 17px;
+                height: 35px;
                 width: 130px;
                 position: relative;
-                top: -475px;
+                top: -337px;
                 left: 262px;
             }
 
             fieldset#f-i {
-                height: 17px;
+                height: 27px;
                 width: 130px;
                 position: relative;
-                top: -477px;
+                top: -338px;
                 left: 262px;
             }
 
             fieldset#f-j {
-                height: 17px;
+                height: 35px;
                 width: 600px;
                 position: relative;
-                top: -548px;
+                top: -438px;
                 left: 418px;
             }
 
             fieldset#f-k {
-                height: 17px;
+                height: 26px;
                 width: 600px;
                 position: relative;
-                top: -548px;
+                top: -439px;
                 left: 418px;
             }
 
@@ -521,15 +515,15 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                 </fieldset>
                 <fieldset id="b-e">
                     <label>Data</label>
-                    <input type="text" name="data" size="30" value="<?php echo $triagem->getDtRegistro(); ?>">
+                    <input type="text" name="data" size="25" value="<?php echo $triagem->getDtRegistro(); ?>">
                 </fieldset>
                 <fieldset id="b-f">
                     <label>Idade:</label>
-                    <input type="text" name="data" size="30">
+                    <input type="text" name="idade" size="10">
                 </fieldset>
                 <fieldset id="b-g">
                     <label>Hora</label>
-                    <input type="text" name="hora" size="15" value="<?php echo $paciente->getHrRegistro(); ?>">
+                    <input type="text" name="hora" size="13" value="<?php echo $paciente->getHrRegistro(); ?>">
                 </fieldset>
                 <fieldset id="b-i">
                     <label>Sexo</label>
@@ -548,7 +542,7 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                 </fieldset>
                 <fieldset id="c-c">
                     <label>Data de nascimento</label>
-                    <input type="text" name="datanasc" size="15" value="<?php echo date("d/m/Y", strtotime($paciente->getDtNascimento())); ?>">
+                    <input type="text" name="datanasc" size="13" value="<?php echo date("d/m/Y", strtotime($paciente->getDtNascimento())); ?>">
                 </fieldset>
                 <fieldset id="c-d">
                     <label>Logradouro</label>
@@ -599,7 +593,7 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                 </fieldset>
                 <fieldset id="d-c">
                     <label>Nível de Consciência</label>
-                    <input type="text" name="niveldecons" size="20" value="<?php echo $triagem->getVlNivelConsciencia(); ?>">
+                    <input type="text" name="niveldecons" size="03" value="<?php echo $triagem->getVlNivelConsciencia(); ?>">
                 </fieldset>
                 <fieldset id="d-d">
                     <input type="radio" name="normal" value="">
@@ -662,14 +656,13 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
             </fieldset>
             <fieldset id="e">
                 <label>Observações</label>
-                <textarea class="obs" cols="125" rows="9"><?php echo $triagem->getDsObservacao(); ?></textarea>
+                <textarea class="obs" cols="125" rows="7"><?php echo $triagem->getDsObservacao(); ?></textarea>
             </fieldset>
             <fieldset id="f">
                 <fieldset id="f-a">
                     <label>Carimbo/Assinatura do Enfermeiro</label>
                 </fieldset>
-                <fieldset id="f-b">
-                </fieldset>
+               
                 <fieldset id="f-c">
                     <label>Vermelho</label>
                     <input type="radio" name="verm" <?php
@@ -748,7 +741,7 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                         echo 'checked="checked"';
                     }
                     ?>>
-                    <label>Ad</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>Ad</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="radio" name="viol" <?php
                     if ($triagem->getVlClassificacaoRisco() == 1) {
                         echo 'checked="checked"';
