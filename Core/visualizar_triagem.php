@@ -47,9 +47,19 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
         <meta charset="utf-8" />
         <link href="css/formulario.css" rel="stylesheet">
         <script src="users/js/jquery.js"></script>
+        <script>
+            function imprimir_triagem()
+            {
+                $("#frame_triagem").show();
+                window.frames["frame_triagem"].focus();
+                window.frames["frame_triagem"].print();
+                $("#frame_triagem").hide();
+            }
+        </script>
     </head>
     <body>
         <?php require_once 'php/div_header.php'; ?>
+        <iframe id="frame_triagem" name="frame_triagem" src="php/prontuario/prontuario.php?cd_triagem=<?php echo $_GET['cd_triagem']; ?>" hidden></iframe>
         <form method="post" class="form-style">
             <h1><?php echo $paciente->getNmPaciente(); ?></h1>
             <h4>Dados da Triagem</h4>
@@ -133,6 +143,7 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                 ?>
                 <br/>
                 <button type="button" onclick="javascript:history.back()">Voltar</button>
+                <button type="button" onclick="imprimir_triagem()">Imprimir Triagem</button>
             </div>
         </form>
         <?php

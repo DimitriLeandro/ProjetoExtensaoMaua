@@ -83,7 +83,13 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
             <tr>
                 <td class="td-40">
                     <label>Cartão SUS:</label>
-                    <label class="label-data"><?php echo $paciente->getCdCnsPaciente(); ?></label>
+                    <label class="label-data"><?php
+                        if ($paciente->getCdCnsPaciente() == 0 || $paciente->getCdCnsPaciente() == "") {
+                            echo $paciente->getNmJustificativa();
+                        } else {
+                            echo $paciente->getCdCnsPaciente();
+                        }
+                        ?></label>
                 </td>
                 <td class="td-30">
                     <label>RG:</label>
