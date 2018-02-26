@@ -360,15 +360,15 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
             }
 
             fieldset#f {
-                height: 150px;
+                height: 180px;
 
             }
 
             fieldset#f-a {
-                height: 32px;
+                height: 52px;
                 width: 250px;
                 position: relative;
-                top: -8px;
+                top: 13px;
                 left: -15px;
             }
 
@@ -661,8 +661,7 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
             <fieldset id="f">
                 <fieldset id="f-a">
                     <label>Carimbo/Assinatura do Enfermeiro</label>
-                </fieldset>
-               
+                </fieldset>               
                 <fieldset id="f-c">
                     <label>Vermelho</label>
                     <input type="radio" name="verm" <?php
