@@ -16,7 +16,7 @@ switch ($obj_usuario->getPermission()) {
     case 'Enfermeiro':
 	header("location: visualizar_espera.php");
 	break;
-    case 'Outorgante':
+    case 'Secretario':
 	header("location: pesquisar_triagem.php");
 	break;
     default :
