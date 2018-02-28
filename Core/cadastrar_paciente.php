@@ -41,7 +41,7 @@ if (isset($_POST['btn_cadastrar'])) {
     $paciente->setNmOrgaoEmissor('' . $_POST['nm_orgao_emissor']);
     $paciente->setDtRegistro('' . date("Y-m-d"));
     $paciente->setHrRegistro('' . date("H:i:s"));
-    $paciente->setCdUbsReferencia('4');
+    $paciente->setCdUbsReferencia($_POST['cd_ubs_referencia']);
 
     $ok = $paciente->cadastrar();
     if ($ok == 0) {
@@ -59,6 +59,24 @@ if (isset($_POST['btn_cadastrar'])) {
         <link href="css/formulario.css" rel="stylesheet">
         <script src="users/js/jquery.js"></script>
         <script src="users/js/buscaCEP.js"></script>
+	<script>
+            function load_ubs_referencia() {
+                //essa função serve pra pesquisar a ubs de referência do paciente. Ela é acionada depois que o cep é validado. A pesquisa da ubs<->cep é feita com um load() na div div_ubs_referencia
+                //lembrando que no banco, os ceps estão armazenados com 00000-000, então é necessário garantir que a pesquisa será feita nesse formato também.
+                //Nova variável "cep" somente com numeros.
+                var cep = $("#cd_cep").val().replace(/\D/g, '');
+                if (cep.length == 8) {
+		    //se entrou aqui então ta suave, é só botar o "-" no meio do número
+		    cep = cep.substring(0, 5) + "-" + cep.substring(5, 9);
+		    var endereco = "php/div_ubs_referencia.php?cd_cep=" + cep;
+		    $("#div_ubs_referencia").load(endereco);
+		    $("#div_ubs_referencia").show();
+                }
+		else{
+		    $("#div_ubs_referencia").hide();
+		}
+            }
+	</script>
     </head>
     <body>
 	<?php require_once 'php/div_header.php'; ?>
@@ -84,7 +102,11 @@ if (isset($_POST['btn_cadastrar'])) {
                     <p id="p_troca_cns_justificativa" style="cursor: pointer; color: lightblue;" onclick="trocar_cns_justificativa();">O paciente não possui CNS</p>
 
                     <label for="nomep" class="margem">Nome completo</label>
-		    <input type="text" name="nm_paciente" id="nm_paciente" onblur="validar_nm_paciente()" <?php if(isset($_GET['nome'])){echo 'value="'.ucwords(str_replace("_", " ", $_GET['nome'])).'"'; } ?>/><br />
+		    <input type="text" name="nm_paciente" id="nm_paciente" onblur="validar_nm_paciente()" <?php
+		    if (isset($_GET['nome'])) {
+			echo 'value="' . ucwords(str_replace("_", " ", $_GET['nome'])) . '"';
+		    }
+		    ?>/><br />
 
                     <label for="nomem"class="margem">Nome completo da mãe</label>
                     <input type="text" name="nm_mae" id="nm_mae" onblur="validar_nm_mae()"/><br />
@@ -126,7 +148,7 @@ if (isset($_POST['btn_cadastrar'])) {
                     <label for="cep" class="margem1">CEP</label>
                     <input type="text" name="cd_cep" id="cd_cep" size="9" maxlength="9" onblur="validar_cd_cep();" />
                     <p id="p_carregando" hidden>Carregando...</p>
-
+		    <div id="div_ubs_referencia"><input type="number" name="cd_ubs_referencia" id="cd_ubs_referencia" value="4" hidden/></div>
                     <label for="munresd" class="margem1">Município de residência</label>
                     <input type="text" name="nm_municipio_residencia" id="nm_municipio_residencia" onblur="validar_nm_municipio_residencia();" /><br />
 
@@ -152,13 +174,17 @@ if (isset($_POST['btn_cadastrar'])) {
                     <!-- <input type="number" name="cd_ubs_referencia" id="ubsref" /><br /> -->
 
                     <label for="nomeresp" class="margem2">Nome completo do responsável</label>
-                    <input type="text" name="nm_responsavel" id="nm_responsavel" onblur="validar_nm_responsavel()" <?php if(isset($_GET['nome'])){echo 'value="'.ucwords(str_replace("_", " ", $_GET['nome'])).'"'; } ?>/><br />
+                    <input type="text" name="nm_responsavel" id="nm_responsavel" onblur="validar_nm_responsavel()" <?php
+		    if (isset($_GET['nome'])) {
+			echo 'value="' . ucwords(str_replace("_", " ", $_GET['nome'])) . '"';
+		    }
+		    ?>/><br />
 
                     <label for="docresp" class="margem2">Documento do responsavel</label>
                     <input type="text" maxlength="12" name="cd_documento_responsavel" id="cd_documento_responsavel" onkeypress="mascarar_rg()" onblur="validar_cd_documento_responsavel()" /><br />
 
                     <label for="orgaoresp" class="margem2">Órgão emissor</label>
-                    <input type="text" name="nm_orgao_emissor" id="nm_orgao_emissor"  onblur="validar_nm_orgao_emissor()" /><br />
+                    <input type="text" name="nm_orgao_emissor" id="nm_orgao_emissor"  onblur="validar_nm_orgao_emissor()" /><br />		    
 
                     <button type="button" onclick="voltar('fieldset_2');">Voltar</button>
                     <button  type="button" onclick="submeter_formulario();" >Cadastrar e Imprimir Etiqueta</button>
@@ -171,7 +197,7 @@ if (isset($_POST['btn_cadastrar'])) {
 //-------PARTE PARA IMPRIMIR A ETIQUETA 
 	if (isset($ok) && $ok === 1) {
 	    $txt_msg = '<p>O cadastro foi realizado com sucesso e o paciente foi incluído na lista de espera.</p><p>Deseja imprimir a etiqueta?</p>';
-	    $source_frame = "php/gerar_etiqueta.php?cd_paciente=".$paciente->getCdPaciente();
+	    $source_frame = "php/gerar_etiqueta.php?cd_paciente=" . $paciente->getCdPaciente();
 	    require_once 'php/div_alert.php';
 	}
 	?>
@@ -206,7 +232,7 @@ if (isset($_POST['btn_cadastrar'])) {
                 $('input:visible:enabled:first').focus();
             }
 
-         
+
         </script>
         <script src="users/js/validacao_cadastrar_paciente.js"></script>
     </body>
