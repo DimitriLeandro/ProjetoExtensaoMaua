@@ -27,7 +27,7 @@
                  <input type="text" style="width: 30%" maxlength="10" name="dt_final" id="dt_final" />
             </fieldset>
             <p>
-            	<button type="button" class="botao" id="btn_lista_espera">Gerar Relatório</button>
+            	<button type="button" class="botao" id="">Gerar Relatório</button>
 		<?php
 		require_once 'php/classes/usuario.Class.php';
 		$obj_usuario = new Usuario();
@@ -75,13 +75,10 @@
                  <label>UBS REF</label>
                  <label id=""></label><br><br>
 
-                 <label>Raça</label>
-                 <label id=""></label>
-
-                            
+                                            
             </fieldset>
             <p>
-            	<button type="button" class="botao" id="btn_lista_espera">Gerar Relatório</button>
+            	
 		<?php
 		require_once 'php/classes/usuario.Class.php';
 		$obj_usuario = new Usuario();
@@ -93,8 +90,7 @@
 	    <div id = "div_resultados">
 	    </div>
 	</div>
-
-	</form>
+  	</form>
 
 <script>
     $("document").ready(function () {
@@ -111,5 +107,7 @@
     });
  </script>
 
+
 </body>
 </html>
+
