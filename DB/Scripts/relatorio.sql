@@ -130,11 +130,12 @@ select
             and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 60) AS '60+';
         
 -- Queixas mais recorrentes
-select ds_queixa, count(cd_triagem) 
+select ds_queixa, count(cd_triagem), count(cd_triagem)
 	from tb_triagem 
-		where dt_registro between '2018-02-01' and '2018-03-01' 
+		where dt_registro between '2017-01-01' and '2019-01-01' 
 			group by ds_queixa 
 				order by count(cd_triagem) desc;
+                
         
 -- quais pacientes não estão na ubs de referencia?
 select distinct(tb_paciente.cd_paciente), nm_paciente, tb_triagem.dt_registro, tb_ubs.cd_ubs, nm_ubs 

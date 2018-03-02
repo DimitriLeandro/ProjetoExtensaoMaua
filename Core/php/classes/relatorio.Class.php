@@ -5,6 +5,7 @@ require_once 'conexao.Class.php';
 final class Relatorio {
 
     private $db_maua;
+    private $cdUbs = "897";
 
     public function __construct() {
         //fazendo a conexão com o banco
@@ -123,22 +124,23 @@ final class Relatorio {
     }
 
     public function queixasRecorrentes($data1, $data2) {
-        $matriz_queixas = null;
-        $select = "select ds_queixa, count(cd_triagem) 
+        $matriz_queixas = array();
+        $select = "select ds_queixa, count(cd_triagem), concat(format(((count(cd_triagem)/(select count(cd_triagem) from tb_triagem where dt_registro between ? and ?))*100),2),'%')
                     from tb_triagem 
-                        where dt_registro between ? and ? 
-                            group by ds_queixa 
-				order by count(cd_triagem) desc, ds_queixa";
+                            where dt_registro between ? and ? 
+                                    group by ds_queixa 
+                                            order by count(cd_triagem) desc, ds_queixa;";
 
         $stmt = $this->db_maua->prepare($select);
         if ($stmt) {
-            $stmt->bind_param("ss", $data1, $data2);
+            $stmt->bind_param("ssss", $data1, $data2, $data1, $data2);
             $stmt->execute();
-            $stmt->bind_result($queixa, $qtd);
+            $stmt->bind_result($queixa, $qtd, $percentual);
             $cont = 0;
             while ($stmt->fetch()) {
                 $matriz_queixas[$cont]["Queixa"] = $queixa;
                 $matriz_queixas[$cont]["Qtd"] = $qtd;
+                $matriz_queixas[$cont]["Percentual"] = $percentual;
                 $cont ++;
             }
             $stmt->close();
@@ -148,7 +150,28 @@ final class Relatorio {
     }
 
     public function pacientesForaUBSReferencia($data1, $data2) {
-        
+        $matrizPacientesForaUbs = array();
+        $select = "select distinct(tb_paciente.cd_paciente), nm_paciente, tb_ubs.cd_ubs, nm_ubs 
+                    from tb_triagem, tb_paciente, tb_ubs 
+                            where tb_triagem.cd_paciente = tb_paciente.cd_paciente and tb_paciente.cd_ubs_referencia = tb_ubs.cd_ubs
+                                    and tb_triagem.dt_registro between ? and ?
+                                            and cd_ubs_referencia != ?
+                                                    order by nm_ubs, nm_paciente";
+        $stmt = $this->db_maua->prepare($select);
+        if($stmt){
+            $stmt->bind_param("sss", $data1, $data2, $this->cdUbs);
+            $stmt->execute();
+            $stmt->bind_result($cd_paciente, $nm_paciente, $cd_ubs, $nm_ubs);
+            $cont = 0;
+            while($stmt->fetch()){
+                $matrizPacientesForaUbs[$cont]["cd_paciente"] = $cd_paciente;
+                $matrizPacientesForaUbs[$cont]["nm_paciente"] = $nm_paciente;
+                $matrizPacientesForaUbs[$cont]["cd_ubs"] = $cd_ubs;
+                $matrizPacientesForaUbs[$cont]["nm_ubs"] = $nm_ubs;
+                $cont++;
+            }
+        }
+        return $matrizPacientesForaUbs;
     }
 
 }
