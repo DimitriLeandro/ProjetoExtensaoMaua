@@ -102,10 +102,14 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
 //VERIFICANDO SE H´A ALGUM DIAGNOSTICO PRA ESSA TRIAGEM
 //SE N~AO TIVER, MOSTRA O BOT~AO PRA FAZER O DIAGNOSTICO
 //SE TIVER, MOSTRA OS DADOS DO DIAGNOSTICO
+                require_once 'php/classes/usuario.Class.php';
+                $obj_usuario = new Usuario();
                 if ($triagem->getIcFinalizada() == 0) {
-                    ?>
-                    <button type="button" onclick="window.location = 'cadastrar_diagnostico.php?cd_triagem=<?php echo $triagem->getCdTriagem(); ?>';">Diagnóstico</button><br/>
-                    <?php
+                    if ($obj_usuario->getPermission() == "Secretario" || $obj_usuario->getPermission() == "Administrator") {
+                        ?>
+                        <button type="button" onclick="window.location = 'cadastrar_diagnostico.php?cd_triagem=<?php echo $triagem->getCdTriagem(); ?>';">Diagnóstico</button><br/>
+                        <?php
+                    }
                 } else {
                     //instanciando um objeto da classe Dignostico para pegar as informaç~oes sobre o diagnostico dessa triagem
                     require_once("php/classes/diagnostico.Class.php");

@@ -15,7 +15,7 @@ final class Conexao {
 
         mysqli_set_charset($this->conn_link, "utf8");
         //AGORA, É AQUI QUE FICARÁ DEFINIDO ONDE O SISTEMA ESTÁ RODANDO, NO ATRIBUTO cdUbs
-        $this->setCdUbs('739');
+        $this->setCdUbs('6');
         
     }
 

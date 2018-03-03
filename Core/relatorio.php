@@ -1,3 +1,17 @@
+<?php
+if (file_exists("install/index.php")) {
+    //perform redirect if installer files exist
+    //this if{} block may be deleted once installed
+    header("Location: install/index.php");
+}
+require_once 'users/init.php';
+require_once $abs_us_root . $us_url_root . 'users/includes/header.php';
+//require_once $abs_us_root . $us_url_root . 'users/includes/navigation.php';
+$db = DB::getInstance();
+if (!securePage($_SERVER['PHP_SELF'])) {
+    die();
+}
+?>
 <html>
     <head>	
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>

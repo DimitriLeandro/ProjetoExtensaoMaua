@@ -19,7 +19,11 @@ final class Ubs {
 
     public function pesquisarPorCep($cep) {
 	$attr = array();
-	$stmt = $this->db_maua->prepare("SELECT * FROM tb_ubs WHERE cd_cep = ?");
+        $select = "select tb_ubs.cd_ubs, cd_cep, nm_logradouro, nm_bairro, nm_ubs
+                    from tb_ubs, tb_endereco_ubs
+                            where tb_ubs.cd_ubs = tb_endereco_ubs.cd_ubs
+                                    and cd_cep = ?";
+	$stmt = $this->db_maua->prepare($select);
 	if ($stmt) {
 	    $stmt->bind_param('s', $cep);
 	    $stmt->execute();

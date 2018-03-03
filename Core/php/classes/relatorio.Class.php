@@ -18,11 +18,12 @@ final class Relatorio {
         $total = null;
         $select = "select count(cd_triagem) as 'totalTriagens' 
                     from tb_triagem 
-                        where dt_registro between ? and ?";
+                            where dt_registro between ? and ?
+                                    and cd_ubs = ?";
 
         $stmt = $this->db_maua->prepare($select);
         if ($stmt) {
-            $stmt->bind_param("ss", $data1, $data2);
+            $stmt->bind_param("ssi", $data1, $data2, $this->cdUbs);
             $stmt->execute();
             $stmt->bind_result($qtd);
             while ($stmt->fetch()) {
@@ -41,15 +42,17 @@ final class Relatorio {
                             from tb_paciente, tb_triagem 
                                     where tb_paciente.cd_paciente = tb_triagem.cd_paciente
                                             and ic_sexo = 'Masculino'
-                                and tb_triagem.dt_registro between ? and ?) as 'Masculino',
+						and tb_triagem.dt_registro between ? and ?
+                                                    and tb_triagem.cd_ubs = ?) as 'Masculino',
                     (select count(tb_paciente.cd_paciente) 
                             from tb_paciente, tb_triagem 
                                     where tb_paciente.cd_paciente = tb_triagem.cd_paciente
                                             and ic_sexo = 'Feminino'
-                                and tb_triagem.dt_registro between ? and ?) as 'Feminino'";
+						and tb_triagem.dt_registro between ? and ?
+                                                    and tb_triagem.cd_ubs = ?) as 'Feminino'";
         $stmt = $this->db_maua->prepare($select);
         if ($stmt) {
-            $stmt->bind_param("ssss", $data1, $data2, $data1, $data2);
+            $stmt->bind_param("ssissi", $data1, $data2, $this->cdUbs, $data1, $data2, $this->cdUbs);
             $stmt->execute();
             $stmt->bind_result($masc, $fem);
             while ($stmt->fetch()) {
@@ -65,49 +68,56 @@ final class Relatorio {
         $array_idades = array();
         $select = "select
                     (select count(tb_paciente.cd_paciente) 
-                    from tb_paciente, tb_triagem 
+                        from tb_paciente, tb_triagem 
                             where tb_paciente.cd_paciente = tb_triagem.cd_paciente
-                        and tb_triagem.dt_registro between ? and ?
-                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 0
-                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) < 3) AS '0 - 2 anos',
+                                and tb_triagem.dt_registro between ? and ?
+                                    and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 0
+                                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) < 3
+                                            and tb_triagem.cd_ubs = ?) AS '0 - 2 anos',
                     (select count(tb_paciente.cd_paciente) 
-                    from tb_paciente, tb_triagem 
+                        from tb_paciente, tb_triagem 
                             where tb_paciente.cd_paciente = tb_triagem.cd_paciente
-                        and tb_triagem.dt_registro between ? and ?
-                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 3
-                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) < 6) AS '3 - 5 anos',
+                            and tb_triagem.dt_registro between ? and ?
+                                and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 3
+                                    and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) < 6
+                                        and tb_triagem.cd_ubs = ?) AS '3 - 5 anos',
                     (select count(tb_paciente.cd_paciente) 
-                    from tb_paciente, tb_triagem 
+                        from tb_paciente, tb_triagem 
                             where tb_paciente.cd_paciente = tb_triagem.cd_paciente
-                        and tb_triagem.dt_registro between ? and ?
-                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 6
-                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) < 14) AS '6 - 13 anos',
+                                and tb_triagem.dt_registro between ? and ?
+                                    and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 6
+                                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) < 14
+                                            and tb_triagem.cd_ubs = ?) AS '6 - 13 anos',
                     (select count(tb_paciente.cd_paciente) 
-                    from tb_paciente, tb_triagem 
+                        from tb_paciente, tb_triagem 
                             where tb_paciente.cd_paciente = tb_triagem.cd_paciente
-                        and tb_triagem.dt_registro between ? and ?
-                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 14
-                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) < 19) AS '14 - 18 anos',
+                                and tb_triagem.dt_registro between ? and ?
+                                    and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 14
+                                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) < 19
+                                            and tb_triagem.cd_ubs = ?) AS '14 - 18 anos',
                     (select count(tb_paciente.cd_paciente) 
-                    from tb_paciente, tb_triagem 
+                        from tb_paciente, tb_triagem 
                             where tb_paciente.cd_paciente = tb_triagem.cd_paciente
-                        and tb_triagem.dt_registro between ? and ?
-                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 19
-                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) < 41) AS '19 - 40 anos',
+                                and tb_triagem.dt_registro between ? and ?
+                                    and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 19
+                                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) < 41
+                                            and tb_triagem.cd_ubs = ?) AS '19 - 40 anos',
                     (select count(tb_paciente.cd_paciente) 
-                    from tb_paciente, tb_triagem 
+                        from tb_paciente, tb_triagem 
                             where tb_paciente.cd_paciente = tb_triagem.cd_paciente
-                        and tb_triagem.dt_registro between ? and ?
-                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 41
-                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) < 60) AS '41 - 60 anos',
+                                and tb_triagem.dt_registro between ? and ?
+                                    and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 41
+                                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) < 60
+                                            and tb_triagem.cd_ubs = ?) AS '41 - 60 anos',
                     (select count(tb_paciente.cd_paciente)
-                    from tb_paciente, tb_triagem 
+                        from tb_paciente, tb_triagem 
                             where tb_paciente.cd_paciente = tb_triagem.cd_paciente
-                        and tb_triagem.dt_registro between ? and ?
-                        and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 60) AS '60+'";
+                                and tb_triagem.dt_registro between ? and ?
+                                    and TIMESTAMPDIFF(YEAR, dt_nascimento, CURDATE()) >= 60
+                                        and tb_triagem.cd_ubs = ?) AS '60+';";
         $stmt = $this->db_maua->prepare($select);
         if ($stmt) {
-            $stmt->bind_param("ssssssssssssss", $data1, $data2, $data1, $data2, $data1, $data2, $data1, $data2, $data1, $data2, $data1, $data2, $data1, $data2);
+            $stmt->bind_param("ssississississississi", $data1, $data2, $this->cdUbs, $data1, $data2, $this->cdUbs, $data1, $data2, $this->cdUbs, $data1, $data2, $this->cdUbs, $data1, $data2, $this->cdUbs, $data1, $data2, $this->cdUbs, $data1, $data2, $this->cdUbs);
             $stmt->execute();
             $stmt->bind_result($zerodois, $trescinco, $seistreze, $quatorzedezoito, $dezenovequarenta, $quarentaeumsessenta, $sessentamais);
             while ($stmt->fetch()) {
@@ -127,14 +137,15 @@ final class Relatorio {
     public function queixasRecorrentes($data1, $data2) {
         $matriz_queixas = array();
         $select = "select ds_queixa, count(cd_triagem), concat(format(((count(cd_triagem)/(select count(cd_triagem) from tb_triagem where dt_registro between ? and ?))*100),2),'%')
-                    from tb_triagem 
-                            where dt_registro between ? and ? 
+                        from tb_triagem 
+                            where dt_registro between ? and ?
+				and cd_ubs = ?
                                     group by ds_queixa 
-                                            order by count(cd_triagem) desc, ds_queixa;";
+                                        order by count(cd_triagem) desc, ds_queixa";
 
         $stmt = $this->db_maua->prepare($select);
         if ($stmt) {
-            $stmt->bind_param("ssss", $data1, $data2, $data1, $data2);
+            $stmt->bind_param("ssssi", $data1, $data2, $data1, $data2, $this->cdUbs);
             $stmt->execute();
             $stmt->bind_result($queixa, $qtd, $percentual);
             $cont = 0;
@@ -157,14 +168,15 @@ final class Relatorio {
                             where tb_triagem.cd_paciente = tb_paciente.cd_paciente and tb_paciente.cd_ubs_referencia = tb_ubs.cd_ubs
                                     and tb_triagem.dt_registro between ? and ?
                                             and cd_ubs_referencia != ?
+						and tb_triagem.cd_ubs = ?
                                                     order by nm_ubs, nm_paciente";
         $stmt = $this->db_maua->prepare($select);
-        if($stmt){
-            $stmt->bind_param("sss", $data1, $data2, $this->cdUbs);
+        if ($stmt) {
+            $stmt->bind_param("ssii", $data1, $data2, $this->cdUbs, $this->cdUbs);
             $stmt->execute();
             $stmt->bind_result($cd_paciente, $nm_paciente, $cd_ubs, $nm_ubs);
             $cont = 0;
-            while($stmt->fetch()){
+            while ($stmt->fetch()) {
                 $matrizPacientesForaUbs[$cont]["cd_paciente"] = $cd_paciente;
                 $matrizPacientesForaUbs[$cont]["nm_paciente"] = $nm_paciente;
                 $matrizPacientesForaUbs[$cont]["cd_ubs"] = $cd_ubs;
