@@ -14,13 +14,19 @@ if (!securePage($_SERVER['PHP_SELF'])) {
 ?>
 
 <?php
+require_once('php/classes/triagem.Class.php');
+require_once("php/classes/diagnostico.Class.php");
+?>
+
+<?php
+
 //essa pagina precisa do codigo da triagem no metodo GET para fazer o insert na chave estrangeira do banco, aqui esta sendo feita uma verificaçao pra saber se esse get foi setado e se o valor setado realmente existe como uma triagem. Caso contrario, o usuario volta pra pagina inicial
+//outra verificação: SE A TRIAGEM DO $_GET['cd_triagem'] JÁ TEM UM DIAGNÓSTICO, ENTÃO NÃO É PRA VC ESTAR AQUI NÃO MEU FILHO, VAI CADASTRAR O QUE? OSH
 if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
-    //verificando se o valor existe no banco
-    require_once('php/classes/triagem.Class.php');
+    //verificando se o valor existe no banco e se a triagem já foi finalizada. Se a triagem não existir ou se ela já tiver sido finalizada, então tchau
     $triagem = new Triagem();
     $triagem->selecionar($_GET['cd_triagem']);
-    if ($triagem->getCdTriagem() == '' || $triagem->getCdTriagem() == 0) {
+    if ($triagem->getCdTriagem() == '' || $triagem->getCdTriagem() == 0 || $triagem->getIcFinalizada() == 1) {
 	unset($triagem);
 	header("location: index.php");
     }
@@ -34,7 +40,7 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
 if (isset($_POST['btn_cadastrar_diagnostico'])) {
     //o codigo da triagem será adquirido pelo método get. É necessário verificar se algum valor foi setado
     if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
-	require_once("php/classes/diagnostico.Class.php");
+	
 	$diagnostico = new Diagnostico();
 
 	$diagnostico->setDsAvaliacao($_POST['ds_avaliacao']);

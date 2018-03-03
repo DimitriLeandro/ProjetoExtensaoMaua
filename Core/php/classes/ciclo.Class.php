@@ -30,7 +30,7 @@ abstract class Ciclo {
         $this->cdUsuarioRegistro = $obj_usuario->getId();
         //atribuindo valor ao $cdUbs
 	//cdUbs é diferente de cdUbsReferencia. O cdUbs é a ubs onde o sistema está sendo rodado e cdUbsReferencia é onde o paciente deveria ir
-        $this->setCdUbs('739');
+        $this->setCdUbs($obj_conn->getCdUbs());
         //dizendo que $attr é um array
         $this->attr = array();
     }

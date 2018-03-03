@@ -149,48 +149,54 @@ function validar_dt_nascimento()
     //removendo tudo que n~ao for n´umero
     data = data.replace(/[^0-9]/g, '');
 
-    //Seperando dia, m^es e ano
-    var dia = data.substring(0, 2);
-    var mes = data.substring(2, 4);
-    var ano = data.substring(4, 8);
+    //depois de remover a data deve ser algo como ddmmaaaa, 8 caracteres
+    if (data.length == 8) {
+        //Seperando dia, m^es e ano
+        var dia = data.substring(0, 2);
+        var mes = data.substring(2, 4);
+        var ano = data.substring(4, 8);
 
-    //validando
-    if (mes < 01 || mes > 12)
-        document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
-    else if (dia < 01 || dia > 31)
-        document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
-    else if ((mes == 04 || mes == 06 || mes == 09 || mes == 11) && dia > 30)
-        document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
-    else if (mes == 02)
-    {
-        var bissexto = (ano % 4 == 0 && (ano % 100 != 0 || ano % 400 == 0));
-        if (dia > 29 || (dia == 29 && !bissexto))
+        //validando
+        if (mes < 01 || mes > 12)
             document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
-        else
-            document.getElementById("dt_nascimento").style.outline = "solid 1px #00FF00";
-    } else
-    {
-        //se chegou at´e aqui ´e pq a data ´e valida, agora falta ver se n~ao ´e data futura ou muito antiga
-
-        //pegando a data atual
-        var hoje = new Date();
-        var data_inserida = new Date(ano, mes, dia, 0, 0, 0, 0); //(year, month, day, hours, minutes, seconds, milliseconds)
-
-        //verificando se a data n~ao ´e futura
-        if (data_inserida > hoje)
+        else if (dia < 01 || dia > 31)
+            document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
+        else if ((mes == 04 || mes == 06 || mes == 09 || mes == 11) && dia > 30)
+            document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
+        else if (mes == 02)
         {
-            document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
+            var bissexto = (ano % 4 == 0 && (ano % 100 != 0 || ano % 400 == 0));
+            if (dia > 29 || (dia == 29 && !bissexto))
+                document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
+            else
+                document.getElementById("dt_nascimento").style.outline = "solid 1px #00FF00";
         } else
         {
-            //verificando se a data nao ´e muito antiga
-            if (parseInt(ano) + 120 < hoje.getFullYear())
+            //se chegou at´e aqui ´e pq a data ´e valida, agora falta ver se n~ao ´e data futura ou muito antiga
+
+            //pegando a data atual
+            var hoje = new Date();
+            var data_inserida = new Date(ano, mes, dia, 0, 0, 0, 0); //(year, month, day, hours, minutes, seconds, milliseconds)
+
+            //verificando se a data n~ao ´e futura
+            if (data_inserida > hoje)
             {
                 document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
             } else
             {
-                document.getElementById("dt_nascimento").style.outline = "solid 1px #00FF00";
+                //verificando se a data nao ´e muito antiga
+                if (parseInt(ano) + 120 < hoje.getFullYear())
+                {
+                    document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
+                } else
+                {
+                    document.getElementById("dt_nascimento").style.outline = "solid 1px #00FF00";
+                }
             }
         }
+    } else
+    {
+        document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
     }
 }
 //-----------------	SEGUNDA PARTE DO FORMULARIO

@@ -96,7 +96,7 @@ if (isset($_GET['dt_triagem'])) {
         });
 
         //arrumando o valor do input para que ele n~ao fique em branco
-        $("#dt_triagem").val($("#span_data").text());
+        $("#dt_triagem").datepicker('setDate', new Date());
 
         //mostrando s´o as triagens n~ao finalizadas
         trocar_triagens_visiveis();
