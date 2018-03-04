@@ -143,6 +143,11 @@ if (isset($_POST['btn_atualizar'])) {
 	    </form>
 	</div>
         <script src="users/js/validacao_cadastrar_paciente.js"></script>
+	<script>
+            $("document").ready(function(){
+		validar_cd_cep();
+	    });
+	</script>
 
 	<?php
 	//aqui, se o cadastro foi atualizado corretamente, a variavel $ok será === 1
@@ -150,7 +155,7 @@ if (isset($_POST['btn_atualizar'])) {
 	//o aqruivo php/div_alert.php precisa de duas variáveis pra funcionar, txt_msg e source_frame
 	if (isset($ok) && $ok === 1) {
 	    $txt_msg = '<p>O cadastro foi atualizado com sucesso e o paciente foi incluído na lista de espera.</p><p>Deseja imprimir a etiqueta?</p>';
-	    $source_frame = "php/gerar_etiqueta.php?cd_paciente=".$paciente->getCdPaciente();
+	    $source_frame = "php/gerar_etiqueta.php?cd_paciente=" . $paciente->getCdPaciente();
 	    require_once 'php/div_alert.php';
 	}
 	?>

@@ -63,7 +63,7 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
         <form method="post" class="form-style">
             <h1><?php echo $paciente->getNmPaciente(); ?></h1>
             <h4>Dados da Triagem</h4>
-            <fieldset style="border: solid 1px; padding: 15px;">
+            <fieldset style="border: solid 1px; padding: 15px; height: 700px;">
                 <div>
                     <p>
                         <?php
@@ -75,26 +75,7 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                         ?> 
                     </p>
                 </div>
-                <p>UBS: <?php echo $triagem->getCdUbs(); ?> </p>
-                <p>Queixa: <?php echo $triagem->getDsQueixa(); ?> </p>
-                <p>Data: <?php echo $triagem->getDtRegistro(); ?> </p>
-                <p>Hora: <?php echo $triagem->getHrRegistro(); ?> </p>
-                <p>Pressão Mínima: <?php echo $triagem->getVlPressaoMin(); ?> </p>
-                <p>Pressão Máxima: <?php echo $triagem->getVlPressaoMax(); ?> </p>
-                <p>Pulso: <?php echo $triagem->getVlPulso(); ?> </p>
-                <p>Temperatura: <?php echo $triagem->getVlTemperatura(); ?> </p>
-                <p>Respiração: <?php echo $triagem->getVlRespiracao(); ?> </p>
-                <p>Saturação: <?php echo $triagem->getVlSaturacao(); ?> </p>
-                <p>Glicemia: <?php echo $triagem->getVlGlicemia(); ?> </p>
-                <p>Nível de Consciência: <?php echo $triagem->getVlNivelConsciencia(); ?> </p>
-                <p>Escala de Dor: <?php echo $triagem->getVlEscalaDor(); ?> </p>
-                <p>Alergia a Medicamentos: <?php echo $triagem->getIcAlergia(); ?> </p>
-                <p>Descrição das Alergias: <?php echo $triagem->getDsAlergia(); ?> </p>
-                <p>Observações: <?php echo $triagem->getDsObservacao(); ?> </p>
-                <p>Classificação de Risco: <?php echo $triagem->getVlClassificacaoRisco(); ?> </p>
-                <p>Linha de Cuidado: <?php echo $triagem->getDsLinhaCuidado(); ?> </p>
-                <p>Outras condições: <?php echo $triagem->getDsOutrasCondicoes(); ?> </p>
-                <p>Profissional que Realizou a Triagem: <?php echo $triagem->getCdUsuarioRegistro(); ?> </p>
+                <iframe src="php/prontuario/prontuario.php?cd_triagem=<?php echo $triagem->getCdTriagem(); ?>"  style="top:0px; left:0px; bottom:0px; right:0px; width:100%; height:93%; border:none; margin:0; padding:0; overflow:hidden;"></iframe>
             </fieldset>
             <br/>
             <div>
