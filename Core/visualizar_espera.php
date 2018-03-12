@@ -54,7 +54,7 @@ if (isset($_GET['remover']) && $_GET['remover'] > 0) {
 	    <?php } ?>
 	    <?php
 	    if ($obj_usuario->getPermission() != "Enfermeiro") { ?>
-		    <button type = "button" onclick = "javascript:history.back()">Voltar</button>
+		    <button type = "button" onclick="window.location.href = 'index.php'">Voltar</button>
 	    <?php } ?>
         </form>
 
