@@ -187,6 +187,36 @@ final class Relatorio {
         return $matrizPacientesForaUbs;
     }
 
+    public function listaPacientesEQueixas($data1, $data2) {
+        $matrizPacientesEQueixas = array();
+        
+        $select = "select tb_paciente.cd_paciente, nm_paciente, tb_triagem.cd_triagem, ds_queixa, tb_triagem.dt_registro, tb_triagem.hr_registro
+                    from tb_triagem, tb_paciente
+                            where tb_triagem.cd_paciente = tb_paciente.cd_paciente
+                                and tb_triagem.dt_registro >= ? and tb_triagem.dt_registro <= ?
+                                    and tb_triagem.cd_ubs = ?
+                                        order by dt_registro, hr_registro;";
+        
+        $stmt = $this->db_maua->prepare($select);
+        
+        if ($stmt) {
+            $stmt->bind_param("ssi", $data1, $data2, $this->cdUbs);
+            $stmt->execute();
+            $stmt->bind_result($cd_paciente, $nm_paciente, $cd_triagem, $ds_queixa, $dt_registro, $hr_registro);
+            $cont = 0;
+            while ($stmt->fetch()) {
+                $matrizPacientesEQueixas[$cont]["cd_paciente"] = $cd_paciente;
+                $matrizPacientesEQueixas[$cont]["nm_paciente"] = $nm_paciente;
+                $matrizPacientesEQueixas[$cont]["cd_triagem"] = $cd_triagem;
+                $matrizPacientesEQueixas[$cont]["ds_queixa"] = $ds_queixa;
+                $matrizPacientesEQueixas[$cont]["dt_registro"] = $dt_registro;
+                $matrizPacientesEQueixas[$cont]["hr_registro"] = $hr_registro;
+                $cont++;
+            }
+        }
+        
+        return $matrizPacientesEQueixas;
+    }
 }
 
 ?>

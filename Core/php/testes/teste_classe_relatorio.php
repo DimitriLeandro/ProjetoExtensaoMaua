@@ -41,5 +41,22 @@
         echo '<tr><td>'.$row["cd_paciente"].'</td><td>'.$row["nm_paciente"].'</td><td>'.$row["cd_ubs"].'</td><td>'.$row["nm_ubs"].'</td></tr>';
     }
     echo "</table>";
+    
+    
+    //pacientes que passaram pelo ubs nesse periodo e suas queixas
+    echo "<br/><br/><b><br/>Lista de Pacientes e suas queixas</b>";
+    echo "<table>";
+    $lstPacientes = $objRelatorio->listaPacientesEQueixas($data1, $data2);
+    foreach ($lstPacientes as $row){
+        echo '<tr>'.
+                '<td>'.$row["cd_paciente"].'</td>'.
+                '<td>'.$row["nm_paciente"].'</td>'.
+                '<td>'.$row["cd_triagem"].'</td>'.
+                '<td>'.$row["ds_queixa"].'</td>'.
+                '<td>'.$row["dt_registro"].'</td>'.
+                '<td>'.$row["hr_registro"].'</td>'.
+             '</tr>';
+    }
+    echo "</table>";
     ?>
 </pre>
