@@ -363,6 +363,8 @@ function trocar_cns_justificativa()
         $("#p_troca_cns_justificativa").text("O paciente possui CNS");
         $("#nm_justificativa").focus();
         aux = 1;
+        //TROCA O VALOR DO CAMPO CNS PRA 0, POIS NO BANCO NÃO PODE SER NULL
+        $("cd_cns_paciente").val(0);
     } else
     {
         $("#div_nao_possui_cns").hide();

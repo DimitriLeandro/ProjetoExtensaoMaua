@@ -139,7 +139,7 @@ final class Paciente extends Ciclo {
 	$nascimento = new DateTime($this->getDtNascimento());
 	$hoje = new DateTime(date("Y-m-d"));
 	$diferenca = $hoje->diff($nascimento);
-	
+
 	return $diferenca->y;
     }
 
@@ -229,89 +229,151 @@ final class Paciente extends Ciclo {
     }
 
     public function setCdPaciente($cdPaciente) {
+	if ($cdPaciente == '') {
+	    $cdPaciente = NULL;
+	}
 	$this->cdPaciente = $cdPaciente;
     }
 
     public function setCdCnsPaciente($cdCnsPaciente) {
+	if ($cdCnsPaciente == '') {
+	    $cdCnsPaciente = '0';
+	}
 	$this->cdCnsPaciente = $cdCnsPaciente;
     }
 
     public function setNmJustificativa($nmJustificativa) {
+	if ($nmJustificativa == '') {
+	    $nmJustificativa = NULL;
+	}
 	$this->nmJustificativa = $nmJustificativa;
     }
 
     public function setNmPaciente($nmPaciente) {
+	if ($nmPaciente == '') {
+	    $nmPaciente = NULL;
+	}
 	$this->nmPaciente = $nmPaciente;
     }
 
     public function setNmMae($nmMae) {
+	if ($nmMae == '') {
+	    $nmMae = NULL;
+	}
 	$this->nmMae = $nmMae;
     }
 
     public function setIcSexo($icSexo) {
+	if ($icSexo == '') {
+	    $icSexo = NULL;
+	}
 	$this->icSexo = $icSexo;
     }
 
     public function setIcRaca($icRaca) {
+	if ($icRaca == '') {
+	    $icRaca = NULL;
+	}
 	$this->icRaca = $icRaca;
     }
 
     public function setDtNascimento($dtNascimento) {
+	if ($dtNascimento == '') {
+	    $dtNascimento = NULL;
+	}
 	$this->dtNascimento = $dtNascimento;
     }
 
     public function setNmPaisNascimento($nmPaisNascimento) {
+	if ($nmPaisNascimento == '') {
+	    $nmPaisNascimento = NULL;
+	}
 	$this->nmPaisNascimento = $nmPaisNascimento;
     }
 
     public function setNmMunicipioNascimento($nmMunicipioNascimento) {
+	if ($nmMunicipioNascimento == '') {
+	    $nmMunicipioNascimento = NULL;
+	}
 	$this->nmMunicipioNascimento = $nmMunicipioNascimento;
     }
 
     public function setNmPaisResidencia($nmPaisResidencia) {
+	if ($nmPaisResidencia == '') {
+	    $nmPaisResidencia = NULL;
+	}
 	$this->nmPaisResidencia = $nmPaisResidencia;
     }
 
     public function setNmMunicipioResidencia($nmMunicipioResidencia) {
+	if ($nmMunicipioResidencia == '') {
+	    $nmMunicipioResidencia = NULL;
+	}
 	$this->nmMunicipioResidencia = $nmMunicipioResidencia;
     }
 
     public function setCdCep($cdCep) {
+	if ($cdCep == '') {
+	    $cdCep = NULL;
+	}
 	$this->cdCep = $cdCep;
     }
 
     public function setNmLogradouro($nmLogradouro) {
+	if ($nmLogradouro == '') {
+	    $nmLogradouro = NULL;
+	}
 	$this->nmLogradouro = $nmLogradouro;
     }
 
     public function setNmNumeroResidencia($nmNumeroResidencia) {
+	if ($nmNumeroResidencia == '') {
+	    $nmNumeroResidencia = NULL;
+	}
 	$this->nmNumeroResidencia = $nmNumeroResidencia;
     }
 
     public function setNmComplemento($nmComplemento) {
+	if ($nmComplemento == '') {
+	    $nmComplemento = NULL;
+	}
 	$this->nmComplemento = $nmComplemento;
     }
 
     public function setNmBairro($nmBairro) {
+	if ($nmBairro == '') {
+	    $nmBairro = NULL;
+	}
 	$this->nmBairro = $nmBairro;
     }
 
     public function setNmResponsavel($nmResponsavel) {
+	if ($nmResponsavel == '') {
+	    $nmResponsavel = NULL;
+	}
 	$this->nmResponsavel = $nmResponsavel;
     }
 
     public function setCdDocumentoResponsavel($cdDocumentoResponsavel) {
+	if ($cdDocumentoResponsavel == '') {
+	    $cdDocumentoResponsavel = NULL;
+	}
 	$this->cdDocumentoResponsavel = $cdDocumentoResponsavel;
     }
 
     public function setNmOrgaoEmissor($nmOrgaoEmissor) {
+	if ($nmOrgaoEmissor == '') {
+	    $nmOrgaoEmissor = NULL;
+	}
 	$this->nmOrgaoEmissor = $nmOrgaoEmissor;
     }
 
     public function setCdUbsReferencia($cdUbsReferencia) {
+	if ($cdUbsReferencia == '') {
+	    $cdUbsReferencia = NULL;
+	}
 	$this->cdUbsReferencia = $cdUbsReferencia;
     }
-
 }
 
 ?>
