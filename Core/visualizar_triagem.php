@@ -75,7 +75,7 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                         ?> 
                     </p>
                 </div>
-                <iframe src="php/prontuario/prontuario.php?cd_triagem=<?php echo $triagem->getCdTriagem(); ?>"  style="top:0px; left:0px; bottom:0px; right:0px; width:100%; height:93%; border:none; margin:0; padding:0; overflow:hidden;"></iframe>
+                <iframe src="php/prontuario/prontuario_modelo_2.php?cd_triagem=<?php echo $triagem->getCdTriagem(); ?>"  style="top:0px; left:0px; bottom:0px; right:0px; width:100%; height:93%; border:none; margin:0; padding:0; overflow:hidden;"></iframe>
             </fieldset>
             <br/>
             <div>
