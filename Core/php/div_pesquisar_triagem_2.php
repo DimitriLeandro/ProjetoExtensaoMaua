@@ -1,4 +1,8 @@
 <?php
+require_once('classes/conexao.Class.php');
+require_once('classes/triagem.Class.php');
+require_once 'php/classes/usuario.Class.php';
+
 //vendo se alguma data espec´ifica foi setada no GET, caso n~ao, mostrar as triagens do dia atual
 $data_triagem = date("Y-m-d");
 if (isset($_GET['dt_triagem'])) {
@@ -33,16 +37,16 @@ if (isset($_GET['dt_triagem'])) {
         </p>
         <p>
             <label>Mostrar apenas triagens sem diagnóstico</label>
-            <input type="checkbox" id="chk_nao_finalizada" checked />
+            <input type="checkbox" id="chk_nao_finalizada" checked/>
         </p>
+        <br/>
+        <p id="p_sem_triagens" align="center" hidden>Não há triagens regristradas nesse dia</p>
     </fieldset>
     <br/>
 
     <?php
     //Não é necessário criar um objeto da classe paciente pois isso já foi feito em pesquisar_triagem.php
-    require_once('classes/conexao.Class.php');
-    require_once('classes/triagem.Class.php');
-
+    
     $conexao = new Conexao();
     $triagem = new Triagem();
 
@@ -59,13 +63,13 @@ if (isset($_GET['dt_triagem'])) {
 	    //Pegando os dados do usuario da triagem para mostrar o nome etc
 	    $paciente->selecionar($triagem->getCdPaciente());
 	    ?>
-	    <fieldset class="<?php
+	    <fieldset id="fieldset_triagem" class="<?php
 	    if ($triagem->getIcFinalizada() == 1) {
-		echo "finalizada";
+		echo 'finalizada" hidden';
 	    } else {
-		echo "nao_finalizada";
+		echo 'nao_finalizada"';
 	    }
-	    ?>" style="border: solid 1px; padding: 15px;">
+            ?> style="border: solid 1px; padding: 15px;">
 		<p><label>Paciente: <?php echo $paciente->getNmPaciente() ?> </label><p/>
 		<p><label>Queixa: <?php echo $triagem->getDsQueixa() ?> </label><p/>
 		<p><label>Data: <?php echo $triagem->getDtRegistro() ?> </label><p/>
@@ -77,12 +81,11 @@ if (isset($_GET['dt_triagem'])) {
 	}
     }
     ?> 
-    <?php
-    require_once 'php/classes/usuario.Class.php';
+    <?php    
     $obj_usuario = new Usuario();
-    if ($obj_usuario->getPermission() != "Outorgante") {
+    if ($obj_usuario->getPermission() != "Secretario") {
 	?>
-        <button type = "button" onclick = "javascript:history.back()">Voltar</button>
+        <button type="button" onclick="window.location.href = 'index.php'">Voltar</button>
 <?php } ?>	
 </div>
 <script>
@@ -100,6 +103,11 @@ if (isset($_GET['dt_triagem'])) {
 
         //mostrando s´o as triagens n~ao finalizadas
         trocar_triagens_visiveis();
+        
+        //se o total de fieldsets id="fieldset_triagem" for 0, então exibe uma msg com "Não há triagens regristradas nesse dia"
+        if($(".nao_finalizada").size() == 0 && $(".finalizada").size() == 0){
+            $("#p_sem_triagens").show();
+        }
     });
 
     //funç~ao para mostrar apenas as triagens finalizadas ou todas

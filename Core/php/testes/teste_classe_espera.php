@@ -12,7 +12,7 @@
       echo "<br/>".$obj_espera->cadastrar();
       // */
 
-    /* MOSTRANDO TODOS OS PACIENTES DA LISTA
+     ///*MOSTRANDO TODOS OS PACIENTES DA LISTA
       $lista = $obj_espera->selecionarListaCompleta();
 
       foreach($lista as $row)
@@ -24,7 +24,7 @@
 
       // */
 
-    //SELECIONAR UMA ÚNICA LINHA DA TABELA
+    /*SELECIONAR UMA ÚNICA LINHA DA TABELA
     $obj_espera->selecionar('18');
     echo "<br/>" . $obj_espera->getCdEspera();
     echo "<br/>" . $obj_espera->getIcFinalizada();
@@ -32,6 +32,6 @@
     echo "<br/>" . $obj_espera->getHrRegistro();
     echo "<br/>" . $obj_espera->getCdPaciente();
     echo "<br/>" . $obj_espera->getCdUbs();
-    echo "<br/>" . $obj_espera->getCdUsuarioRegistro();
-    ?>
+    echo "<br/>" . $obj_espera->getCdUsuarioRegistro();//*/
+    ?> 
 </pre>

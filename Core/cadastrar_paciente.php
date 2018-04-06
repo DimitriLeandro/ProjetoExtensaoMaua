@@ -20,32 +20,32 @@ if (isset($_POST['btn_cadastrar'])) {
     require_once('php/classes/paciente.Class.php');
     $paciente = new Paciente();
 
-    $paciente->setCdCnsPaciente('' . $_POST['cd_cns_paciente']);
-    $paciente->setNmJustificativa('' . $_POST['nm_justificativa']);
-    $paciente->setNmPaciente('' . $_POST['nm_paciente']);
-    $paciente->setNmMae('' . $_POST['nm_mae']);
-    $paciente->setIcSexo('' . $_POST['ic_sexo']);
-    $paciente->setIcRaca('' . $_POST['ic_raca']);
+    $paciente->setCdCnsPaciente($_POST['cd_cns_paciente']);
+    $paciente->setNmJustificativa($_POST['nm_justificativa']);
+    $paciente->setNmPaciente($_POST['nm_paciente']);
+    $paciente->setNmMae($_POST['nm_mae']);
+    $paciente->setIcSexo($_POST['ic_sexo']);
+    $paciente->setIcRaca($_POST['ic_raca']);
     $paciente->setDtNascimento(date('Y-m-d', strtotime(str_replace('/', '-', $_POST['dt_nascimento']))));
-    $paciente->setNmPaisNascimento('' . $_POST['nm_pais_nascimento']);
-    $paciente->setNmMunicipioNascimento('' . $_POST['nm_municipio_nascimento']);
-    $paciente->setNmPaisResidencia('' . $_POST['nm_pais_residencia']);
-    $paciente->setNmMunicipioResidencia('' . $_POST['nm_municipio_residencia']);
-    $paciente->setCdCep('' . $_POST['cd_cep']);
-    $paciente->setNmLogradouro('' . $_POST['nm_logradouro']);
-    $paciente->setNmNumeroResidencia('' . $_POST['nm_numero_residencia']);
-    $paciente->setNmComplemento('' . $_POST['nm_complemento']);
-    $paciente->setNmBairro('' . $_POST['nm_bairro']);
-    $paciente->setNmResponsavel('' . $_POST['nm_responsavel']);
-    $paciente->setCdDocumentoResponsavel('' . $_POST['cd_documento_responsavel']);
-    $paciente->setNmOrgaoEmissor('' . $_POST['nm_orgao_emissor']);
-    $paciente->setDtRegistro('' . date("Y-m-d"));
-    $paciente->setHrRegistro('' . date("H:i:s"));
-    $paciente->setCdUbsReferencia('4');
+    $paciente->setNmPaisNascimento($_POST['nm_pais_nascimento']);
+    $paciente->setNmMunicipioNascimento($_POST['nm_municipio_nascimento']);
+    $paciente->setNmPaisResidencia($_POST['nm_pais_residencia']);
+    $paciente->setNmMunicipioResidencia($_POST['nm_municipio_residencia']);
+    $paciente->setCdCep($_POST['cd_cep']);
+    $paciente->setNmLogradouro($_POST['nm_logradouro']);
+    $paciente->setNmNumeroResidencia($_POST['nm_numero_residencia']);
+    $paciente->setNmComplemento($_POST['nm_complemento']);
+    $paciente->setNmBairro($_POST['nm_bairro']);
+    $paciente->setNmResponsavel($_POST['nm_responsavel']);
+    $paciente->setCdDocumentoResponsavel($_POST['cd_documento_responsavel']);
+    $paciente->setNmOrgaoEmissor($_POST['nm_orgao_emissor']);
+    $paciente->setDtRegistro(date("Y-m-d"));
+    $paciente->setHrRegistro(date("H:i:s"));
+    $paciente->setCdUbsReferencia($_POST['cd_ubs_referencia']);
 
     $ok = $paciente->cadastrar();
     if ($ok == 0) {
-	?> <script> alert('Erro ao cadastrar paciente');</script> <?php
+        ?> <script> alert('Erro ao cadastrar paciente');</script> <?php
     }
 }
 ?>
@@ -58,10 +58,13 @@ if (isset($_POST['btn_cadastrar'])) {
         <meta charset="utf-8" />
         <link href="css/formulario.css" rel="stylesheet">
         <script src="users/js/jquery.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="users/js/buscaCEP.js"></script>
+        <script src="users/js/ubs_referencia.js"></script>
     </head>
     <body>
-	<?php require_once 'php/div_header.php'; ?>
+        <?php require_once 'php/div_header.php'; ?>
         <div id="div_corpo">
             <form method="post" class="form-style" id="cadastro_paciente">
                 <h1>SISTEMA DE CADASTRAMENTO SUS</h1>
@@ -74,17 +77,21 @@ if (isset($_POST['btn_cadastrar'])) {
                         <label for="justificativa" class="margem">Justificativa da ausência do CNS</label>
                         <select name="nm_justificativa" id="nm_justificativa" onblur="validar_nm_justificativa()">
                             <option value="" selected></option>
-                            <option value="graves">Pacientes acidentados graves</option>
-                            <option value="encontrados">Pacientes psiquiátricos encontrados em vias públicas</option>
-                            <option value="problemas">Pacientes com problemas neurológicos graves ou comatosos</option>
-                            <option value="incapacitados">Pacientes incapacitados por motivos sociais e/ou culturais</option>
-                            <option value="doador">Doador de Órgãos Falecido</option>
+                            <option value="Pacientes acidentados graves">Pacientes acidentados graves</option>
+                            <option value="Pacientes psiquiátricos encontrados em vias públicas">Pacientes psiquiátricos encontrados em vias públicas</option>
+                            <option value="Pacientes com problemas neurológicos graves ou comatosos">Pacientes com problemas neurológicos graves ou comatosos</option>
+                            <option value="Pacientes incapacitados por motivos sociais e/ou culturais">Pacientes incapacitados por motivos sociais e/ou culturais</option>
+                            <option value="Doador de Órgãos Falecido">Doador de Órgãos Falecido</option>
                         </select>
                     </div>
                     <p id="p_troca_cns_justificativa" style="cursor: pointer; color: lightblue;" onclick="trocar_cns_justificativa();">O paciente não possui CNS</p>
 
                     <label for="nomep" class="margem">Nome completo</label>
-		    <input type="text" name="nm_paciente" id="nm_paciente" onblur="validar_nm_paciente()" <?php if(isset($_GET['nome'])){echo 'value="'.ucwords(str_replace("_", " ", $_GET['nome'])).'"'; } ?>/><br />
+                    <input type="text" name="nm_paciente" id="nm_paciente" onblur="validar_nm_paciente()" <?php
+                    if (isset($_GET['nome'])) {
+                        echo 'value="' . ucwords(str_replace("_", " ", $_GET['nome'])) . '"';
+                    }
+                    ?>/><br />
 
                     <label for="nomem"class="margem">Nome completo da mãe</label>
                     <input type="text" name="nm_mae" id="nm_mae" onblur="validar_nm_mae()"/><br />
@@ -107,10 +114,10 @@ if (isset($_POST['btn_cadastrar'])) {
                     </select><br />
 
                     <label for="nascp" class="margem">Data de Nascimento</label>
-                    <input type="text" maxlength="10" name="dt_nascimento" id="dt_nascimento" onkeypress="mascarar_data()" onblur="validar_dt_nascimento()"/><br />
+                    <input type="text" name="dt_nascimento" id="dt_nascimento" maxlength="10" onkeypress="mascarar_data()" onblur="validar_dt_nascimento()"/><br />
 
                     <button type="button" onclick="javascript:history.back()">Voltar</button>
-		    <button type="button" onclick="avancar('fieldset_2');">Avançar</button>                    
+                    <button type="button" onclick="avancar('fieldset_2');">Avançar</button>                    
                 </fieldset><br />
 
                 <fieldset id="fieldset_2" class="field_set" style="display: none;">
@@ -126,7 +133,7 @@ if (isset($_POST['btn_cadastrar'])) {
                     <label for="cep" class="margem1">CEP</label>
                     <input type="text" name="cd_cep" id="cd_cep" size="9" maxlength="9" onblur="validar_cd_cep();" />
                     <p id="p_carregando" hidden>Carregando...</p>
-
+                    <div id="div_ubs_referencia"><input type="number" name="cd_ubs_referencia" id="cd_ubs_referencia" value="4" hidden/></div>
                     <label for="munresd" class="margem1">Município de residência</label>
                     <input type="text" name="nm_municipio_residencia" id="nm_municipio_residencia" onblur="validar_nm_municipio_residencia();" /><br />
 
@@ -152,13 +159,17 @@ if (isset($_POST['btn_cadastrar'])) {
                     <!-- <input type="number" name="cd_ubs_referencia" id="ubsref" /><br /> -->
 
                     <label for="nomeresp" class="margem2">Nome completo do responsável</label>
-                    <input type="text" name="nm_responsavel" id="nm_responsavel" onblur="validar_nm_responsavel()" <?php if(isset($_GET['nome'])){echo 'value="'.ucwords(str_replace("_", " ", $_GET['nome'])).'"'; } ?>/><br />
+                    <input type="text" name="nm_responsavel" id="nm_responsavel" onblur="validar_nm_responsavel()" <?php
+                    if (isset($_GET['nome'])) {
+                        echo 'value="' . ucwords(str_replace("_", " ", $_GET['nome'])) . '"';
+                    }
+                    ?>/><br />
 
                     <label for="docresp" class="margem2">Documento do responsavel</label>
                     <input type="text" maxlength="12" name="cd_documento_responsavel" id="cd_documento_responsavel" onkeypress="mascarar_rg()" onblur="validar_cd_documento_responsavel()" /><br />
 
                     <label for="orgaoresp" class="margem2">Órgão emissor</label>
-                    <input type="text" name="nm_orgao_emissor" id="nm_orgao_emissor"  onblur="validar_nm_orgao_emissor()" /><br />
+                    <input type="text" name="nm_orgao_emissor" id="nm_orgao_emissor"  onblur="validar_nm_orgao_emissor()" /><br />		    
 
                     <button type="button" onclick="voltar('fieldset_2');">Voltar</button>
                     <button  type="button" onclick="submeter_formulario();" >Cadastrar e Imprimir Etiqueta</button>
@@ -167,14 +178,14 @@ if (isset($_POST['btn_cadastrar'])) {
                 </fieldset><br />   
             </form>
         </div>
-	<?php
+        <?php
 //-------PARTE PARA IMPRIMIR A ETIQUETA 
-	if (isset($ok) && $ok === 1) {
-	    $txt_msg = '<p>O cadastro foi realizado com sucesso e o paciente foi incluído na lista de espera.</p><p>Deseja imprimir a etiqueta?</p>';
-	    $source_frame = "php/gerar_etiqueta.php?cd_paciente=".$paciente->getCdPaciente();
-	    require_once 'php/div_alert.php';
-	}
-	?>
+        if (isset($ok) && $ok === 1) {
+            $txt_msg = '<p>O cadastro foi realizado com sucesso e o paciente foi incluído na lista de espera.</p><p>Deseja imprimir a etiqueta?</p>';
+            $source_frame = "php/gerar_etiqueta.php?cd_paciente=" . $paciente->getCdPaciente();
+            require_once 'php/div_alert.php';
+        }
+        ?>
         <script>
             $('input:visible:enabled:first').focus();
 
@@ -206,7 +217,15 @@ if (isset($_POST['btn_cadastrar'])) {
                 $('input:visible:enabled:first').focus();
             }
 
-         
+            $("document").ready(function () {
+                //transformando o input em type date de uma forma que funciona em todos os navegadores
+                $("#dt_nascimento").datepicker({
+                    dateFormat: 'dd/mm/yy',
+                    onSelect: function () {
+                        validar_dt_nascimento();
+                    }
+                });
+            });
         </script>
         <script src="users/js/validacao_cadastrar_paciente.js"></script>
     </body>

@@ -33,6 +33,7 @@ if (!securePage($_SERVER['PHP_SELF'])) {
 			<a href="cadastrar_paciente.php"><button type="button">Cadastrar Paciente</button></a>
 			<a href="pesquisar_triagem.php"><button type="button">Visualizar Triagens</button></a>
 			<a href="visualizar_espera.php"><button type="button">Lista de Espera</button></a>
+			<a href="relatorio.php"><button type="button">Relatórios</button></a>
 		    </form>
 		</div>
 	    </div>

@@ -44,6 +44,7 @@ echo $ok . "<br/><br/>";
 
 $paciente->selecionar('64');
 
+echo "<br/>" . $paciente->getIdade();
 echo "<br/>" . $paciente->getCdPaciente();
 echo "<br/>" . $paciente->getCdCnsPaciente();
 echo "<br/>" . $paciente->getNmJustificativa();

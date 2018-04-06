@@ -149,48 +149,54 @@ function validar_dt_nascimento()
     //removendo tudo que n~ao for n´umero
     data = data.replace(/[^0-9]/g, '');
 
-    //Seperando dia, m^es e ano
-    var dia = data.substring(0, 2);
-    var mes = data.substring(2, 4);
-    var ano = data.substring(4, 8);
+    //depois de remover a data deve ser algo como ddmmaaaa, 8 caracteres
+    if (data.length == 8) {
+        //Seperando dia, m^es e ano
+        var dia = data.substring(0, 2);
+        var mes = data.substring(2, 4);
+        var ano = data.substring(4, 8);
 
-    //validando
-    if (mes < 01 || mes > 12)
-        document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
-    else if (dia < 01 || dia > 31)
-        document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
-    else if ((mes == 04 || mes == 06 || mes == 09 || mes == 11) && dia > 30)
-        document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
-    else if (mes == 02)
-    {
-        var bissexto = (ano % 4 == 0 && (ano % 100 != 0 || ano % 400 == 0));
-        if (dia > 29 || (dia == 29 && !bissexto))
+        //validando
+        if (mes < 01 || mes > 12)
             document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
-        else
-            document.getElementById("dt_nascimento").style.outline = "solid 1px #00FF00";
-    } else
-    {
-        //se chegou at´e aqui ´e pq a data ´e valida, agora falta ver se n~ao ´e data futura ou muito antiga
-
-        //pegando a data atual
-        var hoje = new Date();
-        var data_inserida = new Date(ano, mes, dia, 0, 0, 0, 0); //(year, month, day, hours, minutes, seconds, milliseconds)
-
-        //verificando se a data n~ao ´e futura
-        if (data_inserida > hoje)
+        else if (dia < 01 || dia > 31)
+            document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
+        else if ((mes == 04 || mes == 06 || mes == 09 || mes == 11) && dia > 30)
+            document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
+        else if (mes == 02)
         {
-            document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
+            var bissexto = (ano % 4 == 0 && (ano % 100 != 0 || ano % 400 == 0));
+            if (dia > 29 || (dia == 29 && !bissexto))
+                document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
+            else
+                document.getElementById("dt_nascimento").style.outline = "solid 1px #00FF00";
         } else
         {
-            //verificando se a data nao ´e muito antiga
-            if (parseInt(ano) + 120 < hoje.getFullYear())
+            //se chegou at´e aqui ´e pq a data ´e valida, agora falta ver se n~ao ´e data futura ou muito antiga
+
+            //pegando a data atual
+            var hoje = new Date();
+            var data_inserida = new Date(ano, mes, dia, 0, 0, 0, 0); //(year, month, day, hours, minutes, seconds, milliseconds)
+
+            //verificando se a data n~ao ´e futura
+            if (data_inserida > hoje)
             {
                 document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
             } else
             {
-                document.getElementById("dt_nascimento").style.outline = "solid 1px #00FF00";
+                //verificando se a data nao ´e muito antiga
+                if (parseInt(ano) + 120 < hoje.getFullYear())
+                {
+                    document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
+                } else
+                {
+                    document.getElementById("dt_nascimento").style.outline = "solid 1px #00FF00";
+                }
             }
         }
+    } else
+    {
+        document.getElementById("dt_nascimento").style.outline = "solid 1px #FF0000";
     }
 }
 //-----------------	SEGUNDA PARTE DO FORMULARIO
@@ -233,10 +239,15 @@ function validar_cd_cep()
     var cep = $("#cd_cep").val().replace(/[^0-9]/g, '');
     if (cep.length == 8)
     {
+        //completando o endereço do paciente
         pesquisar_cep();
+        //agora é necessário dar um load em uma div para mostrar qual é a ubs de referência do paciente
+        load_ubs_referencia();
+
     } else
     {
         $("#cd_cep").css({"outline": "solid 1px #FF0000"});
+        $("#div_ubs_referencia").hide();
     }
 }
 
@@ -352,6 +363,8 @@ function trocar_cns_justificativa()
         $("#p_troca_cns_justificativa").text("O paciente possui CNS");
         $("#nm_justificativa").focus();
         aux = 1;
+        //TROCA O VALOR DO CAMPO CNS PRA 0, POIS NO BANCO NÃO PODE SER NULL
+        $("cd_cns_paciente").val(0);
     } else
     {
         $("#div_nao_possui_cns").hide();
@@ -379,5 +392,21 @@ function mascarar_rg()
     if (rg.value.length == 10)
     {
         rg.value = rg.value + "-";
+    }
+}
+
+function load_ubs_referencia() {
+    //essa função serve pra pesquisar a ubs de referência do paciente. Ela é acionada depois que o cep é validado. A pesquisa da ubs<->cep é feita com um load() na div div_ubs_referencia
+    //lembrando que no banco, os ceps estão armazenados com 00000-000, então é necessário garantir que a pesquisa será feita nesse formato também.
+    //Nova variável "cep" somente com numeros.
+    var cep = $("#cd_cep").val().replace(/\D/g, '');
+    if (cep.length == 8) {
+        //se entrou aqui então ta suave, é só botar o "-" no meio do número
+        cep = cep.substring(0, 5) + "-" + cep.substring(5, 9);
+        var endereco = "php/div_ubs_referencia.php?cd_cep=" + cep;
+        $("#div_ubs_referencia").load(endereco);
+        $("#div_ubs_referencia").show();
+    } else {
+        $("#div_ubs_referencia").hide();
     }
 }

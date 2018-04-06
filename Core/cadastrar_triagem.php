@@ -100,8 +100,8 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                 $("#vl_nivel_consciencia").val("" + aleatorio(12, 15));
                 $("#vl_escala_dor").val("" + aleatorio(0, 6));
                 //$("#vl_classificacao_risco").val(aleatorio(1, 5));
-                $("#ds_linha_cuidado").val("Nenhuma");
-                $("#ds_outras_condicoes").val("Nenhuma");
+                //$("#ds_linha_cuidado").val("Nenhuma");
+                //$("#ds_outras_condicoes").val("Nenhuma");
             }
 
             function aleatorio(inicio, fim) {
@@ -131,7 +131,18 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
             .yellow{
                 background-color: #ffff00;
             }
-        </style>    
+        </style> 
+        <style>
+            /* Esse style aqui serve pra fazer o scroll do auto-complete
+               Código aqui: https://stackoverflow.com/questions/9590313/how-to-use-the-scroll-and-max-options-in-autocomplete
+             */
+            .ui-autocomplete {
+                max-height: 200px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                padding-right: 20px;
+            } 
+        </style>   
     </head>
     <body>
         <?php require_once 'php/div_header.php'; ?>
@@ -192,7 +203,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                     <textarea name="ds_observacao" id="ds_observacao" placeholder="Para registro do histórico de doenças, doenças prévias, entre outros"></textarea><br />
                     <label for="classrisco">Classificação de risco</label>
                     <select name="vl_classificacao_risco" id="vl_classificacao_risco" style="background-color: blue"> 
-                        <option value="1" class="blue">Não Urgência</option>
+                        <option value="1" class="blue" selected>Não Urgência</option>
                         <option value="2" class="green">Pouca Urgência</option>
                         <option value="3" class="yellow">Urgência</option>
                         <option value="4" class="orange">Muita Urgência</option>
@@ -200,18 +211,23 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                     </select>
                     <label for="linhacuidado">Linha de cuidado</label>
                     <select name="ds_linha_cuidado" id="ds_linha_cuidado">
-                        <option value="Nenhuma">Nenhuma</option>
-                        <option value="gestacao">Gestação</option>
+                        <option value="nenhuma" selected>Nenhuma</option>
+                        <option value="gest">Gest</option>
                         <option value="has">HAS</option>
-                        <option value="dm">DM</option>
-                        <option value="vio">Violência</option>
+                        <option value="om">OM</option>
+                        <option value="ano">Ano</option>
+                        <option value="sm">SM</option>
+                        <option value="ad">ad</option>
+                        <option value="vio">Vio</option>
                     </select><br />
                     <label for="outrascond">Outras condições</label>
                     <select name="ds_outras_condicoes" id="ds_outras_condicoes">
-                        <option value="Nenhuma">Nenhuma</option>
+                        <option value="nenhuma" selected>Nenhuma</option>
                         <option value="asma">Asma</option>
                         <option value="dpoc">DPOC</option>
-                        <option value="onco">Onco</option>
+                        <option value="ice">ICE</option>
+                        <option value="onco">ONCO</option>
+                        <option value="outros">Outros</option>
                     </select><br />
                     <!-- <label for="cnsproftriagem">Responsável pela triagem</label>
                     <input type="number" min=1 name="cd_cns_profissional_triagem" id="cnsproftriagem" required /><br /> -->
@@ -224,7 +240,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
 //-------PARTE PARA IMPRIMIR A TRIAGEM---------------------------
         if (isset($ok) && $ok === 1) {
             $txt_msg = '<p>A triagem foi registrada com sucesso.</p><p>Deseja imprimir?</p>';
-            $source_frame = "visualizar_triagem.php?cd_triagem=" . $triagem->getCdTriagem() . "&printLayout";
+            $source_frame = "php/prontuario/prontuario.php?cd_triagem=" . $triagem->getCdTriagem();
             require_once 'php/div_alert.php';
         }
         ?>
@@ -246,7 +262,7 @@ foreach ($array_ciap as $value) {
             $("#ds_queixa").autocomplete({
                 source: function (request, response) {
                     var results = $.ui.autocomplete.filter(source, request.term);
-                    response(results.slice(0, 7));
+                    response(results.slice(0, 25));
                 },
                 select: function (event, ui) {
                     if (ui.item)

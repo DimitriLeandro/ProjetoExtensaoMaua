@@ -55,7 +55,7 @@ if (isset($_POST['btn_atualizar'])) {
     $paciente->setNmOrgaoEmissor('' . $_POST['nm_orgao_emissor']);
     $paciente->setDtRegistro('' . date("Y-m-d"));
     $paciente->setHrRegistro('' . date("H:i:s"));
-    $paciente->setCdUbsReferencia('4');
+    $paciente->setCdUbsReferencia($_POST['cd_ubs_referencia']);
 
     $ok = $paciente->atualizar($paciente->getCdPaciente());
     if ($ok == 0) {
@@ -73,6 +73,7 @@ if (isset($_POST['btn_atualizar'])) {
         <link href="css/formulario.css" rel="stylesheet">
         <script src="users/js/jquery.js"></script>
         <script src="users/js/buscaCEP.js"></script>
+	<script src="users/js/ubs_referencia.js"></script>
     </head>
     <body>
 	<?php require_once 'php/div_header.php'; ?>
@@ -111,6 +112,7 @@ if (isset($_POST['btn_atualizar'])) {
 
 		<label for="cep" class="margem1">CEP</label>
 		<input  value="<?php echo $paciente->getCdCep(); ?>" type="text" name="cd_cep" id="cd_cep" size="9" maxlength="9" onblur="validar_cd_cep();" />
+		<div id="div_ubs_referencia"><input type="number" name="cd_ubs_referencia" id="cd_ubs_referencia" value="4" hidden/></div>
 
 		<label for="munresd" class="margem1">Município de residência</label>
 		<input value="<?php echo $paciente->getNmMunicipioResidencia(); ?>" type="text" name="nm_municipio_residencia" id="nm_municipio_residencia" onblur="validar_nm_municipio_residencia();" />
@@ -141,6 +143,11 @@ if (isset($_POST['btn_atualizar'])) {
 	    </form>
 	</div>
         <script src="users/js/validacao_cadastrar_paciente.js"></script>
+	<script>
+            $("document").ready(function(){
+		validar_cd_cep();
+	    });
+	</script>
 
 	<?php
 	//aqui, se o cadastro foi atualizado corretamente, a variavel $ok será === 1
@@ -148,7 +155,7 @@ if (isset($_POST['btn_atualizar'])) {
 	//o aqruivo php/div_alert.php precisa de duas variáveis pra funcionar, txt_msg e source_frame
 	if (isset($ok) && $ok === 1) {
 	    $txt_msg = '<p>O cadastro foi atualizado com sucesso e o paciente foi incluído na lista de espera.</p><p>Deseja imprimir a etiqueta?</p>';
-	    $source_frame = "php/gerar_etiqueta.php?cd_paciente=".$paciente->getCdPaciente();
+	    $source_frame = "php/gerar_etiqueta.php?cd_paciente=" . $paciente->getCdPaciente();
 	    require_once 'php/div_alert.php';
 	}
 	?>
