@@ -131,7 +131,7 @@ if (isset($_POST['btn_cadastrar'])) {
                     <input type="text" name="nm_pais_residencia" id="nm_pais_residencia" onblur="validar_nm_pais_residencia();" /><br />
 
                     <label for="cep" class="margem1">CEP</label>
-                    <input type="text" name="cd_cep" id="cd_cep" size="9" maxlength="9" onblur="validar_cd_cep();" />
+                    <input type="text" name="cd_cep" id="cd_cep" size="9" maxlength="9" onblur="validar_cd_cep();" onclick="validar_cd_cep();"/>
                     <p id="p_carregando" hidden>Carregando...</p>
                     <div id="div_ubs_referencia"><input type="number" name="cd_ubs_referencia" id="cd_ubs_referencia" value="4" hidden/></div>
                     <label for="munresd" class="margem1">Município de residência</label>
