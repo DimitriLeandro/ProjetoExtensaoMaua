@@ -7,7 +7,7 @@ if (isset($source_frame) && $source_frame != "" && isset($txt_msg) && $txt_msg !
         {
             window.frames["pdf_etiqueta"].focus();
             window.frames["pdf_etiqueta"].print();
-            window.location.href = 'index.php';
+            window.location.href = '../../index.php';
         }
     </script>
     <iframe id="pdf_etiqueta" name="pdf_etiqueta" src="<?php echo $source_frame; ?>" hidden></iframe>
@@ -21,7 +21,7 @@ if (isset($source_frame) && $source_frame != "" && isset($txt_msg) && $txt_msg !
     	<br/>
     	<p align="right">
     	    <button type="button" class="btn btn-info" onclick="imprimir();">Sim</button>
-    	    <button type="button" class="btn btn-info" onclick="window.location.href = 'index.php';">Não</button>
+    	    <button type="button" class="btn btn-info" onclick="window.location.href = '../../index.php';">Não</button>
     	</p>
         </section>
     </div>

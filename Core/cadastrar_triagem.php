@@ -30,47 +30,6 @@ if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
 }
 ?>
 
-<?php
-//instanciando o objeto da classe Triagem
-require_once('php/classes/triagem.Class.php');
-$triagem = new Triagem();
-
-if (isset($_POST['btn_cadastrar_triagem'])) {
-    //o codigo do paciente será adquirido pelo método get. É necessário verificar se algum valor foi setado
-    if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
-        //é necessário verificar se o código do paciente realmente existe
-        //setando as informações 
-        $triagem->setIcFinalizada('0');
-        $triagem->setDsQueixa($_POST['ds_queixa']);
-        $triagem->setDtRegistro(date("Y-m-d"));
-        $triagem->setHrRegistro(date("H:i:s"));
-        $triagem->setVlPressaoMin($_POST['vl_pressao_min']);
-        $triagem->setVlPressaoMax($_POST['vl_pressao_max']);
-        $triagem->setVlPulso($_POST['vl_pulso']);
-        $triagem->setVlTemperatura($_POST['vl_temperatura']);
-        $triagem->setVlRespiracao($_POST['vl_respiracao']);
-        $triagem->setVlSaturacao($_POST['vl_saturacao']);
-        $triagem->setVlGlicemia($_POST['vl_glicemia']);
-        $triagem->setVlNivelConsciencia($_POST['vl_nivel_consciencia']);
-        $triagem->setVlEscalaDor($_POST['vl_escala_dor']);
-        $triagem->setIcAlergia($_POST['ic_alergia']);
-        $triagem->setDsAlergia($_POST['ds_alergia']);
-        $triagem->setDsObservacao($_POST['ds_observacao']);
-        $triagem->setVlClassificacaoRisco($_POST['vl_classificacao_risco']);
-        $triagem->setDsLinhaCuidado($_POST['ds_linha_cuidado']);
-        $triagem->setDsOutrasCondicoes($_POST['ds_outras_condicoes']);
-        $triagem->setCdPaciente($_GET['cd_paciente']);
-        //cadastrando 
-        $ok = $triagem->cadastrar();
-        if ($ok == 0) {
-            ?> <script> alert('Erro ao registrar triagem. Verifique os dados inseridos.');</script> <?php
-        } //A PARTE QUE IMPRIME A TRIAGEM É MAIS PRA BAIXO NO CÓDIGO
-    } else {
-        ?> <script> alert("Código do paciente não encontrado");</script> <?php
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -147,7 +106,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
     <body>
         <?php require_once 'php/div_header.php'; ?>
         <div id="div_corpo">
-            <form method="post" action="" class="form-style">
+            <form method="post" action="php/actions/action_cadastrar_triagem.php" class="form-style">
                 <h1>NOVA TRIAGEM - <?php echo $paciente->getNmPaciente(); ?></h1>
                 <fieldset>
                     <label for="dsqueixa">Queixa principal</label>
@@ -155,8 +114,10 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
 
                     <label for="pressaomax">Pressão Arterial máxima</label>
                     <input type="number" min=1 step="0.01" name="vl_pressao_max" id="vl_pressao_max" placeholder="mmHg" /><br />
+                    
                     <label for="pressaomin">Pressão Arterial mínima</label>
                     <input type="number" min=1 step="0.01" name="vl_pressao_min" id="vl_pressao_min" placeholder="mmHg" /><br />
+                    
                     <label for="pulso">Pulso</label>
                     <input type="number" min=1 step="0.01" name="vl_pulso" id="vl_pulso" placeholder="bpm" /><br />
 
@@ -174,6 +135,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
 
                     <label for="glasc">Nível de consciência</label>
                     <input type="number" min=1 max=15 name="vl_nivel_consciencia" id="vl_nivel_consciencia" placeholder="Escala de Glasgow" /><br />
+                    
                     <label for="escdor">Escala da dor </label>
                     <select name="vl_escala_dor" id="vl_escala_dor">
                         <optgroup label="Leve">
@@ -193,14 +155,18 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                             <option value="10">10</option>
                         </optgroup>
                     </select><br />
+                    
                     <label for="alergia">Alergia a medicamentos</label>
                     <input type="radio" name="ic_alergia" id="ic_alergia" value="sim" />Sim
                     <input type="radio" name="ic_alergia" id="ic_alergia" value="nao" />Não
                     <input type="radio" name="ic_alergia" id="ic_alergia" value="desconhece" checked="checked" />Desconhece <br />
+                    
                     <label for="descalergia">Descrição alergia</label>
                     <input type="text" name="ds_alergia" id="ds_alergia" /><br />
+                    
                     <label for="observ">Observações</label>
                     <textarea name="ds_observacao" id="ds_observacao" placeholder="Para registro do histórico de doenças, doenças prévias, entre outros"></textarea><br />
+                    
                     <label for="classrisco">Classificação de risco</label>
                     <select name="vl_classificacao_risco" id="vl_classificacao_risco" style="background-color: blue"> 
                         <option value="1" class="blue" selected>Não Urgência</option>
@@ -209,6 +175,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                         <option value="4" class="orange">Muita Urgência</option>
                         <option value="5" class="red">Emergência</option> 
                     </select>
+                    
                     <label for="linhacuidado">Linha de cuidado</label>
                     <select name="ds_linha_cuidado" id="ds_linha_cuidado">
                         <option value="nenhuma" selected>Nenhuma</option>
@@ -220,6 +187,7 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                         <option value="ad">ad</option>
                         <option value="vio">Vio</option>
                     </select><br />
+                    
                     <label for="outrascond">Outras condições</label>
                     <select name="ds_outras_condicoes" id="ds_outras_condicoes">
                         <option value="nenhuma" selected>Nenhuma</option>
@@ -229,21 +197,13 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
                         <option value="onco">ONCO</option>
                         <option value="outros">Outros</option>
                     </select><br />
-                    <!-- <label for="cnsproftriagem">Responsável pela triagem</label>
-                    <input type="number" min=1 name="cd_cns_profissional_triagem" id="cnsproftriagem" required /><br /> -->
+
+                    <input type="text" id="cd_paciente" name="cd_paciente" value="<?php echo $_GET['cd_paciente']; ?>" hidden />
                 </fieldset>
                 <input type="submit" name="btn_cadastrar_triagem" value="Registrar Triagem" />
                 <button type="button" onclick="javascript:history.back()">Voltar</button>
             </form>
         </div>
-        <?php
-//-------PARTE PARA IMPRIMIR A TRIAGEM---------------------------
-        if (isset($ok) && $ok === 1) {
-            $txt_msg = '<p>A triagem foi registrada com sucesso.</p><p>Deseja imprimir?</p>';
-            $source_frame = "php/prontuario/prontuario.php?cd_triagem=" . $triagem->getCdTriagem();
-            require_once 'php/div_alert.php';
-        }
-        ?>
         <script>
             //script para pegar todos os códigos da CIAP2
             //mas primeiro é preciso chamar o php pra pegar esses códigos na classe Triagem

@@ -15,41 +15,6 @@ if (!securePage($_SERVER['PHP_SELF'])) {
 }
 ?>
 
-<?php
-if (isset($_POST['btn_cadastrar'])) {
-    require_once('php/classes/paciente.Class.php');
-    $paciente = new Paciente();
-
-    $paciente->setCdCnsPaciente($_POST['cd_cns_paciente']);
-    $paciente->setNmJustificativa($_POST['nm_justificativa']);
-    $paciente->setNmPaciente($_POST['nm_paciente']);
-    $paciente->setNmMae($_POST['nm_mae']);
-    $paciente->setIcSexo($_POST['ic_sexo']);
-    $paciente->setIcRaca($_POST['ic_raca']);
-    $paciente->setDtNascimento(date('Y-m-d', strtotime(str_replace('/', '-', $_POST['dt_nascimento']))));
-    $paciente->setNmPaisNascimento($_POST['nm_pais_nascimento']);
-    $paciente->setNmMunicipioNascimento($_POST['nm_municipio_nascimento']);
-    $paciente->setNmPaisResidencia($_POST['nm_pais_residencia']);
-    $paciente->setNmMunicipioResidencia($_POST['nm_municipio_residencia']);
-    $paciente->setCdCep($_POST['cd_cep']);
-    $paciente->setNmLogradouro($_POST['nm_logradouro']);
-    $paciente->setNmNumeroResidencia($_POST['nm_numero_residencia']);
-    $paciente->setNmComplemento($_POST['nm_complemento']);
-    $paciente->setNmBairro($_POST['nm_bairro']);
-    $paciente->setNmResponsavel($_POST['nm_responsavel']);
-    $paciente->setCdDocumentoResponsavel($_POST['cd_documento_responsavel']);
-    $paciente->setNmOrgaoEmissor($_POST['nm_orgao_emissor']);
-    $paciente->setDtRegistro(date("Y-m-d"));
-    $paciente->setHrRegistro(date("H:i:s"));
-    $paciente->setCdUbsReferencia($_POST['cd_ubs_referencia']);
-
-    $ok = $paciente->cadastrar();
-    if ($ok == 0) {
-        ?> <script> alert('Erro ao cadastrar paciente');</script> <?php
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -66,7 +31,7 @@ if (isset($_POST['btn_cadastrar'])) {
     <body>
         <?php require_once 'php/div_header.php'; ?>
         <div id="div_corpo">
-            <form method="post" class="form-style" id="cadastro_paciente">
+            <form method="post" action="php/actions/action_cadastrar_paciente.php" class="form-style" id="cadastro_paciente">
                 <h1>SISTEMA DE CADASTRAMENTO SUS</h1>
                 <fieldset id="fieldset_1" class="field_set">
                     <div id="div_possui_cns">
@@ -154,10 +119,6 @@ if (isset($_POST['btn_cadastrar'])) {
                 </fieldset><br />
 
                 <fieldset id="fieldset_3" class="field_set" style="display: none;">
-                    <!-- 
-                            <label for="ubsref" class="margem2">UBS de referência</label> --> 
-                    <!-- <input type="number" name="cd_ubs_referencia" id="ubsref" /><br /> -->
-
                     <label for="nomeresp" class="margem2">Nome completo do responsável</label>
                     <input type="text" name="nm_responsavel" id="nm_responsavel" onblur="validar_nm_responsavel()" <?php
                     if (isset($_GET['nome'])) {
@@ -178,14 +139,6 @@ if (isset($_POST['btn_cadastrar'])) {
                 </fieldset><br />   
             </form>
         </div>
-        <?php
-//-------PARTE PARA IMPRIMIR A ETIQUETA 
-        if (isset($ok) && $ok === 1) {
-            $txt_msg = '<p>O cadastro foi realizado com sucesso e o paciente foi incluído na lista de espera.</p><p>Deseja imprimir a etiqueta?</p>';
-            $source_frame = "php/gerar_etiqueta.php?cd_paciente=" . $paciente->getCdPaciente();
-            require_once 'php/div_alert.php';
-        }
-        ?>
         <script>
             $('input:visible:enabled:first').focus();
 

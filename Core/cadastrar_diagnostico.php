@@ -15,10 +15,6 @@ if (!securePage($_SERVER['PHP_SELF'])) {
 
 <?php
 require_once('php/classes/triagem.Class.php');
-require_once("php/classes/diagnostico.Class.php");
-?>
-
-<?php
 
 //essa pagina precisa do codigo da triagem no metodo GET para fazer o insert na chave estrangeira do banco, aqui esta sendo feita uma verificaçao pra saber se esse get foi setado e se o valor setado realmente existe como uma triagem. Caso contrario, o usuario volta pra pagina inicial
 //outra verificação: SE A TRIAGEM DO $_GET['cd_triagem'] JÁ TEM UM DIAGNÓSTICO, ENTÃO NÃO É PRA VC ESTAR AQUI NÃO MEU FILHO, VAI CADASTRAR O QUE? OSH
@@ -33,35 +29,6 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
 } else {
     unset($triagem);
     header("location: index.php");
-}
-?>
-
-<?php
-if (isset($_POST['btn_cadastrar_diagnostico'])) {
-    //o codigo da triagem será adquirido pelo método get. É necessário verificar se algum valor foi setado
-    if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
-	
-	$diagnostico = new Diagnostico();
-
-	$diagnostico->setDsAvaliacao($_POST['ds_avaliacao']);
-	$diagnostico->setCdCid($_POST['cd_cid']);
-	$diagnostico->setDsPrescricao($_POST['ds_prescricao']);
-	$diagnostico->setIcSituacao($_POST['ic_situacao']);
-	$diagnostico->setCdTriagem($_GET['cd_triagem']);
-
-	$ok = $diagnostico->cadastrar();
-	//echo "<br/>".$ok."<br/>";
-
-	if ($ok == 0) {
-	    ?> <script> alert('Erro ao cadastrar diagnóstico');</script> <?php
-	} else {
-	    header('location: pesquisar_triagem.php');
-	}
-
-	unset($obj_diagnostico);
-    } else {
-	?> <script> alert("Código da triagem não encontrado");</script> <?php
-    }
 }
 ?>
 
@@ -89,7 +56,7 @@ if (isset($_POST['btn_cadastrar_diagnostico'])) {
     </head>
     <body>
 	<?php require_once 'php/div_header.php'; ?>
-        <form method="post" action="" class="form-style">
+        <form method="post" action="php/actions/action_cadastrar_diagnostico.php" class="form-style">
             <h1>NOVO DIAGNÓSITICO</h1>
             <fieldset>
                 <label>Avaliação</label>
@@ -108,8 +75,10 @@ if (isset($_POST['btn_cadastrar_diagnostico'])) {
                     <option value="Transferência Hospitalar">Transferência Hospitalar</option>
                     <option value="Óbito">Óbito</option>
                 </select>
+
+                <input type="text" id="cd_triagem" name="cd_triagem" value="<?php echo $_GET['cd_triagem']; ?>" hidden />
             </fieldset>
-	    <button type="button" onclick="javascript:history.back()">Voltar</button> 
+	        <button type="button" onclick="javascript:history.back()">Voltar</button> 
             <input type="submit" name="btn_cadastrar_diagnostico" value="Enviar" />
         </form>
 	<script>
