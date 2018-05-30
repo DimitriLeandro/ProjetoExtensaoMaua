@@ -40,35 +40,6 @@ if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
         <title>Registro da Triagem - <?php echo $paciente->getNmPaciente(); ?></title>
         <meta charset="utf-8" />
         <link href="css/formulario2.css" rel="stylesheet">
-        <script>
-            //ESSAS FUNÇÕES SÓ SERVEM PRA PREENCHER O FORMULÁRIO SOZINHO PRA QUEM TIVER TESTANDO NÃO TER QUE FICAR ESCREVENDO TODA HORA------------------------------------------------------------
-            $(document).ready(function () {
-                //mandando completar o formulário sozinho
-                completar_formulario();
-            });
-
-            function completar_formulario() {
-                $("#ds_queixa").val("A03 Febre");
-                $("#vl_pressao_max").val("" + aleatorio(10, 13));
-                $("#vl_pressao_min").val("" + aleatorio(6, 9));
-                $("#vl_pulso").val("" + aleatorio(70, 115));
-                $("#vl_temperatura").val("" + aleatorio(36, 40));
-                $("#vl_respiracao").val("" + aleatorio(25, 45));
-                $("#vl_saturacao").val("" + aleatorio(90, 110));
-                $("#vl_glicemia").val("" + aleatorio(90, 110));
-                $("#vl_nivel_consciencia").val("" + aleatorio(12, 15));
-                $("#vl_escala_dor").val("" + aleatorio(0, 6));
-                //$("#vl_classificacao_risco").val(aleatorio(1, 5));
-                //$("#ds_linha_cuidado").val("Nenhuma");
-                //$("#ds_outras_condicoes").val("Nenhuma");
-            }
-
-            function aleatorio(inicio, fim) {
-                var intervalo = fim - inicio;
-                return (inicio + Math.floor((Math.random() * intervalo) + 1));
-            }
-//----------------------------------------------------------------------------------------
-        </script>
         <style>
             /* ESSE CSS é referênte as cores da classificação de risco*/
             .red {
@@ -90,8 +61,7 @@ if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
             .yellow{
                 background-color: #ffff00;
             }
-        </style> 
-        <style>
+            
             /* Esse style aqui serve pra fazer o scroll do auto-complete
                Código aqui: https://stackoverflow.com/questions/9590313/how-to-use-the-scroll-and-max-options-in-autocomplete
              */
@@ -184,7 +154,7 @@ if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
                         <option value="om">OM</option>
                         <option value="ano">Ano</option>
                         <option value="sm">SM</option>
-                        <option value="ad">ad</option>
+                        <option value="ad">Ad</option>
                         <option value="vio">Vio</option>
                     </select><br />
                     
@@ -200,7 +170,7 @@ if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
 
                     <input type="text" id="cd_paciente" name="cd_paciente" value="<?php echo $_GET['cd_paciente']; ?>" hidden />
                 </fieldset>
-                <input type="submit" name="btn_cadastrar_triagem" value="Registrar Triagem" />
+                <input type="submit" name="btn_cadastrar_triagem" id="btn_cadastrar_triagem" value="Registrar Triagem" />
                 <button type="button" onclick="javascript:history.back()">Voltar</button>
             </form>
         </div>

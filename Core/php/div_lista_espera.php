@@ -41,7 +41,7 @@ foreach ($lista as $row) {
 	    $obj_usuario = new Usuario();
 	    if ($obj_usuario->getPermission() == "Enfermeiro" || $obj_usuario->getPermission() == "Administrator") {
 		?>
-		<button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_nova_triagem; ?>';">Nova Triagem</button>
+		<button type="button" id="<?php echo $redirect_nova_triagem; ?>" class="botao" onclick="window.location.href = '<?php echo $redirect_nova_triagem; ?>';">Nova Triagem</button>
 		<button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_historico; ?>';">Histórico de Triagens</button>
 		<?php
 	    }

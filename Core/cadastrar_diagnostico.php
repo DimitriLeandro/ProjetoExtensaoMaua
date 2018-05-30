@@ -79,7 +79,7 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                 <input type="text" id="cd_triagem" name="cd_triagem" value="<?php echo $_GET['cd_triagem']; ?>" hidden />
             </fieldset>
 	        <button type="button" onclick="javascript:history.back()">Voltar</button> 
-            <input type="submit" name="btn_cadastrar_diagnostico" value="Enviar" />
+            <input type="submit" id="btn_cadastrar_diagnostico" name="btn_cadastrar_diagnostico" value="Enviar" />
         </form>
 	<script>
             //funçao para completar o nome do paciente automaticamente
@@ -117,13 +117,5 @@ foreach ($array_cid as $key => $value) {
                 ul.outerWidth(this.element.outerWidth());
             }
         </script>
-	<script>
-            $("document").ready(function () {
-                $("#ds_avaliacao").val("Febre devido a sinusite.");
-                $("#cd_cid").val("J01.1 - Sinusite Frontal Aguda");
-                $("#ds_prescricao").val("1 comprimido de Amoxicilina a cada 12h por 7 dias.");
-            }
-            );
-	</script>
     </body>
 </html>

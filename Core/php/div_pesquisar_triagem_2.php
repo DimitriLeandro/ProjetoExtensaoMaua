@@ -60,21 +60,26 @@ if (isset($_GET['dt_triagem'])) {
 	while ($stmt->fetch()) {
 	    $triagem->selecionar($codigo_triagem);
 	    $redirect_ver_mais = 'visualizar_triagem.php?cd_triagem=' . $triagem->getCdTriagem();
-	    //Pegando os dados do usuario da triagem para mostrar o nome etc
+	    
+        //Pegando os dados do usuario da triagem para mostrar o nome etc
 	    $paciente->selecionar($triagem->getCdPaciente());
-	    ?>
-	    <fieldset id="fieldset_triagem" class="<?php
-	    if ($triagem->getIcFinalizada() == 1) {
-		echo 'finalizada" hidden';
-	    } else {
-		echo 'nao_finalizada"';
-	    }
-            ?> style="border: solid 1px; padding: 15px;">
-		<p><label>Paciente: <?php echo $paciente->getNmPaciente() ?> </label><p/>
-		<p><label>Queixa: <?php echo $triagem->getDsQueixa() ?> </label><p/>
-		<p><label>Data: <?php echo $triagem->getDtRegistro() ?> </label><p/>
-		<p><label>Hora: <?php echo $triagem->getHrRegistro() ?></label><p/>
-		<p><button type="button" class="botao" onclick="window.location.href = '<?php echo $redirect_ver_mais; ?>';">Ver Mais</button></p>
+
+        //definindo a classe do fieldset e o id do botão (se o fieldset for hidden, o botão não vai receber nenhum id. Isso é necessário para o Bot)
+        $fieldClass = "";
+        $btnId = "";
+        if ($triagem->getIcFinalizada() == 1) {
+            $fieldClass = 'finalizada" hidden';
+        } else {
+            $fieldClass = 'nao_finalizada"';
+            $btnId = $redirect_ver_mais;
+        }
+?>
+	    <fieldset id="fieldset_triagem" class="<?php echo $fieldClass ?> style="border: solid 1px; padding: 15px;">
+    		<p><label>Paciente: <?php echo $paciente->getNmPaciente() ?> </label><p/>
+    		<p><label>Queixa: <?php echo $triagem->getDsQueixa() ?> </label><p/>
+    		<p><label>Data: <?php echo $triagem->getDtRegistro() ?> </label><p/>
+    		<p><label>Hora: <?php echo $triagem->getHrRegistro() ?></label><p/>
+    		<p><button type="button" id="<?php echo $btnId; ?>" class="botao" onclick="window.location.href = '<?php echo $redirect_ver_mais; ?>';">Ver Mais</button></p>
 	    </fieldset>
 	    <br/>
 	    <?php
@@ -85,7 +90,7 @@ if (isset($_GET['dt_triagem'])) {
     $obj_usuario = new Usuario();
     if ($obj_usuario->getPermission() != "Secretario") {
 	?>
-        <button type="button" onclick="window.location.href = 'index.php'">Voltar</button>
+        <button type="button" id="" onclick="window.location.href = 'index.php'">Voltar</button>
 <?php } ?>	
 </div>
 <script>

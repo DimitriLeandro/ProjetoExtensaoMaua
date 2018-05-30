@@ -87,8 +87,9 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
                 $obj_usuario = new Usuario();
                 if ($triagem->getIcFinalizada() == 0) {
                     if ($obj_usuario->getPermission() == "Secretario" || $obj_usuario->getPermission() == "Administrator") {
+                        $redirectBtnDiagnostico = "cadastrar_diagnostico.php?cd_triagem=".$triagem->getCdTriagem();
                         ?>
-                        <button type="button" onclick="window.location = 'cadastrar_diagnostico.php?cd_triagem=<?php echo $triagem->getCdTriagem(); ?>';">Diagnóstico</button><br/>
+                        <button type="button" id="<?php echo $redirectBtnDiagnostico; ?>" onclick="window.location = '<?php echo $redirectBtnDiagnostico; ?>';">Diagnóstico</button><br/>
                         <?php
                     }
                 } else {
