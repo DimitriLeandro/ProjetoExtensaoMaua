@@ -31,29 +31,26 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
         //cadastrando 
         $ok = $triagem->cadastrar();
         if ($ok == 0) {
-?> 
+            ?> 
             <script> 
                 alert('Erro ao registrar triagem. Verifique os dados inseridos.');
                 window.location.href = "../../index.php";
             </script> 
-<?php
-        }
-    } else {
-?> 
-        <script> 
-            alert("Código do paciente não encontrado");
-            window.location.href = "../../index.php";
-        </script> 
-<?php
-    }
-}
-?>
-
-        <?php
-//-------PARTE PARA IMPRIMIR A TRIAGEM---------------------------
-        if (isset($ok) && $ok === 1) {
+            <?php
+        } else {
+            //DEPOIS DE CADASTRAR...
+            //-------PARTE PARA IMPRIMIR A TRIAGEM
             $txt_msg = '<p>A triagem foi registrada com sucesso.</p><p>Deseja imprimir?</p>';
             $source_frame = "../prontuario/prontuario.php?cd_triagem=" . $triagem->getCdTriagem();
             require_once '../div_alert.php';
         }
-        ?>
+    } else {
+        ?> 
+        <script> 
+            alert("Código do paciente não encontrado");
+            window.location.href = "../../index.php";
+        </script> 
+        <?php
+    }
+}
+?>

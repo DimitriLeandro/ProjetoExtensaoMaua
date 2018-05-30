@@ -31,7 +31,15 @@ if (!securePage($_SERVER['PHP_SELF'])) {
     <body>
         <?php require_once 'php/div_header.php'; ?>
         <div id="div_corpo">
-            <form method="post" action="php/actions/action_cadastrar_paciente.php" class="form-style" id="cadastro_paciente">
+            <?php
+                //definindo o action do formulário. Se o bot estiver sendo executado, o action deve ter o rodarBot=true também                
+                if(isset($_GET['rodarBot']) && $_GET['rodarBot'] == TRUE){
+                    $formAction = "php/actions/action_cadastrar_paciente.php?rodarBot=true";
+                } else {
+                    $formAction = "php/actions/action_cadastrar_paciente.php";
+                }
+            ?>
+            <form method="post" action="<?php echo $formAction; ?>" class="form-style" id="cadastro_paciente">
                 <h1>SISTEMA DE CADASTRAMENTO SUS</h1>
                 <fieldset id="fieldset_1" class="field_set">
                     <div id="div_possui_cns">

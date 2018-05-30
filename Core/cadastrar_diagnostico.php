@@ -36,8 +36,8 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
 <html>
     <head>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-	<script src="users/js/jquery.js"></script>
+	    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	    <script src="users/js/jquery.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <title>Registro do Dignóstico</title>
         <meta charset="utf-8" />
@@ -56,7 +56,15 @@ if (isset($_GET['cd_triagem']) && $_GET['cd_triagem'] != '') {
     </head>
     <body>
 	<?php require_once 'php/div_header.php'; ?>
-        <form method="post" action="php/actions/action_cadastrar_diagnostico.php" class="form-style">
+            <?php
+                //definindo o action do formulário. Se o bot estiver sendo executado, o action deve ter o rodarBot=true também                
+                if(isset($_GET['rodarBot']) && $_GET['rodarBot'] == TRUE){
+                    $formAction = "php/actions/action_cadastrar_diagnostico.php?rodarBot=true";
+                } else {
+                    $formAction = "php/actions/action_cadastrar_diagnostico.php";
+                }
+            ?>
+        <form method="post" action="<?php echo $formAction; ?>" class="form-style">
             <h1>NOVO DIAGNÓSITICO</h1>
             <fieldset>
                 <label>Avaliação</label>

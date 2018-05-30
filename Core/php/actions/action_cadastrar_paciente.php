@@ -28,20 +28,17 @@ if (isset($_POST['btn_cadastrar'])) {
 
     $ok = $paciente->cadastrar();
     if ($ok == 0) {
-?> 		<script> 
+        ?> 		
+        <script> 
 			alert('Erro ao cadastrar paciente');
 			window.location.href = "../../index.php";
         </script> 
-<?php
-    }
-}
-?>
-
-<?php
-//-------PARTE PARA IMPRIMIR A ETIQUETA 
-    if (isset($ok) && $ok === 1) {
+        <?php
+    } else {
+        //CADASTRO OK
         $txt_msg = '<p>O cadastro foi realizado com sucesso e o paciente foi incluído na lista de espera.</p><p>Deseja imprimir a etiqueta?</p>';
         $source_frame = "../gerar_etiqueta.php?cd_paciente=" . $paciente->getCdPaciente();
         require_once '../div_alert.php';
     }
+}
 ?>

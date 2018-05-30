@@ -76,7 +76,15 @@ if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
     <body>
         <?php require_once 'php/div_header.php'; ?>
         <div id="div_corpo">
-            <form method="post" action="php/actions/action_cadastrar_triagem.php" class="form-style">
+            <?php
+                //definindo o action do formulário. Se o bot estiver sendo executado, o action deve ter o rodarBot=true também                
+                if(isset($_GET['rodarBot']) && $_GET['rodarBot'] == TRUE){
+                    $formAction = "php/actions/action_cadastrar_triagem.php?rodarBot=true";
+                } else {
+                    $formAction = "php/actions/action_cadastrar_triagem.php";
+                }
+            ?>
+            <form method="post" action="<?php echo $formAction; ?>" class="form-style">
                 <h1>NOVA TRIAGEM - <?php echo $paciente->getNmPaciente(); ?></h1>
                 <fieldset>
                     <label for="dsqueixa">Queixa principal</label>
