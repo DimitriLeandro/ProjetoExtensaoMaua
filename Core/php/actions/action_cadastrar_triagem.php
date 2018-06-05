@@ -54,3 +54,6 @@ if (isset($_POST['btn_cadastrar_triagem'])) {
     }
 }
 ?>
+<script>
+    document.body.style.backgroundColor = "#467176";
+</script>
