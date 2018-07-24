@@ -67,7 +67,7 @@ a:focus, a:hover {
 }
 /*-- //Reset-Code --*/
 body{
-    background-color: rgba(70, 113, 118, 1);	
+    background-color: rgba(236, 243, 249, 1);
     /*background: url('../images/5copy.jpg') no-repeat;
     background-size: cover;
 	min-height: 100vh; */
@@ -83,7 +83,7 @@ body{
     text-align: center;
     padding: 3% 0px;
     /*background-color: rgba(255, 255, 255, 0.31);*/
-    background-color: rgba(6, 5, 5, 0.33);
+    background-color: rgba(24, 104, 191, 0.95);
 	webkit-box-shadow: 10px 3px 66px -19px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 3px 66px -19px rgba(0,0,0,0.75);
     box-shadow: 10px 3px 66px -19px rgba(0,0,0,0.75);
@@ -140,7 +140,7 @@ input[type="password"] {
 
 .agile-login h1 {
     text-align: center;
-    color: #fff;
+    color: #000000;
     margin-bottom: 2%;
     font-size: 45px;
     font-weight: 300;
