@@ -32,7 +32,7 @@ label.margem3 {
 } SE EU QUISER USAR COM IMAGEM */
 
 body {
-  background-color: rgba(70, 113, 118, 1);
+  background-color: rgb(236, 243, 249);
 }
 
 
@@ -42,7 +42,7 @@ body {
     font-weight: bolder;
     width: 800px;
     padding: 40px;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(24, 104,191, 1);
     margin: 50px auto ;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
     -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
@@ -72,9 +72,9 @@ body {
   }
 
 .form-style input[type=submit]{
-    background: #4B99AD;
+    background: rgba(24, 104,191, 1);
     padding: 8px 15px 8px 15px;
-    border: none;
+    border: 1px solid #fff;
     color: #fff;
     font-weight: bolder;
     font-size: 12pt;
@@ -86,10 +86,17 @@ body {
     -webkit-box-shadow:none;
 }
 
+.form-style button[type=button]:hover{
+    background: #4691A4;
+    box-shadow:none;
+    -moz-box-shadow:none;
+    -webkit-box-shadow:none;
+}
+
 .form-style button[type=button]{
-    background: #4B99AD;
+    background: rgba(24, 104,191, 1);
     padding: 8px 15px 8px 15px;
-    border: none;
+    border: 1px solid #fff;
     color: #fff;
     font-weight: bolder;
     font-size: 12pt;

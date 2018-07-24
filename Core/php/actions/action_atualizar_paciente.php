@@ -59,5 +59,5 @@ if (isset($_POST['cd_paciente']) && $_POST['cd_paciente'] != '') {
 }
 ?>
 <script>
-    document.body.style.backgroundColor = "#467176";
+    document.body.style.backgroundColor = "#1868BF";
 </script>

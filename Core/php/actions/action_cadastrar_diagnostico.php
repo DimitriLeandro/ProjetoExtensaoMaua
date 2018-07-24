@@ -41,5 +41,5 @@ if (isset($_POST['btn_cadastrar_diagnostico'])) {
 }
 ?>
 <script>
-    document.body.style.backgroundColor = "#467176";
+    document.body.style.backgroundColor = "#1868BF";
 </script>

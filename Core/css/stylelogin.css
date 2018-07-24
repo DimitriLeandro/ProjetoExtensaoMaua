@@ -1,80 +1,80 @@
 /*--
-	Author: W3Layouts
-	Author URL: http://w3layouts.com
-	License: Creative Commons Attribution 3.0 Unported
-	License URL: http://creativecommons.org/licenses/by/3.0/
+    Author: W3Layouts
+    Author URL: http://w3layouts.com
+    License: Creative Commons Attribution 3.0 Unported
+    License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 /*-- Reset-Code --*/
 
 body {
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 
 }
 body a {
-	color:red;
-	transition: 0.5s all;
-	-webkit-transition: 0.5s all;
-	-moz-transition: 0.5s all;
-	-o-transition: 0.5s all;
-	-ms-transition: 0.5s all;
-	text-decoration: none;
+    color:red;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    text-decoration: none;
 }
 body a:hover {
-	text-decoration: none;
+    text-decoration: none;
 }
 body a:focus, a:hover {
-	text-decoration: none;
+    text-decoration: none;
 }
 input[type="button"], input[type="submit"] {
-	transition: 0.5s all;
-	-webkit-transition: 0.5s all;
-	-moz-transition: 0.5s all;
-	-o-transition: 0.5s all;
-	-ms-transition: 0.5s all;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
 }
 
 button[type="button"], input[type="submit"] {
-	transition: 0.5s all;
-	-webkit-transition: 0.5s all;
-	-moz-transition: 0.5s all;
-	-o-transition: 0.5s all;
-	-ms-transition: 0.5s all;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	margin: 0;
-	padding: 0;
-	font-family: 'Raleway', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
 }
 p {
-	margin: 0;
-	font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 ul {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 li {
-	list-style-type:none;
+    list-style-type:none;
 }
 label {
-	margin: 0;
+    margin: 0;
 }
 a:focus, a:hover {
-	text-decoration: none;
-	outline: none;
+    text-decoration: none;
+    outline: none;
 }
 /*-- //Reset-Code --*/
 body{
-    background-color: rgba(70, 113, 118, 1);	
+    background-color: rgba(24, 104,191, 1); 
     /*background: url('../images/5copy.jpg') no-repeat;
     background-size: cover;
-	min-height: 100vh; */
+    min-height: 100vh; */
 }
 .agile-login {
 
-		padding-top: 60px;
+        padding-top: 60px;
 }
 .wrapper {
     width: 450px;
@@ -84,7 +84,7 @@ body{
     padding: 3% 0px;
     /*background-color: rgba(255, 255, 255, 0.31);*/
     background-color: rgba(6, 5, 5, 0.33);
-	webkit-box-shadow: 10px 3px 66px -19px rgba(0,0,0,0.75);
+    webkit-box-shadow: 10px 3px 66px -19px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 3px 66px -19px rgba(0,0,0,0.75);
     box-shadow: 10px 3px 66px -19px rgba(0,0,0,0.75);
 }
@@ -96,11 +96,11 @@ body{
 }
 label, input[type="text"],input[type="submit"]{
     display: block;
-	    font-family: 'Open Sans', sans-serif;
+        font-family: 'Open Sans', sans-serif;
 }
 label, input[type="text"],button[type="submit"]{
     display: block;
-	    font-family: 'Open Sans', sans-serif;
+        font-family: 'Open Sans', sans-serif;
 }
 
 input[type="text"] {
@@ -111,18 +111,18 @@ input[type="text"] {
     /* background-color: rgba(31, 248, 255, 0.59); */
     background-color: rgba(87, 102, 103, 0.59);
     color: white;
-	width: 90%;
-	letter-spacing: 1px;
+    width: 90%;
+    letter-spacing: 1px;
 }
 
 label, input[type="password"],input[type="submit"]{
     display: block;
-	    font-family: 'Open Sans', sans-serif;
+        font-family: 'Open Sans', sans-serif;
 }
 
 label, input[type="password"],button[type="submit"]{
     display: block;
-	    font-family: 'Open Sans', sans-serif;
+        font-family: 'Open Sans', sans-serif;
 }
 input[type="password"] {
     outline: 0;
@@ -132,9 +132,9 @@ input[type="password"] {
     /* background-color: rgba(31, 248, 255, 0.59); */
     background-color: rgba(87, 102, 103, 0.59);
     color: white;
-	width: 90%;
+    width: 90%;
 
-	letter-spacing: 1px;
+    letter-spacing: 1px;
 }
 
 
@@ -148,7 +148,7 @@ input[type="password"] {
     text-transform: uppercase;
 }
 .wrapper h2 {
-	margin-bottom: 30px;
+    margin-bottom: 30px;
     text-transform: uppercase;
     font-size: 26px;
     color: white;
@@ -157,14 +157,14 @@ input[type="password"] {
 }
 a.pass {
     font-size: 15px;
-	    color: #efbb42;
-		font-family: 'Open Sans', sans-serif;
-		    letter-spacing: 2px;
+        color: #efbb42;
+        font-family: 'Open Sans', sans-serif;
+            letter-spacing: 2px;
 }
 .w3ls-form a {
     display: block;
     text-align: right;
-	    margin: 15px 0px;
+        margin: 15px 0px;
 }
 
  label {
@@ -173,10 +173,10 @@ a.pass {
      color: #fff;
     font-family: 'Open Sans', sans-serif;
      text-transform: uppercase;
-	letter-spacing: 2px;
+    letter-spacing: 2px;
 }
 input[type="submit"] {
-	margin: 20px auto;
+    margin: 20px auto;
     padding: 9px 60px;
     border-radius: 25px;
     font-size: 18px;
@@ -186,13 +186,13 @@ input[type="submit"] {
     text-transform: uppercase;
     outline: 0;
     border: 1px solid #4f5d61;
-	cursor: pointer;
-	    width: 100%;
-	    letter-spacing: 1px;	
+    cursor: pointer;
+        width: 100%;
+        letter-spacing: 1px;    
 }
 
 button[type="submit"] {
-	margin: 20px auto;
+    margin: 20px auto;
     padding: 9px 60px;
     border-radius: 25px;
     font-size: 18px;
@@ -202,9 +202,9 @@ button[type="submit"] {
     text-transform: uppercase;
     outline: 0;
     border: 1px solid #4f5d61;
-	cursor: pointer;
-	    width: 100%;
-	    letter-spacing: 1px;	
+    cursor: pointer;
+        width: 100%;
+        letter-spacing: 1px;    
 }
 
 input[type="submit"]:hover {
@@ -244,7 +244,7 @@ span.fa.fa-pinterest-p:hover {
     color: white;
 }
 .agile-icons span.fa {
-	font-size: 12px;
+    font-size: 12px;
     margin: auto 10px;
     color: #fff;
     width: 32px;
@@ -259,8 +259,8 @@ span.fa.fa-pinterest-p:hover {
     color: white;
     /* background-color: rgba(35, 30, 30, 0.43); */
     margin-top: 4%;
-	    letter-spacing: 2px;
-		font-size: 13px;
+        letter-spacing: 2px;
+        font-size: 13px;
 }
 .copyright a {
     color: aqua;
@@ -270,32 +270,32 @@ span.fa.fa-pinterest-p:hover {
 }
 /* responsive */
 @media screen and (max-width: 1024px){
-	
-	.copyright p {
+    
+    .copyright p {
    margin-top: 0%;
 }
 }
 
 
 @media screen and (max-width: 568px){
-	.agile-login h1 {
-		    font-size: 40px;
-			
-	}
+    .agile-login h1 {
+            font-size: 40px;
+            
+    }
 }
 
 @media screen and (max-width: 480px){
-	body{
-		background-position: center;
-	}
-	.agile-login {
+    body{
+        background-position: center;
+    }
+    .agile-login {
     padding-top: 35px;
 }
-	.agile-login h1 {
+    .agile-login h1 {
     font-size: 35px;
     letter-spacing: 4px;
 }
-	.wrapper h2 {
+    .wrapper h2 {
     font-size: 26px;
 
 }
@@ -303,22 +303,22 @@ span.fa.fa-pinterest-p:hover {
     width: 370px;
 }
 .copyright p {
-	letter-spacing: 1px;
-	
+    letter-spacing: 1px;
+    
 }
-	
+    
 }
 @media screen and (max-width: 414px){
-	.agile-login h1 {
+    .agile-login h1 {
     font-size: 30px;
-	letter-spacing: 3px;
-	    margin-bottom: 6%;
+    letter-spacing: 3px;
+        margin-bottom: 6%;
 }
 .wrapper {
     width: 320px;
 }
 .w3ls-form {
-	    width: 300px;
+        width: 300px;
 }
 .wrapper h2 {
     font-size: 20px;
@@ -329,26 +329,26 @@ span.fa.fa-pinterest-p:hover {
     font-size: 14px;
     margin-top: 6%;
 }
-	
+    
 }
 @media screen and (max-width: 375px){
-	.agile-login h1 {
+    .agile-login h1 {
     font-size: 29px;
 }
-	input[type="text"] {
-		width: 90%;
-	}
+    input[type="text"] {
+        width: 90%;
+    }
     
     input[type="password"] {
-		width: 90%;
-	}
+        width: 90%;
+    }
     
-	label {
+    label {
     margin: 20px 0px 5px 10px;
     font-size: 13px;
     color: #fff;
-	}
-	.copyright p {
+    }
+    .copyright p {
     font-size: 13px;
 
 }
@@ -369,12 +369,12 @@ span.fa.fa-pinterest-p:hover {
 }
 input[type="submit"] {
     margin: 10px auto;
-	    padding: 8px 60px;
+        padding: 8px 60px;
 }
 
 button[type="submit"] {
     margin: 10px auto;
-	    padding: 8px 60px;
+        padding: 8px 60px;
 }
 .agile-login {
     padding-top: 30px;
