@@ -43,9 +43,9 @@ if (!securePage($_SERVER['PHP_SELF'])) {
 	    $paciente->selecionar($_GET['cd_paciente']);
 
 	    if ($paciente->getCdPaciente() == '' || $paciente->getCdPaciente() == 0) {
-		$tipo_pagina = 2;
+			$tipo_pagina = 2;
 	    } else {
-		$tipo_pagina = 1;
+			$tipo_pagina = 1;
 	    }
 	} else {
 	    $tipo_pagina = 2;
@@ -55,9 +55,9 @@ if (!securePage($_SERVER['PHP_SELF'])) {
 	//aqui vai ser carregado a p´agina
 	if (isset($tipo_pagina)) {
 	    if ($tipo_pagina == 1) { //1 -> Paciente especifico		2 -> Triagens do dia
-		require_once("php/div_pesquisar_triagem_1.php");
+			require_once("php/div_pesquisar_triagem_1.php");
 	    } else {
-		require_once("php/div_pesquisar_triagem_2.php");
+			require_once("php/div_pesquisar_triagem_2.php");
 	    }
 	} else {
 	    header("location: index.php");

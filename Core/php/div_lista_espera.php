@@ -3,7 +3,9 @@
 require_once('classes/espera.Class.php');
 $obj_espera = new Espera();
 
-$lista = $obj_espera->selecionarListaCompleta();
+//criando uma matriz com os 30 primeiros pacientes da lista de espera -> isso é necessário pois o carregamento fica lento com mais pacientes
+$lista = $obj_espera->selecionarListaCompleta(30); 
+
 
 foreach ($lista as $row) {
     $redirect_nova_triagem = "cadastrar_triagem.php?cd_paciente=" . $row['cd_paciente'];

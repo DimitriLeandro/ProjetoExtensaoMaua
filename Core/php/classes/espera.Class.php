@@ -84,14 +84,14 @@ class Espera extends Ciclo {
 	return $ok;
     }
 
-    public function selecionarListaCompleta() {
+    public function selecionarListaCompleta($limite) {
 	//matriz que será o parâmetro de retorno
 	$array_lista_espera = array();
 
 	//preparando o select e executando o statement
-	$select = 'SELECT tb_paciente.cd_paciente, tb_paciente.nm_paciente, tb_paciente.ic_sexo, tb_paciente.ic_raca, tb_paciente.dt_nascimento, tb_espera.dt_registro, tb_espera.hr_registro, tb_espera.cd_espera FROM tb_paciente, tb_espera WHERE tb_espera.cd_paciente = tb_paciente.cd_paciente AND tb_espera.ic_finalizada = 0 AND tb_espera.cd_ubs = ?;';
+	$select = 'SELECT tb_paciente.cd_paciente, tb_paciente.nm_paciente, tb_paciente.ic_sexo, tb_paciente.ic_raca, tb_paciente.dt_nascimento, tb_espera.dt_registro, tb_espera.hr_registro, tb_espera.cd_espera FROM tb_paciente, tb_espera WHERE tb_espera.cd_paciente = tb_paciente.cd_paciente AND tb_espera.ic_finalizada = 0 AND tb_espera.cd_ubs = ? LIMIT ?;';
 	$stmt = $this->db_maua->prepare($select);
-	$stmt->bind_param("i", $this->cdUbs);
+	$stmt->bind_param("ii", $this->cdUbs, $limite);
 	if ($stmt->execute()) {
 	    $stmt->bind_result($this->attr[0], $this->attr[1], $this->attr[2], $this->attr[3], $this->attr[4], $this->attr[5], $this->attr[6], $this->attr[7]);
 	    while ($stmt->fetch()) {

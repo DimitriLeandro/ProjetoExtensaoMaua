@@ -97,20 +97,50 @@ final class Triagem extends Ciclo {
     }
 
     public function sintomasCiap() {
-	$patologias = array(); //array que vai ser o retorno da função. Ele vai conter todos os nomes da tabela tb_ciap
-	$select = "SELECT nm_sintoma FROM tb_ciap;";
-	$stmt = $this->db_maua->prepare($select);
-	if ($stmt) {
-	    $stmt->execute();
-	    $stmt->bind_result($nm_sintoma);
-	    while ($stmt->fetch()) {
-		//enquanto houverem resultados, vai adicionando no array...
-		$patologias[] = $nm_sintoma;
-	    }
-	    $stmt->close();
-	}
+		$patologias = array(); //array que vai ser o retorno da função. Ele vai conter todos os nomes da tabela tb_ciap
+		$select = "SELECT nm_sintoma FROM tb_ciap;";
+		$stmt = $this->db_maua->prepare($select);
+		if ($stmt) {
+		    $stmt->execute();
+		    $stmt->bind_result($nm_sintoma);
+		    while ($stmt->fetch()) {
+			//enquanto houverem resultados, vai adicionando no array...
+			$patologias[] = $nm_sintoma;
+		    }
+		    $stmt->close();
+		}
 
-	return $patologias; //retorna o array e depois é só dar um foreach 
+		return $patologias; //retorna o array e depois é só dar um foreach 
+    }
+
+    public function triagensDoDia($data){
+    	$arrayTriagens = array();
+
+    	$select = "SELECT tb_triagem.cd_triagem as 'cd_triagem', tb_triagem.ic_finalizada as 'ic_finalizada', tb_paciente.nm_paciente as 'nm_paciente', tb_triagem.ds_queixa as 'ds_queixa', tb_triagem.dt_registro as 'dt_registro', tb_triagem.hr_registro as 'hr_registro'
+					FROM tb_triagem, tb_paciente 
+						WHERE tb_triagem.cd_paciente = tb_paciente.cd_paciente
+							AND tb_triagem.dt_registro = ?;";
+    	
+    	if ($stmt = $this->db_maua->prepare($select)) {
+	    	$stmt->bind_param('s', $data);
+	    	$stmt->execute();
+	    	$stmt->bind_result($this->attr[1], $this->attr[2], $this->attr[3], $this->attr[4], $this->attr[5], $this->attr[6]);
+
+	    	while ($stmt->fetch()) {
+	    	    $arrayTriagens[] = array(
+	    	    	"cd_triagem" => $this->attr[1],
+	    	    	"ic_finalizada" => $this->attr[2], 
+	    	    	"nm_paciente" => $this->attr[3], 
+	    	    	"ds_queixa" => $this->attr[4], 
+	    	    	"dt_registro" => $this->attr[5], 
+	    	    	"hr_registro" => $this->attr[6]
+	    	    );
+	    	}
+
+	    	return $arrayTriagens;
+	    } else {
+	    	return 0;
+	    }
     }
 
     //----------------------------------------  get e set

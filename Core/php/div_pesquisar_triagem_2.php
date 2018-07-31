@@ -1,7 +1,7 @@
 <?php
-require_once('classes/conexao.Class.php');
+//essa página carrega a lista de triagens de um dia específico
 require_once('classes/triagem.Class.php');
-require_once 'php/classes/usuario.Class.php';
+require_once 'php/classes/usuario.Class.php'; //preciso saber o tipo de usuario logado pra colocar o botão lá em baixo
 
 //vendo se alguma data espec´ifica foi setada no GET, caso n~ao, mostrar as triagens do dia atual
 $data_triagem = date("Y-m-d");
@@ -11,22 +11,18 @@ if (isset($_GET['dt_triagem'])) {
 
     $data_setada = explode('-', $_GET['dt_triagem']);
 
-    /* $dia_triagem = $data_setada[2];
-      $mes_triagem = $data_setada[1];
-      $ano_triagem = $data_setada[0]; */
-
     if (count($data_setada) == 3 && $data_setada[0] != "" && $data_setada[1] != "" && $data_setada[2] != "") {
-	//checkdate( int $month , int $day , int $year )
-	if (checkdate($data_setada[1], $data_setada[2], $data_setada[0]) === true) {
-	    $data_triagem = $_GET['dt_triagem'];
-	}
+	   //checkdate( int $month , int $day , int $year )
+    	if (checkdate($data_setada[1], $data_setada[2], $data_setada[0]) === true) {
+    	    $data_triagem = $_GET['dt_triagem'];
+    	}
     }
 }
 ?>
 
 <div class="form-style">
     <h1>
-        Triagens do Dia 
+        TRIAGENS DO DIA 
         <span id="span_data"><?php echo date_format(new DateTime($data_triagem), "d/m/Y"); ?></span>
     </h1>
     <fieldset>
@@ -44,54 +40,61 @@ if (isset($_GET['dt_triagem'])) {
     </fieldset>
     <br/>
 
-    <?php
-    //Não é necessário criar um objeto da classe paciente pois isso já foi feito em pesquisar_triagem.php
-    
-    $conexao = new Conexao();
-    $triagem = new Triagem();
+    <div id="div_triagens_nao_finalizadas">
+        <h2>Triagens não finalizadas</h2>
+        <?php
+            //Aqui eu vou pegar a lista de triagens do dia a partir do método triagensDoDia da classe Triagens
+            $triagem = new Triagem();
+            $arrayTriagens = $triagem->triagensDoDia($data_triagem);
+            foreach ($arrayTriagens as $row) {
+                if ($row['ic_finalizada'] == 0) {
+                    $redirect_ver_mais = 'visualizar_triagem.php?cd_triagem='.$row['cd_triagem'];
+                    //Nas triagens abertas, o id do botão ver mais será o próprio redirect (isso é necessário para o bot)
+        ?>
+            	    <fieldset id="fieldset_triagem" style="border: solid 1px; padding: 15px;">
+                		<p><label>Paciente: <?php echo $row['nm_paciente']; ?> </label><p/>
+                		<p><label>Queixa: <?php echo $row['ds_queixa']; ?> </label><p/>
+                		<p><label>Data: <?php echo $row['dt_registro']; ?> </label><p/>
+                		<p><label>Hora: <?php echo $row['hr_registro']; ?> </label><p/>
+                		<p><button type="button" id="<?php echo $redirect_ver_mais; ?>" class="botao" onclick="window.location.href = '<?php echo $redirect_ver_mais; ?>';">Ver Mais</button></p>
+            	    </fieldset>
+            	    <br/>
+        <?php
+                }
+            }
+        ?>
+    </div>
 
-    $db_maua = $conexao->get_db_maua();
-
-    if ($stmt = $db_maua->prepare('SELECT cd_triagem FROM tb_triagem WHERE dt_registro = ?;')) {
-	$stmt->bind_param('s', $data_triagem);
-	$stmt->execute();
-	$stmt->bind_result($codigo_triagem);
-
-	while ($stmt->fetch()) {
-	    $triagem->selecionar($codigo_triagem);
-	    $redirect_ver_mais = 'visualizar_triagem.php?cd_triagem=' . $triagem->getCdTriagem();
-	    
-        //Pegando os dados do usuario da triagem para mostrar o nome etc
-	    $paciente->selecionar($triagem->getCdPaciente());
-
-        //definindo a classe do fieldset e o id do botão (se o fieldset for hidden, o botão não vai receber nenhum id. Isso é necessário para o Bot)
-        $fieldClass = "";
-        $btnId = "";
-        if ($triagem->getIcFinalizada() == 1) {
-            $fieldClass = 'finalizada" hidden';
-        } else {
-            $fieldClass = 'nao_finalizada"';
-            $btnId = $redirect_ver_mais;
-        }
-?>
-	    <fieldset id="fieldset_triagem" class="<?php echo $fieldClass ?> style="border: solid 1px; padding: 15px;">
-    		<p><label>Paciente: <?php echo $paciente->getNmPaciente() ?> </label><p/>
-    		<p><label>Queixa: <?php echo $triagem->getDsQueixa() ?> </label><p/>
-    		<p><label>Data: <?php echo $triagem->getDtRegistro() ?> </label><p/>
-    		<p><label>Hora: <?php echo $triagem->getHrRegistro() ?></label><p/>
-    		<p><button type="button" id="<?php echo $btnId; ?>" class="botao" onclick="window.location.href = '<?php echo $redirect_ver_mais; ?>';">Ver Mais</button></p>
-	    </fieldset>
-	    <br/>
-	    <?php
-	}
-    }
-    ?> 
-    <?php    
-    $obj_usuario = new Usuario();
-    if ($obj_usuario->getPermission() != "Secretario") {
+    <div id="div_triagens_finalizadas" hidden>
+        <h2>Triagens finalizadas</h2>
+        <?php
+            foreach ($arrayTriagens as $row) {
+                if ($row['ic_finalizada'] == 1) {
+                    $redirect_ver_mais = 'visualizar_triagem.php?cd_triagem='.$row['cd_triagem'];
+                    //Nas triagens finalizadas, o id do botão ver mais será nulo (isso é necessário para o bot)
+        ?>
+                    <fieldset id="fieldset_triagem" style="border: solid 1px; padding: 15px;">
+                        <p><label>Paciente: <?php echo $row['nm_paciente']; ?> </label><p/>
+                        <p><label>Queixa: <?php echo $row['ds_queixa']; ?> </label><p/>
+                        <p><label>Data: <?php echo $row['dt_registro']; ?> </label><p/>
+                        <p><label>Hora: <?php echo $row['hr_registro']; ?> </label><p/>
+                        <p><button type="button" id="" class="botao" onclick="window.location.href = '<?php echo $redirect_ver_mais; ?>';">Ver Mais</button></p>
+                    </fieldset>
+                    <br/>
+        <?php
+                }
+            }
+        ?>
+    </div>
+   
+    <?php  //PARTE PARA COLOCAR O BOTÃO VOLTAR CASO O USUARIO SEJA SECRETARIO  
+        $obj_usuario = new Usuario();
+        if ($obj_usuario->getPermission() != "Secretario") {
 	?>
-        <button type="button" id="" onclick="window.location.href = 'index.php'">Voltar</button>
-<?php } ?>	
+        <br/><br/><button type="button" id="" onclick="window.location.href = 'index.php'">Voltar</button>
+    <?php 
+        } 
+    ?>	
 </div>
 <script>
     $("document").ready(function () {
@@ -109,9 +112,10 @@ if (isset($_GET['dt_triagem'])) {
         //mostrando s´o as triagens n~ao finalizadas
         trocar_triagens_visiveis();
         
-        //se o total de fieldsets id="fieldset_triagem" for 0, então exibe uma msg com "Não há triagens regristradas nesse dia"
-        if($(".nao_finalizada").size() == 0 && $(".finalizada").size() == 0){
+        //se o total de fieldsets for 1, então exibe uma msg com "Não há triagens regristradas nesse dia"
+        if($("fieldset").size() == 1){
             $("#p_sem_triagens").show();
+            $("#div_triagens_nao_finalizadas").hide();
         }
     });
 
@@ -124,11 +128,10 @@ if (isset($_GET['dt_triagem'])) {
     {
         if ($("#chk_nao_finalizada").is(':checked'))
         {
-            //mostra s´o as triagens n~ao finalizadas
-            $(".finalizada").hide();
+            $("#div_triagens_finalizadas").hide();
         } else
         {
-            $(".finalizada").show();
+            $("#div_triagens_finalizadas").show();
         }
     }
 

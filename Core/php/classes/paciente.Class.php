@@ -134,13 +134,13 @@ final class Paciente extends Ciclo {
     }
 
     public function getIdade() {
-	//essa função retorna a idade do paciente. É importante lembrar que no banco só é armazenada a data de nascimento do paciente
-	//o método diff do php será usado para calcular as distancias entre a data atual e a data de nascimento do paciente
-	$nascimento = new DateTime($this->getDtNascimento());
-	$hoje = new DateTime(date("Y-m-d"));
-	$diferenca = $hoje->diff($nascimento);
+		//essa função retorna a idade do paciente. É importante lembrar que no banco só é armazenada a data de nascimento do paciente
+		//o método diff do php será usado para calcular as distancias entre a data atual e a data de nascimento do paciente
+		$nascimento = new DateTime($this->getDtNascimento());
+		$hoje = new DateTime(date("Y-m-d"));
+		$diferenca = $hoje->diff($nascimento);
 
-	return $diferenca->y;
+		return $diferenca->y;
     }
 
     //------------------GET E SET
