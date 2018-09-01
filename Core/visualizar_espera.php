@@ -1,3 +1,9 @@
+<script>
+    //pra ver o tempo que demora pra carregar a página
+    var date1 = new Date();
+    var miliseconds1 = date1.getTime();
+    console.log(miliseconds1);  
+</script>
 <?php
 if (file_exists("install/index.php")) {
     //perform redirect if installer files exist
@@ -68,6 +74,10 @@ if (isset($_GET['remover']) && $_GET['remover'] > 0) {
                 setInterval(function () {
                     recarregar_lista()
                 }, 5000);
+                //pra ver o tempo que demora pra carregar a página
+                var date2 = new Date();
+                var miliseconds2 = date2.getTime();
+                console.log(miliseconds2);
             });
 
             function recarregar_lista()
