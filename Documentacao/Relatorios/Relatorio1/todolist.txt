@@ -1,0 +1,12 @@
+LISTA DE COISAS PARA FAZER
+
+- Melhorar campo "nome" em pesquisar_paciente.php
+- Deixar a mensagem "Não foi possível determinar a UBS de referência" em vermelho
+- Código do paciente está editavel em atualizar_cadastro.php
+- Indicar campos obrigatórios no cadastro e na atualização
+- Validar a atualização
+- No cadastro fazer o Enter funcionar como tab
+- Tirar acesso dos recepcionistas da página pacientes_queixas.php
+- Colocar acesso aos pacientes do dia na página inicial do enfermeiro e do secretário
+- Arrumar o tamanho da etiqueta
+

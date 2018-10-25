@@ -25,7 +25,7 @@ $texto = "Um esqueleto entrou num bar, pediu uma cerveja e um esfregão.";
 $crypt = $obj_ssl -> encrypt($texto);
 $decrypt = $obj_ssl -> decrypt($crypt);
 
-echo "Plain Text: " . $texto . "<br/><br/>";
-echo "Encrypted Text: " . $crypt . "<br/><br/>";
-echo "Decrypted Text: " . $decrypt;
+echo "Texto Original: " . $texto . "<br/><br/>";
+echo "Texto Criptografado: " . $crypt . "<br/><br/>";
+echo "Texto Descriptografado: " . $decrypt;
 ?>

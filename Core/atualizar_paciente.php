@@ -114,7 +114,7 @@ if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
         <script src="users/js/validacao_cadastrar_paciente.js"></script>
         <script>
                     $("document").ready(function () {
-                        validar_cd_cep();
+                        //validar_cd_cep();
                     });
         </script>
     </body>
