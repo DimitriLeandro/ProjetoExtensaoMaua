@@ -1,7 +1,6 @@
 LISTA DE COISAS PARA FAZER
 
 - Melhorar campo "nome" em pesquisar_paciente.php
-- Deixar a mensagem "Não foi possível determinar a UBS de referência" em vermelho
 - Código do paciente está editavel em atualizar_cadastro.php
 - Indicar campos obrigatórios no cadastro e na atualização
 - Validar a atualização

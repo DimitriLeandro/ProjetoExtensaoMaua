@@ -10,13 +10,13 @@ if (isset($_GET['cd_cep'])) {
     $obj_ubs->pesquisarPorCep($_GET['cd_cep']);
     if($obj_ubs->getCdUbs() == "" || $obj_ubs->getCdUbs() == 0 || $obj_ubs->getNmUbs() == "")
     {
-	echo "<br/>Não foi possível determinar a UBS de referência<br/><br/>";
-	?><input type="number" name="cd_ubs_referencia" id="cd_ubs_referencia" value="4" hidden/><?php
+    	echo "<h4><p style='color: red;'><b>NÃO FOI POSSÍVEL DETERMINAR A UBS DE REFERÊNCIA<b/><p/><h4/>";
+    	?><input type="number" name="cd_ubs_referencia" id="cd_ubs_referencia" value="4" hidden/><?php
     }
     else
     {
-	echo "<br/>UBS de Referência: " . $obj_ubs->getNmUbs() . "<br/><br/>";
-	?><input type="number" name="cd_ubs_referencia" id="cd_ubs_referencia" value="<?php echo $obj_ubs->getCdUbs(); ?>" hidden/><?php
+    	echo "<br/>UBS de Referência: " . $obj_ubs->getNmUbs() . "<br/><br/>";
+    	?><input type="number" name="cd_ubs_referencia" id="cd_ubs_referencia" value="<?php echo $obj_ubs->getCdUbs(); ?>" hidden/><?php
     }
 } else {
     header('location: ../');
