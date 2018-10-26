@@ -1,6 +1,5 @@
 LISTA DE COISAS PARA FAZER
 
-- Código do paciente está editavel em atualizar_cadastro.php
 - Indicar campos obrigatórios no cadastro e na atualização
 - Validar a atualização
 - No cadastro fazer o Enter funcionar como tab

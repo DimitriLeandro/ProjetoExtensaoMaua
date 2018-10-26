@@ -34,13 +34,16 @@ if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
 
 <html>
     <head>
+        
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
         <title>Cadastramento paciente</title>
         <meta charset="utf-8" />
-        <link href="css/formulario.css" rel="stylesheet">
+        <link href="css/formulario2.css" rel="stylesheet">
         <script src="users/js/jquery.js"></script>
         <script src="users/js/buscaCEP.js"></script>
         <script src="users/js/ubs_referencia.js"></script>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+        <script src="users/js/validacao_cadastrar_paciente.js"></script>
     </head>
     <body>
         <?php require_once 'php/div_header.php'; ?>
@@ -105,18 +108,15 @@ if (isset($_GET['cd_paciente']) && $_GET['cd_paciente'] != '') {
                 <label for="orgaoresp" class="margem2">Órgão emissor</label>
                 <input value="<?php echo $paciente->getNmOrgaoEmissor(); ?>" type="text" name="nm_orgao_emissor" id="nm_orgao_emissor"  onblur="validar_nm_orgao_emissor()" />
 
-                <input type="number" id="cd_paciente" name="cd_paciente" value="<?php echo $paciente->getCdPaciente(); ?>" />
+                <input type="number" id="cd_paciente" name="cd_paciente" value="<?php echo $paciente->getCdPaciente(); ?>" hidden/>
                 
+
                 <input value="Atualizar Cadastro" type="submit" name='btn_atualizar' id="btn_cadastrar" />
-                <button type="button" onclick="javascript:history.back()">Voltar</button>    
+
+                <button type="button" onclick="javascript:history.back()">Voltar</button> 
+
             </form>
-        </div>
-        <script src="users/js/validacao_cadastrar_paciente.js"></script>
-        <script>
-                    $("document").ready(function () {
-                        //validar_cd_cep();
-                    });
-        </script>
+        </div>        
     </body>
 </html>
 </html>
