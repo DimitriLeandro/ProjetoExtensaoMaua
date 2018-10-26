@@ -1,6 +1,5 @@
 LISTA DE COISAS PARA FAZER
 
-- Melhorar campo "nome" em pesquisar_paciente.php
 - Código do paciente está editavel em atualizar_cadastro.php
 - Indicar campos obrigatórios no cadastro e na atualização
 - Validar a atualização
