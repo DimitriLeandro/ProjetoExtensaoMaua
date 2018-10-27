@@ -13,6 +13,7 @@ if (!securePage($_SERVER['PHP_SELF'])) {
 }
 ?>
 
+
 <?php
     require_once 'php/classes/relatorio.Class.php';
     $objRelatorio = new Relatorio();
@@ -25,9 +26,7 @@ if (!securePage($_SERVER['PHP_SELF'])) {
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <title>Lista de Pacientes do Dia</title>
         <meta charset="utf-8" />
-        <link href="css/formulario.css" rel="stylesheet">
-        <script src="users/js/jquery.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link href="css/formulario2.css" rel="stylesheet">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     </head>
     <body>

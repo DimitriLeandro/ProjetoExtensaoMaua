@@ -56,7 +56,6 @@ if (!securePage($_SERVER['PHP_SELF'])) {
 				<button type="button" class="botao" id="btn_pesquisar">Pesquisar</button>
 				<button type="button" class="botao" id="btn_cadastrar">Cadastrar Novo Paciente</button>
 				<button type="button" class="botao" id="btn_lista_espera">Lista de Espera</button>
-				<button type="button" class="botao" id="btn_pacientes_dia">Pacientes do Dia</button>
 		<?php
 		require_once 'php/classes/usuario.Class.php';
 		$obj_usuario = new Usuario();
@@ -138,10 +137,6 @@ if (!securePage($_SERVER['PHP_SELF'])) {
 
 			$("#btn_lista_espera").on("click", function () {
 				window.location = "visualizar_espera.php";
-			});
-			
-			$("#btn_pacientes_dia").on("click", function () {
-				window.location = "pacientes_queixas.php";
 			});
 
 			$("#nm_paciente").keypress(function (e) {

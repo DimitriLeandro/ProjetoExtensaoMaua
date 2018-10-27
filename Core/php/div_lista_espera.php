@@ -4,7 +4,7 @@ require_once('classes/espera.Class.php');
 $obj_espera = new Espera();
 
 //criando uma matriz com os 30 primeiros pacientes da lista de espera -> isso é necessário pois o carregamento fica lento com mais pacientes
-$lista = $obj_espera->selecionarListaCompleta(100); 
+$lista = $obj_espera->selecionarListaCompleta(25); 
 
 
 foreach ($lista as $row) {
