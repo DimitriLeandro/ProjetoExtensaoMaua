@@ -91,7 +91,7 @@ if (!securePage($_SERVER['PHP_SELF'])) {
 		$("#nm_paciente").autocomplete({
 			source: function (request, response) {
 				var results = $.ui.autocomplete.filter(source, request.term);
-				response(results.slice(0, 7));
+				response(results.slice(0, 25));
 			},
 			select: function (event, ui) {
 				if (ui.item)
