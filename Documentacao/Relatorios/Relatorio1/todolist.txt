@@ -1,7 +1,0 @@
-LISTA DE COISAS PARA FAZER
-
-- Indicar campos obrigatórios no cadastro e na atualização
-- Validar a atualização
-- No cadastro fazer o Enter funcionar como tab
-- Arrumar o tamanho da etiqueta
-
