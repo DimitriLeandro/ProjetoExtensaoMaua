@@ -17,6 +17,13 @@ if (isset($_POST['cd_pedido']) && $_POST['cd_pedido'] != '') {
 
 			date_default_timezone_set("America/Sao_Paulo");
 
+            // echo($_POST['dt_manutencao']);
+            // echo($_POST['dt_final']);
+            // echo($_POST['ds_solucao']);
+            // echo($_POST['nm_funcionario']);
+            // echo($_POST['cd_pedido']);
+            // echo("<br/><br/><br/>");
+
 			$objManutencao->setDtManutencao($_POST['dt_manutencao']);
 			$objManutencao->setDtFinal($_POST['dt_final']);
 			$objManutencao->setDsSolucao($_POST['ds_solucao']);

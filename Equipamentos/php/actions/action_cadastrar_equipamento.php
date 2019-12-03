@@ -64,7 +64,7 @@ if (isset($_POST['btn_cadastrar'])) {
         <?php
     } else {
         echo "<br/><br/><br/><br/><br/><br/><br/><center><h1>Cadastro realizado com sucesso.</h1><br/><br/>";
-		echo "<a href='http://localhost/testesPumas/Equipamentos/menu.php'>Voltar</a></center>";
+		echo "<a href='http://localhost/Pumas/Equipamentos/menu.php'>Voltar</a></center>";
     }
 }
 ?>
