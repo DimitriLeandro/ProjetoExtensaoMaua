@@ -17,8 +17,14 @@ from django.contrib import admin
 from django.urls import path
 
 from Paginas.views import homeView
+from Equipamento.views import cadastroEquipamentoView
+from Pedido.views import cadastroPedidoView
+from Manutencao.views import cadastroManutencaoView
 
 urlpatterns = [
 	path('', homeView, name='home'),
     path('admin/', admin.site.urls),
+    path('equipamento/cadastro', cadastroEquipamentoView),
+    path('pedido/cadastro', cadastroPedidoView),
+    path('manutencao/cadastro', cadastroManutencaoView)
 ]

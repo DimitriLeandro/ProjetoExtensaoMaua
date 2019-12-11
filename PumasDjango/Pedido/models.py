@@ -8,5 +8,5 @@ class Pedido(models.Model):
 	hr_pedido      = models.TimeField(auto_now=True)
 	nm_solicitante = models.CharField(max_length=120)
 	ds_problema    = models.TextField()
-	ic_processo    = models.IntegerField()
+	ic_processo    = models.IntegerField(default=0)
 	cd_equipamento = models.ForeignKey(Equipamento, on_delete=models.CASCADE)

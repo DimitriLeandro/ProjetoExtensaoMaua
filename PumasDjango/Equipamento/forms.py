@@ -6,6 +6,7 @@ class CadastroEquipamento(forms.ModelForm):
 	class Meta:
 		model = Equipamento
 		fields = [
+			'cd_equipamento',
 			'ds_equipamento',
 			'cd_patrimonio',
 			'nm_modelo',
