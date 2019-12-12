@@ -1,4 +1,17 @@
+{%extends "home.html"%}
+{%block content %}
+<h1>Registrar Manutenção Realizada</h1>
+
+<form method="POST"> {% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Salvar" />
+</form>
+
+{%endblock%}
 <!DOCTYPE html>
+
+
+<!-- <!DOCTYPE html>
 <html>
 <head>
 	<title>Cadastrar Manutencao</title>
@@ -13,3 +26,4 @@
 	</form>
 </body>
 </html>
+--> 

@@ -16,15 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from Paginas.views import homeView
+from Paginas.views import homeView, LoginView
 from Equipamento.views import cadastroEquipamentoView
 from Pedido.views import cadastroPedidoView
 from Manutencao.views import cadastroManutencaoView
+from django.views.generic import TemplateView
 
 urlpatterns = [
+    path('login/', LoginView, name='login'),
 	path('', homeView, name='home'),
     path('admin/', admin.site.urls),
-    path('equipamento/cadastro', cadastroEquipamentoView),
-    path('pedido/cadastro', cadastroPedidoView),
-    path('manutencao/cadastro', cadastroManutencaoView)
+    path('equipamento/cadastro', cadastroEquipamentoView, name="equip_cad"),
+    path('pedido/cadastro', cadastroPedidoView, name="ped_cad"),
+    path('manutencao/cadastro', cadastroManutencaoView, name = "manu_cad"),
+    path('bootstrap/', TemplateView.as_view(template_name = 'bootstrap/example.html'))
+
 ]

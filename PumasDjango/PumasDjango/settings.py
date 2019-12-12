@@ -124,3 +124,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+#NUNCA ESQUEÇAM DESSE COMANDO. EU FIQUEI A NOITE TODA TENTANDO DESCOBRIR PQ MEU CSS NÃO FUNCIONADA.
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]

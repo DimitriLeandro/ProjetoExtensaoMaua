@@ -1,4 +1,18 @@
+{%extends "home.html"%}
+{%block content %}
+<h1>Solicitar Manutenção de Equipamento</h1>
+
+<form method="POST"> {% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Salvar" />
+</form>
+
+{%endblock%}
 <!DOCTYPE html>
+
+
+<!--
+ <!DOCTYPE html>
 <html>
 <head>
 	<title>Cadastrar Pedido</title>
@@ -13,3 +27,4 @@
 	</form>
 </body>
 </html>
+-->
