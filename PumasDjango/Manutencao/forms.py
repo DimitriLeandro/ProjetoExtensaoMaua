@@ -1,6 +1,15 @@
 from django import forms
 
 from .models import Manutencao
+from Pedido.models import Pedido
+
+# class CadastroManutencao(forms.Form):
+# 	#cd_manutencao  = forms.IntegerField()
+# 	Data  = forms.DateField()
+# 	dt_final       = forms.DateField()
+# 	ds_solucao     = forms.CharField()
+# 	nm_funcionario = forms.CharField()
+# 	cd_pedido      = forms.ModelChoiceField(queryset = Pedido.objects.all())
 
 class CadastroManutencao(forms.ModelForm):
 	class Meta:

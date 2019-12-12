@@ -11,7 +11,6 @@ class CadastroEquipamento(forms.ModelForm):
 			'cd_patrimonio',
 			'nm_modelo',
 			'nm_fabricante',
-			'nm_marca',
 			'nm_setor',
 			'nm_sala',
 			'ic_posse',
