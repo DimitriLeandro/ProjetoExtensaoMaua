@@ -1,11 +1,16 @@
 {%extends "home.html"%}
 {%block content %}
-<h1>Solicitar Manutenção de Equipamento</h1>
+	<div class="sidebar-header">
+			<h1>Solicitar Manutenção de Equipamento</h1>
 
-<form method="POST"> {% csrf_token %}
-	{{ form.as_p }}
-	<input type="submit" value="Salvar" />
-</form>
+
+				<form method="POST"> {% csrf_token %}
+				{{ form.as_p }}
+				<button type="submit" id="sidebarCollapse" class="btn btn-info">
+						<span>SALVAR</span>
+				</button>
+		</form>
+	</div>
 
 {%endblock%}
 <!DOCTYPE html>
